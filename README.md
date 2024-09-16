@@ -27,3 +27,15 @@ the `lib/src/localization` directory.
 
 To support additional languages, please visit the tutorial on
 [Internationalizing Flutter apps](https://flutter.dev/to/internationalization).
+
+## Format 
+
+Vérifier le format Flutter :
+```sh
+flutter analyze .
+```
+
+Exécuter le formattage Dart :
+```sh
+dart format .
+```
