@@ -1,0 +1,11 @@
+stages:
+  - format
+
+format_check:
+  stage: format
+  image: cirrusci/flutter:stable
+  script:
+    - dart format --set-exit-if-changed .
+  only:
+    - merge_requests
+    - branches
