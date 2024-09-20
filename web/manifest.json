@@ -1,6 +1,6 @@
 {
-    "name": "myfitbuddy",
-    "short_name": "myfitbuddy",
+    "name": "my_fit_buddy",
+    "short_name": "my_fit_buddy",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
