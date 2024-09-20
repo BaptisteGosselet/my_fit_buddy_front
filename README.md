@@ -1,41 +1,52 @@
-# myfitbuddy
+# my_fit_buddy
 
-A new Flutter project.
+MyFitBuddy est une application de prise de note en salle de sport.
 
-## Getting Started
+## Lancer le projet
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/to/state-management-sample).
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Assets
-
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
-
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/to/resolution-aware-images).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter apps](https://flutter.dev/to/internationalization).
-
-## Format 
-
-Vérifier le format Flutter :
+1. Récupérer les dépendances 
 ```sh
-flutter analyze .
+flutter pub get
 ```
 
-Exécuter le formattage Dart :
+1. Lancer le projet 
 ```sh
-dart format .
+flutter run
+```
+
+# Architecture
+
+L'architecture suit grossièrement le modèle MVVM.
+
+`views` 
+- `pages` : contient les pages complètes affichées à l'écran
+- `widgets` : contient les composants partagés
+- `themes` : contient les constantes liées aux thèmes (couleurs, mode sombre, etc.)
+
+`models`
+- ... contiendra les modèles
+
+`viewmodels`
+- ... contiendra les viewmodels
+
+`services`
+- ... contiendra les services
+
+# Qualité de code
+
+1. Pour formatter le code (indentations, sauts de lignes, etc.)
+```sh
+dart format . # à la racine du projet
+```
+2. Analyse des bonnes pratiques
+```sh
+flutter analyze
+```
+
+# Traduction
+
+La traduction est installée sur ce projet, les fichiers se trouvent dans `lib/l10n/`.
+Ensuite, pour générer les fichiers de traductions : 
+```sh
+flutter gen-l10n
 ```

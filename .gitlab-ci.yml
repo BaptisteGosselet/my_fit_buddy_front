@@ -5,7 +5,7 @@ format_check:
   stage: format
   image: cirrusci/flutter:stable
   script:
-    - dart format --set-exit-if-changed .
+    - dart format --set-exit-if-changed .z
   only:
     - merge_requests
     - branches

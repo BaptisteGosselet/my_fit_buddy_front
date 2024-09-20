@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="myfitbuddy"
+        android:label="my_fit_buddy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

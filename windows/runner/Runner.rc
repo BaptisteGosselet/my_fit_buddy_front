@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.platine.myfitbuddy" "\0"
-            VALUE "FileDescription", "myfitbuddy" "\0"
+            VALUE "CompanyName", "com.platine" "\0"
+            VALUE "FileDescription", "my_fit_buddy" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "myfitbuddy" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.platine.myfitbuddy. All rights reserved." "\0"
-            VALUE "OriginalFilename", "myfitbuddy.exe" "\0"
-            VALUE "ProductName", "myfitbuddy" "\0"
+            VALUE "InternalName", "my_fit_buddy" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.platine. All rights reserved." "\0"
+            VALUE "OriginalFilename", "my_fit_buddy.exe" "\0"
+            VALUE "ProductName", "my_fit_buddy" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
