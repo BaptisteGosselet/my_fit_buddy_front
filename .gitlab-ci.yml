@@ -1,11 +1,13 @@
 stages:
-  - format
+  - quality_check
 
-format_check:
-  stage: format
-  image: cirrusci/flutter:stable
+quality_check:
+  stage: quality_check
+  image: instrumentisto/flutter:latest
   script:
-    - dart format --set-exit-if-changed .z
+    - flutter gen-l10n
+    - dart format --set-exit-if-changed .
+    - flutter analyze
   only:
     - merge_requests
     - branches
