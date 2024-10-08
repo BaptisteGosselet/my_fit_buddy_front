@@ -61,7 +61,9 @@ class LoggingPage extends StatelessWidget {
                       label: AppLocalizations.of(context)!.login,
                       onClick: () => {
                             loggingViewmodel.login(
-                                emailController.text, passwordController.text)
+                                emailController.text, passwordController.text),
+                            //temp
+                            context.goNamed('home')
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,
