@@ -9,14 +9,19 @@ MyFitBuddy est une application de prise de note en salle de sport.
 flutter pub get
 ```
 
-1. Lancer le projet 
+2. Générer les fichiers de traduction (qui se trouveront dans `lib/l10n/`).
+```sh
+flutter gen-l10n
+```
+
+3. Lancer le projet 
 ```sh
 flutter run
 ```
 
 # Architecture
 
-L'architecture suit grossièrement le modèle MVVM.
+L'architecture suit le modèle MVVM.
 
 `views` 
 - `pages` : contient les pages complètes affichées à l'écran
@@ -41,12 +46,4 @@ dart format . # à la racine du projet
 2. Analyse des bonnes pratiques
 ```sh
 flutter analyze
-```
-
-# Traduction
-
-La traduction est installée sur ce projet, les fichiers se trouvent dans `lib/l10n/`.
-Ensuite, pour générer les fichiers de traductions : 
-```sh
-flutter gen-l10n
 ```
