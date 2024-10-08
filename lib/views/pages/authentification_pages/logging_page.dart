@@ -27,7 +27,7 @@ class LoggingPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  AppLocalizations.of(context)!.welcomeMessage,
+                  AppLocalizations.of(context)!.welcomeLoginMessage,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 32),
                   textAlign: TextAlign.start,

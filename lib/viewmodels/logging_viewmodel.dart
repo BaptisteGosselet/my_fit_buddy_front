@@ -8,6 +8,10 @@ class LoggingViewmodel {
     loginService.login(email, password);
   }
 
+  register(String name, String email, String password, String passwordConfirm) {
+    password = '#$password#';
+  }
+
   enterInviteMode() {
     loginService.enterInviteMode();
   }

@@ -1,7 +1,10 @@
 {
-    "welcomeMessage": "Salut,\nBon Retour !",
+    "welcomeRegisterMessage": "Inscription",
+    "welcomeLoginMessage": "Salut,\nBon Retour !",
     "login": "Connexion",
     "register": "Inscription",
+    "name": "Nom",
     "email": "E-mail",
-    "password": "Mot de passe"
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer le mot de passe"
 }

@@ -1,7 +1,11 @@
 {
-    "welcomeMessage": "Welcome back !",
+    "welcomeRegisterMessage": "Register",
+    "welcomeLoginMessage": "Welcome back !",
     "login": "Login",
     "register": "Register",
+    "name": "name",
     "email": "E-Mail",
-    "password": "Password"
+    "password": "Password",
+    "passwordConfirm": "Confirm Password"
+
 }
