@@ -1,7 +1,7 @@
 {
     "welcomeMessage": "Salut,\nBon Retour !",
     "login": "Connexion",
-    "inviteMode": "Mode Invité",
+    "register": "Inscription",
     "email": "E-mail",
     "password": "Mot de passe"
 }

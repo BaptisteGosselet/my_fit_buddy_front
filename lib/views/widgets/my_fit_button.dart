@@ -1,37 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/views/themes/color.dart';
-
-enum ButtonColor { primary, secondary }
 
 class MyFitButton extends StatelessWidget {
-  final ButtonColor buttonColor;
+  final Color buttonColor;
+  final Color textColor;
   final String label;
   final VoidCallback onClick;
 
   const MyFitButton({
     super.key,
     required this.buttonColor,
+    this.textColor = Colors.white,
     required this.label,
     required this.onClick,
   });
-
-  Color _getBackgroundColor() {
-    switch (buttonColor) {
-      case ButtonColor.primary:
-        return Colors.black;
-      case ButtonColor.secondary:
-        return fitBlueDark;
-    }
-  }
-
-  Color _getTextColor() {
-    switch (buttonColor) {
-      case ButtonColor.primary:
-        return Colors.white;
-      case ButtonColor.secondary:
-        return Colors.white;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +23,7 @@ class MyFitButton extends StatelessWidget {
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
-            backgroundColor: _getBackgroundColor(),
+            backgroundColor: buttonColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -55,7 +36,7 @@ class MyFitButton extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                color: _getTextColor(),
+                color: textColor,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),

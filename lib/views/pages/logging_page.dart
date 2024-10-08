@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/viewmodels/logging_viewmodel.dart';
+import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/my_fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/text_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -55,15 +56,15 @@ class LoggingPage extends StatelessWidget {
               Column(
                 children: [
                   MyFitButton(
-                      buttonColor: ButtonColor.primary,
-                      label: 'Connexion',
+                      buttonColor: fitBlueDark,
+                      label: AppLocalizations.of(context)!.login,
                       onClick: () => {
                             loggingViewmodel.login(
                                 emailController.text, passwordController.text)
                           }),
                   MyFitButton(
-                      buttonColor: ButtonColor.secondary,
-                      label: 'Mode invité',
+                      buttonColor: fitBlueMiddle,
+                      label: AppLocalizations.of(context)!.register,
                       onClick: () => {loggingViewmodel.enterInviteMode()}),
                 ],
               ),
