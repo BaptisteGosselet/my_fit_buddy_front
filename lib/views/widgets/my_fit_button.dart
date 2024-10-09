@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fit_buddy/views/themes/font_weight.dart';
 
 class MyFitButton extends StatelessWidget {
   final Color buttonColor;
@@ -38,7 +39,7 @@ class MyFitButton extends StatelessWidget {
               style: TextStyle(
                 color: textColor,
                 fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontWeight: fitWeightBold,
               ),
             ),
           ),
