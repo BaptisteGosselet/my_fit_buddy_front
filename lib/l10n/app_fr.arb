@@ -6,5 +6,7 @@
     "name": "Nom",
     "email": "E-mail",
     "password": "Mot de passe",
-    "passwordConfirm": "Confirmer le mot de passe"
+    "passwordConfirm": "Confirmer le mot de passe",
+
+    "sessionListSubtitle": "Prêt pour une nouvelle séance ?"
 }
