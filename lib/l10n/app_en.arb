@@ -6,6 +6,8 @@
     "name": "name",
     "email": "E-Mail",
     "password": "Password",
-    "passwordConfirm": "Confirm Password"
+    "passwordConfirm": "Confirm Password",
+
+    "sessionListSubtitle": "Ready to train ?"
 
 }
