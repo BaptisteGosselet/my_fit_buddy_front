@@ -1,4 +1,4 @@
-import 'package:my_fit_buddy/models/session.dart';
+import 'package:my_fit_buddy/data/models/session.dart';
 
 class SessionsListViewmodel {
   List<Session> getSessionsList() {

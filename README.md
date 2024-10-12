@@ -15,27 +15,29 @@ flutter gen-l10n
 ```
 
 3. Lancer le projet 
+
+`API en local` : sur navigateur il faut préciser le web-port 8082 (origine CORS) ; optionnel sur émulateur
 ```sh
-flutter run
+flutter run --web-port=8082
 ```
 
 # Architecture
 
 L'architecture suit le modèle MVVM.
 
-`views` 
-- `pages` : contient les pages complètes affichées à l'écran
-- `widgets` : contient les composants partagés
-- `themes` : contient les constantes liées aux thèmes (couleurs, mode sombre, etc.)
+`core` : pour les configurations API 
 
-`models`
-- ... contiendra les modèles
+`views` 
+- `pages` : les pages complètes affichées à l'écran
+- `widgets` : les composants partagés
+- `themes` : les constantes liées aux thèmes (couleurs, mode sombre, etc.)
 
 `viewmodels`
-- ... contiendra les viewmodels
 
-`services`
-- ... contiendra les services
+`data`
+- `model`
+- `services`
+
 
 # Qualité de code
 
