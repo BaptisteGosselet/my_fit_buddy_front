@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/viewmodels/logging_viewmodel.dart';
+import 'package:my_fit_buddy/viewmodels/auth_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/my_fit_button.dart';
@@ -12,7 +12,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LoggingViewmodel loggingViewmodel = LoggingViewmodel();
+    final AuthViewmodel authViewModel = AuthViewmodel();
     final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -73,7 +73,7 @@ class RegisterPage extends StatelessWidget {
                       buttonColor: fitBlueDark,
                       label: AppLocalizations.of(context)!.register,
                       onClick: () => {
-                            loggingViewmodel.register(
+                            authViewModel.register(
                                 nameController.text,
                                 emailController.text,
                                 passwordController.text,

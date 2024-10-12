@@ -56,7 +56,7 @@ class SessionsListPage extends StatelessWidget {
                         subtitle: "X exercices",
                         icon: Icons.fitness_center_rounded,
                         onTap: () {
-                          //print(session.name);
+                          print(session.name);
                         },
                       ),
                   ],
