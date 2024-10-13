@@ -64,41 +64,47 @@ class SessionCardState extends State<SessionCard> {
             ],
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: fitWeightBold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      if (widget.icon != null)
-                        Icon(
-                          widget.icon,
-                          color: fitBlueMiddle,
-                          size: 20,
-                        ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.subtitle ?? '',
-                        style: const TextStyle(
-                          color: fitBlueMiddle,
-                          fontSize: 16,
-                          fontWeight: fitWeightMedium,
-                        ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: fitWeightBold,
                       ),
-                    ],
-                  ),
-                ],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        if (widget.icon != null)
+                          Icon(
+                            widget.icon,
+                            color: fitBlueMiddle,
+                            size: 20,
+                          ),
+                        const SizedBox(width: 4),
+                        Text(
+                          widget.subtitle ?? '',
+                          style: const TextStyle(
+                            color: fitBlueMiddle,
+                            fontSize: 16,
+                            fontWeight: fitWeightMedium,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
               const Icon(
                 Icons.chevron_right,
                 color: fitBlueDark,

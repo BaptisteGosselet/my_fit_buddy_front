@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:my_fit_buddy/core/config.dart';
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
 
 enum DioMethod { post, get, put, delete }
 
@@ -22,11 +25,16 @@ class APIService {
       BaseOptions(
         baseUrl: baseUrl,
         contentType: contentType ?? Headers.formUrlEncodedContentType,
-        headers: {
-          //HttpHeaders.authorizationHeader: 'Bearer $token', // if needed
-        },
       ),
     );
+
+    final tokenStorageService = TokenStorageService.instance;
+    final token = await tokenStorageService.getToken();
+
+    if (token?.accessToken != null) {
+      dio.options.headers[HttpHeaders.authorizationHeader] =
+          'Bearer ${token!.accessToken}';
+    }
 
     try {
       switch (method) {

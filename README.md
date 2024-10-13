@@ -16,10 +16,22 @@ flutter gen-l10n
 
 3. Lancer le projet 
 
-`API en local` : sur navigateur il faut préciser le web-port 8082 (origine CORS) ; optionnel sur émulateur
+(Alternative) Lister les émulateurs flutter : 
+```sh
+flutter emulators
+```
+Lancer un émulateur
+```sh
+flutter emulators --launch $nom_de_l_emulateur
+#Par exemple : flutter emulators --launch Medium_Phone_API_35
+``` 
+
+Lancer `flutter run` (sur navigateur il faut préciser le web-port 8082 pour l'origine CORS de l'API locale)
 ```sh
 flutter run --web-port=8082
 ```
+
+
 
 # Architecture
 

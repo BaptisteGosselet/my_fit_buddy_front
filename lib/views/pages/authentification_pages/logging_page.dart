@@ -13,7 +13,7 @@ class LoggingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthViewmodel loggingViewmodel = AuthViewmodel();
-    final TextEditingController emailController = TextEditingController();
+    final TextEditingController usernameController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
@@ -42,8 +42,8 @@ class LoggingPage extends StatelessWidget {
               Column(
                 children: [
                   TextInput(
-                    label: AppLocalizations.of(context)!.email,
-                    controller: emailController,
+                    label: AppLocalizations.of(context)!.name,
+                    controller: usernameController,
                   ),
                   TextInput(
                     label: AppLocalizations.of(context)!.password,
@@ -61,9 +61,8 @@ class LoggingPage extends StatelessWidget {
                       buttonColor: fitBlueDark,
                       label: AppLocalizations.of(context)!.login,
                       onClick: () => {
-                            loggingViewmodel.login(
-                                emailController.text, passwordController.text),
-                            //temp
+                            loggingViewmodel.login(usernameController.text,
+                                passwordController.text),
                             context.goNamed('home')
                           }),
                   MyFitButton(

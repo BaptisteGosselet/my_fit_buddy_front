@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/viewmodels/sessions_list_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/session_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SessionsListPage extends StatelessWidget {
+class SessionsListPage extends StatefulWidget {
   const SessionsListPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    var sessionsListViewModel = SessionsListViewmodel();
+  SessionsListPageState createState() => SessionsListPageState();
+}
 
+class SessionsListPageState extends State<SessionsListPage> {
+  late Future<List<Session>> _sessionsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _sessionsFuture = SessionsListViewmodel().getSessionsList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          //TODO : Widget à isoler et travailler (et peut-être déplacer dans home_page)
           Container(
             width: double.infinity,
             color: fitBlueDark,
@@ -43,24 +54,36 @@ class SessionsListPage extends StatelessWidget {
               ],
             ),
           ),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    for (var session in sessionsListViewModel.getSessionsList())
-                      SessionCard(
-                        title: session.name,
-                        subtitle: "X exercices",
-                        icon: Icons.fitness_center_rounded,
-                        onTap: () {
-                          print(session.name);
-                        },
-                      ),
-                  ],
-                ),
+              child: FutureBuilder<List<Session>>(
+                future: _sessionsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Erreur : ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('Aucune session trouvée.'));
+                  } else {
+                    final sessions = snapshot.data!;
+                    return ListView.builder(
+                      itemCount: sessions.length,
+                      itemBuilder: (context, index) {
+                        final session = sessions[index];
+                        return SessionCard(
+                          title: session.name,
+                          subtitle: "X exercices",
+                          icon: Icons.fitness_center_rounded,
+                          onTap: () {
+                            print(session.name);
+                          },
+                        );
+                      },
+                    );
+                  }
+                },
               ),
             ),
           ),

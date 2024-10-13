@@ -1,11 +1,10 @@
 import 'package:my_fit_buddy/data/services/api_service.dart';
-import 'package:my_fit_buddy/data/services/auth_service.dart';
+import 'package:my_fit_buddy/data/services/auth_service/auth_service.dart';
 
 class AuthViewmodel {
   AuthService authService = AuthService();
 
   test() async {
-    print('test');
     try {
       String result = await APIService.instance.test();
       print('Résultat du test : $result');
@@ -14,7 +13,7 @@ class AuthViewmodel {
     }
   }
 
-  register(String username, String email, String password,
+  Future<void> register(String username, String email, String password,
       String passwordConfirm) async {
     await test();
     if (password == passwordConfirm) {
@@ -29,8 +28,10 @@ class AuthViewmodel {
     }
   }
 
-  login(String email, String password) {
-    password = '#$password#'; //simule le hash admettons
-    authService.login(email, password);
+  Future<void> login(String username, String password) async {
+    await test();
+    print("login");
+    await authService.login(username, password);
+    return;
   }
 }
