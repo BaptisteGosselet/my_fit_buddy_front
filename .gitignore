@@ -449,3 +449,6 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,vs,dart
+
+**/generated_*
+macos/Flutter/GeneratedPluginRegistrant.swift
