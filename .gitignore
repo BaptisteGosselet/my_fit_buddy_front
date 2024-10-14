@@ -42,5 +42,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-generated_*
-RegisterGeneratedPlugin*
+/generated_*
+macos/Flutter/GeneratedPluginRegistrant.swift
