@@ -7,7 +7,6 @@
     "email": "E-Mail",
     "password": "Password",
     "passwordConfirm": "Confirm Password",
-
+    "sessionListTitle": "myFitBuddy",
     "sessionListSubtitle": "Ready to train ?"
-
 }

@@ -89,6 +89,17 @@ class SessionsListPageState extends State<SessionsListPage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('add session');
+        },
+        backgroundColor: fitBlueDark,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 35.0,
+          ),
+      ),
     );
   }
 }

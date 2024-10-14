@@ -3,10 +3,10 @@
     "welcomeLoginMessage": "Salut,\nBon Retour !",
     "login": "Connexion",
     "register": "Inscription",
-    "name": "Nom",
+    "name": "Nom d'utilisateur",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
-
-    "sessionListSubtitle": "Prêt pour une nouvelle séance ?"
+    "sessionListTitle": "myFitBuddy",
+    "sessionListSubtitle": "Prêt pour une nouvelle séance ?",
 }
