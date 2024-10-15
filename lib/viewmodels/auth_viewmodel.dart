@@ -15,13 +15,15 @@ class AuthViewmodel {
     }
   }
 
-  Future<void> register(
-      String username, String password, String passwordConfirm, BuildContext context) async {
+  Future<void> register(String username, String password,
+      String passwordConfirm, BuildContext context) async {
     await test();
     if (password == passwordConfirm) {
       String? result = await authService.register(username, password);
       if (result != null) {
-        login(username, password, context);
+        if (context.mounted) {
+          login(username, password, context);
+        }
         print(result);
       } else {
         print("result null");
@@ -31,12 +33,15 @@ class AuthViewmodel {
     }
   }
 
-  Future<void> login(String username, String password, BuildContext context) async {
+  Future<void> login(
+      String username, String password, BuildContext context) async {
     await test();
     print("login");
     bool redirect = await authService.login(username, password);
-    if(redirect){
-      context.goNamed('home');
+    if (redirect) {
+      if (context.mounted) {
+        context.goNamed('home');
+      }
     }
     return;
   }

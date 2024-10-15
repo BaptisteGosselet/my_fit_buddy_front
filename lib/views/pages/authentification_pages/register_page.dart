@@ -74,9 +74,8 @@ class RegisterPage extends StatelessWidget {
                                 passwordConfirmController.text,
                                 context),
                             //ajouter une condition
-                            
+
                             //ajouter une condition
-                            //context.goNamed("home")
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,

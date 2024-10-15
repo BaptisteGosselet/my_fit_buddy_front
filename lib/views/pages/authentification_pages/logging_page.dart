@@ -65,7 +65,6 @@ class LoggingPage extends StatelessWidget {
                             loggingViewmodel.login(usernameController.text,
                                 passwordController.text, context),
                             //ajouter une condition
-                            
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,
