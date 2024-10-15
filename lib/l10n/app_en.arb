@@ -1,15 +1,16 @@
 {
-    "welcomeRegisterMessage": "Register",
-    "welcomeLoginMessage": "Welcome back !",
-    "login": "Login",
-    "register": "Register",
-    "goToLogin": "I have an account",
-    "goToRegister": "Create an account",
-    "name": "name",
-    "email": "E-Mail",
-    "password": "Password",
-    "passwordConfirm": "Confirm Password",
+    "welcomeRegisterMessage": "Inscription",
+    "welcomeLoginMessage": "Salut,\nBon Retour !",
+    "login": "Connexion",
+    "register": "Inscription",
+    "name": "Nom d'utilisateur",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer le mot de passe",
+    
     "sessionListTitle": "myFitBuddy",
-    "sessionListSubtitle": "Ready to train ?"
-    "isLoading": "Loading ...",
+    "sessionListSubtitle": "Prêt pour une nouvelle séance ?",
+    "goToLogin": "Me connecter",
+    "goToRegister": "Créer un compte",
+    "isLoading": "Chargement ...",
 }
