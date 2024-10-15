@@ -14,24 +14,24 @@ flutter pub get
 flutter gen-l10n
 ```
 
-3. Lancer le projet 
+3. Mettre en place un émulateur 
 
-(Alternative) Lister les émulateurs flutter : 
+Lister les émulateurs disponibles : 
 ```sh
 flutter emulators
 ```
-Lancer un émulateur
+Et lancer l'émulateur trouvé : 
 ```sh
 flutter emulators --launch $nom_de_l_emulateur
-#Par exemple : flutter emulators --launch Medium_Phone_API_35
 ``` 
 
-Lancer `flutter run` (sur navigateur il faut préciser le web-port 8082 pour l'origine CORS de l'API locale)
+Par exemple : `flutter emulators --launch Medium_Phone_API_35`
+
+4. Lancer le projet sur l'émulateur
+
 ```sh
-flutter run --web-port=8082
+flutter run
 ```
-
-
 
 # Architecture
 
