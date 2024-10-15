@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 import 'package:my_fit_buddy/data/services/auth_service/auth_service.dart';
 
@@ -13,12 +15,15 @@ class AuthViewmodel {
     }
   }
 
-  Future<void> register(
-      String username, String password, String passwordConfirm) async {
+  Future<void> register(String username, String password,
+      String passwordConfirm, BuildContext context) async {
     await test();
     if (password == passwordConfirm) {
       String? result = await authService.register(username, password);
       if (result != null) {
+        if (context.mounted) {
+          login(username, password, context);
+        }
         print(result);
       } else {
         print("result null");
@@ -28,10 +33,16 @@ class AuthViewmodel {
     }
   }
 
-  Future<void> login(String username, String password) async {
+  Future<void> login(
+      String username, String password, BuildContext context) async {
     await test();
     print("login");
-    await authService.login(username, password);
+    bool redirect = await authService.login(username, password);
+    if (redirect) {
+      if (context.mounted) {
+        context.goNamed('home');
+      }
+    }
     return;
   }
 }
