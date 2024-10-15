@@ -30,7 +30,7 @@ class AuthService {
     }
   }
 
-  Future<void> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     final LoginForm loginForm =
         LoginForm(username: username, password: password);
 
@@ -41,14 +41,14 @@ class AuthService {
 
       if (response.statusCode == 200) {
         TokenStorageService.instance.saveToken(Token.fromJson(response.data));
-        return;
+        return true;
       } else {
         print('Erreur lors de la connexion : ${response.statusCode}');
-        return;
+        return false;
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
-      return;
+      return false;
     }
   }
 }

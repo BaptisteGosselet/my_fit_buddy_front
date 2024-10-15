@@ -63,9 +63,9 @@ class LoggingPage extends StatelessWidget {
                       onClick: () => {
                             //todo await
                             loggingViewmodel.login(usernameController.text,
-                                passwordController.text),
+                                passwordController.text, context),
                             //ajouter une condition
-                            context.goNamed('home')
+                            
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,
