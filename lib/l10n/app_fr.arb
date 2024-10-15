@@ -7,6 +7,10 @@
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
+    
     "sessionListTitle": "myFitBuddy",
     "sessionListSubtitle": "Prêt pour une nouvelle séance ?",
+    "goToLogin": "Me connecter",
+    "goToRegister": "Créer un compte",
+    "isLoading": "Chargement ...",
 }

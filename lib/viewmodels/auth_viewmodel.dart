@@ -13,8 +13,8 @@ class AuthViewmodel {
     }
   }
 
-  Future<void> register(String username, String email, String password,
-      String passwordConfirm) async {
+  Future<void> register(
+      String username, String password, String passwordConfirm) async {
     await test();
     if (password == passwordConfirm) {
       String? result = await authService.register(username, password);
