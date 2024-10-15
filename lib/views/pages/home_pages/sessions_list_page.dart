@@ -34,9 +34,9 @@ class SessionsListPageState extends State<SessionsListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "myFitBuddy",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.sessionListTitle,
+                  style: const TextStyle(
                     color: Color.fromRGBO(255, 255, 255, 1),
                     fontSize: 18,
                     fontWeight: fitWeightBold,
