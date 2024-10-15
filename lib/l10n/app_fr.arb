@@ -1,15 +1,18 @@
 {
+    "isLoading": "Chargement ...",
+
     "welcomeRegisterMessage": "Inscription",
     "welcomeLoginMessage": "Salut,\nBon Retour !",
     "login": "Connexion",
     "register": "Inscription",
     "goToLogin": "Me connecter",
     "goToRegister": "Créer un compte",
-    "name": "Nom",
+
+    "name": "Nom d'utilisateur",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
-    "isLoading": "Chargement ...",
-
+    
+    "sessionListTitle": "myFitBuddy",
     "sessionListSubtitle": "Prêt pour une nouvelle séance ?"
 }
