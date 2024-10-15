@@ -71,12 +71,12 @@ class RegisterPage extends StatelessWidget {
                             authViewModel.register(
                                 nameController.text,
                                 passwordController.text,
-                                passwordConfirmController.text),
+                                passwordConfirmController.text,
+                                context),
                             //ajouter une condition
-                            authViewModel.login(
-                                nameController.text, passwordController.text),
+                            
                             //ajouter une condition
-                            context.goNamed("home")
+                            //context.goNamed("home")
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,
