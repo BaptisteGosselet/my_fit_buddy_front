@@ -3,10 +3,13 @@
     "welcomeLoginMessage": "Salut,\nBon Retour !",
     "login": "Connexion",
     "register": "Inscription",
+    "goToLogin": "Me connecter",
+    "goToRegister": "Créer un compte",
     "name": "Nom",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
+    "isLoading": "Chargement ...",
 
     "sessionListSubtitle": "Prêt pour une nouvelle séance ?"
 }

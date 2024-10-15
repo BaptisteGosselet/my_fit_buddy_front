@@ -15,7 +15,7 @@ class AuthService {
     try {
       final response = await APIService.instance.request(
           "$authUrl/signup", DioMethod.post,
-          param: registerForm.toJson(), contentType: "application/json");
+          param: registerForm.toJson());
 
       if (response.statusCode == 200) {
         final String message = response.data.toString();
@@ -37,7 +37,7 @@ class AuthService {
     try {
       final response = await APIService.instance.request(
           "$authUrl/signin", DioMethod.post,
-          param: loginForm.toJson(), contentType: "application/json");
+          param: loginForm.toJson());
 
       if (response.statusCode == 200) {
         TokenStorageService.instance.saveToken(Token.fromJson(response.data));
@@ -50,9 +50,5 @@ class AuthService {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return;
     }
-  }
-
-  enterInviteMode() {
-    //print('Mode invité Viewmodel');
   }
 }

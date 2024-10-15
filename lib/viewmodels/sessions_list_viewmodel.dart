@@ -7,6 +7,7 @@ class SessionsListViewmodel {
   Future<List<Session>> getSessionsList() async {
     print("getSessionsList");
     List<Session> response = await sessionService.getUserSessions();
+    print(response);
     return response;
   }
 }

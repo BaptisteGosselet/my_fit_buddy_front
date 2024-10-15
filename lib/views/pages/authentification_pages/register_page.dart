@@ -14,7 +14,6 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthViewmodel authViewModel = AuthViewmodel();
     final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController passwordConfirmController =
         TextEditingController();
@@ -49,10 +48,6 @@ class RegisterPage extends StatelessWidget {
                     controller: nameController,
                   ),
                   TextInput(
-                    label: AppLocalizations.of(context)!.email,
-                    controller: emailController,
-                  ),
-                  TextInput(
                     label: AppLocalizations.of(context)!.password,
                     isHidden: true,
                     controller: passwordController,
@@ -75,13 +70,17 @@ class RegisterPage extends StatelessWidget {
                       onClick: () => {
                             authViewModel.register(
                                 nameController.text,
-                                emailController.text,
                                 passwordController.text,
-                                passwordConfirmController.text)
+                                passwordConfirmController.text),
+                            //ajouter une condition
+                            authViewModel.login(
+                                nameController.text, passwordController.text),
+                            //ajouter une condition
+                            context.goNamed("home")
                           }),
                   MyFitButton(
                       buttonColor: fitBlueMiddle,
-                      label: AppLocalizations.of(context)!.login,
+                      label: AppLocalizations.of(context)!.goToLogin,
                       onClick: () => {context.goNamed('logging')}),
                 ],
               ),

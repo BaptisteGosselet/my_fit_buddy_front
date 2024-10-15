@@ -3,10 +3,14 @@
     "welcomeLoginMessage": "Welcome back !",
     "login": "Login",
     "register": "Register",
+    "goToLogin": "I have an account",
+    "goToRegister": "Create an account",
     "name": "name",
     "email": "E-Mail",
     "password": "Password",
     "passwordConfirm": "Confirm Password",
+    "isLoading": "Loading ...",
+
 
     "sessionListSubtitle": "Ready to train ?"
 

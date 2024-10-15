@@ -8,9 +8,10 @@ class SessionService {
   Future<List<Session>> getUserSessions() async {
     try {
       final response = await APIService.instance.request(
-          "$sessionsUrl/user", DioMethod.get,
-          contentType: "application/json");
-
+        "$sessionsUrl/user",
+        DioMethod.get,
+      );
+      print(response);
       if (response.statusCode == 200) {
         if (response.data is List) {
           return (response.data as List)
