@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/viewmodels/sessions_list_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
@@ -92,6 +93,7 @@ class SessionsListPageState extends State<SessionsListPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('add session');
+          context.goNamed('sessionDetails');
         },
         backgroundColor: fitBlueDark,
         child: const Icon(
