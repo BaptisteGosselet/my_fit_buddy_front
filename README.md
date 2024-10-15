@@ -50,6 +50,8 @@ L'architecture suit le modèle MVVM.
 - `model`
 - `services`
 
+`managers` : les services globaux type toast, notifications, etc.
+
 
 # Qualité de code
 
