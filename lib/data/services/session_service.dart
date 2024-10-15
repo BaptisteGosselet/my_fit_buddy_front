@@ -35,9 +35,7 @@ class SessionService {
   Future<Session> getUserSessionByID(String id) async {
     try {
       final response = await APIService.instance
-          .request("$sessionsUrl/user", DioMethod.get, // Todo : Update URL
-              contentType: "application/json");
-
+          .request("$sessionsUrl/user", DioMethod.get); // Todo : Update URL
       if (response.statusCode == 200) {
         if (response.data) {
           return Session.fromJson(response.data);

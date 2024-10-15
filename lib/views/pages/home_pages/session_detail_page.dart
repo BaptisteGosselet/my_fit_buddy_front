@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/data/models/session.dart';
-import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 
 class SessionDetailPage extends StatefulWidget {
@@ -11,7 +9,7 @@ class SessionDetailPage extends StatefulWidget {
 }
 
 class SessionDetailPageState extends State<SessionDetailPage> {
-  late Future<Session> _sessionFuture;
+  // late Future<Session> _sessionFuture;
   String id = "id"; // TODO PASS ID IN PARAM
 
   @override
