@@ -32,27 +32,29 @@ class SessionService {
     }
   }
 
-
-   Future<Session> getUserSessionByID(String id) async {
+  Future<Session> getUserSessionByID(String id) async {
     try {
-      final response = await APIService.instance.request(
-          "$sessionsUrl/user", DioMethod.get,                     // Todo : Update URL 
-          contentType: "application/json");
+      final response = await APIService.instance
+          .request("$sessionsUrl/user", DioMethod.get, // Todo : Update URL
+              contentType: "application/json");
 
       if (response.statusCode == 200) {
         if (response.data) {
-          return Session.fromJson(response.data); 
+          return Session.fromJson(response.data);
         } else {
           print('Aucune donnée');
           return Future.error('Aucune donnée');
         }
       } else {
-        print('Erreur lors de la récupération des sessions : ${response.statusCode}');
-         return Future.error('Erreur lors de la récupération de la session $id : ${response.statusCode}');
+        print(
+            'Erreur lors de la récupération des sessions : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de la récupération de la session $id : ${response.statusCode}');
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
-      return Future.error('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
   }
 }

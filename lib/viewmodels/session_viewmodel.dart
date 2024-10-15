@@ -1,4 +1,3 @@
-
 import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/data/services/session_service.dart';
 

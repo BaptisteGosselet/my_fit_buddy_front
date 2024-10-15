@@ -100,7 +100,7 @@ class SessionsListPageState extends State<SessionsListPage> {
           Icons.add,
           color: Colors.white,
           size: 35.0,
-          ),
+        ),
       ),
     );
   }
