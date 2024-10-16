@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 import 'package:my_fit_buddy/data/services/auth_service/auth_service.dart';
+import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
 
 class AuthViewmodel {
   AuthService authService = AuthService();
@@ -41,6 +42,14 @@ class AuthViewmodel {
       if (context.mounted) {
         context.goNamed('home');
       }
+    }
+    return;
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await TokenStorageService.instance.removeToken();
+    if (context.mounted) {
+        context.goNamed('loading');
     }
     return;
   }

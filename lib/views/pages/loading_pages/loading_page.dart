@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
+import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 
@@ -30,11 +31,15 @@ class LoadingPage extends StatelessWidget {
       ),
       asyncNavigationCallback: () async {
         await Future.delayed(const Duration(seconds: 2));
-        final bool isRefreshed =
+
+        bool isTokenValid = await TokenStorageService.instance.hasToken();
+        if(isTokenValid){
+          isTokenValid = 
             await APIService.instance.retrieveRefreshToken();
+        }
 
         if (context.mounted) {
-          if (isRefreshed) {
+          if (isTokenValid) {
             GoRouter.of(context).goNamed("home");
           } else {
             GoRouter.of(context).goNamed("register");
