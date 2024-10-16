@@ -69,11 +69,10 @@ class APIService {
     }
   }
 
-  Future<void> retrieveRefreshToken() async {
+  Future<bool> retrieveRefreshToken() async {
     String endpoint = "/auth/refresh-token";
 
-    final tokenStorageService = TokenStorageService.instance;
-    final token = await tokenStorageService.getToken();
+    final token = await TokenStorageService.instance.getToken();
 
     if (token?.accessToken != null) {
       dio.options.headers[HttpHeaders.authorizationHeader] =
@@ -85,12 +84,14 @@ class APIService {
     try {
       if (response.statusCode == 200) {
         TokenStorageService.instance.saveToken(Token.fromJson(response.data));
+        return true;
       } else {
         print('Erreur lors de la connexion : ${response.statusCode}');
+        return false;
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
-      return;
+      return false;
     }
   }
 

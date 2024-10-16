@@ -11,7 +11,7 @@ class AuthViewmodel {
       String result = await APIService.instance.test();
       print('Résultat du test : $result');
     } catch (e) {
-      print('Erreur lors du test API : $e');
+      print('Résultat du test : Erreur lors du test API : $e');
     }
   }
 
@@ -36,7 +36,6 @@ class AuthViewmodel {
   Future<void> login(
       String username, String password, BuildContext context) async {
     await test();
-    print("login");
     bool redirect = await authService.login(username, password);
     if (redirect) {
       if (context.mounted) {
