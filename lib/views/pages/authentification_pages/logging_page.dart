@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/viewmodels/auth_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
-import 'package:my_fit_buddy/views/widgets/my_fit_button.dart';
+import 'package:my_fit_buddy/views/widgets/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/text_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -57,16 +57,14 @@ class LoggingPage extends StatelessWidget {
               //Buttons
               Column(
                 children: [
-                  MyFitButton(
+                  FitButton(
                       buttonColor: fitBlueDark,
                       label: AppLocalizations.of(context)!.login,
                       onClick: () => {
-                            //todo await
                             loggingViewmodel.login(usernameController.text,
                                 passwordController.text, context),
-                            //ajouter une condition
                           }),
-                  MyFitButton(
+                  FitButton(
                       buttonColor: fitBlueMiddle,
                       label: AppLocalizations.of(context)!.goToRegister,
                       onClick: () => {context.goNamed('register')}),

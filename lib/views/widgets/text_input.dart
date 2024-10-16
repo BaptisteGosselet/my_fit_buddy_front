@@ -35,7 +35,7 @@ class TextInput extends StatelessWidget {
                     ),
                   ]),
               child: TextField(
-                controller: controller, // Ajoutez le contrôleur ici
+                controller: controller,
                 obscureText: isHidden,
                 decoration: InputDecoration(
                   fillColor: Colors.white,

@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/logging_page.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
-import 'package:my_fit_buddy/views/pages/home_pages/session_detail_page.dart';
+import 'package:my_fit_buddy/views/pages/session_detail_page.dart';
 import 'package:my_fit_buddy/views/pages/loading_pages/loading_page.dart';
 
 // GoRouter configuration
@@ -30,9 +30,11 @@ final router = GoRouter(
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      name: 'sessionDetails',
-      path: '/session',
-      builder: (context, state) => const SessionDetailPage(),
-    ),
+        name: 'sessionDetails',
+        path: '/session/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'];
+          return SessionDetailPage(id: id!);
+        }),
   ],
 );

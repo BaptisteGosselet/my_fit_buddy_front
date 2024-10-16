@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/viewmodels/sessions_list_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/themes/font_weight.dart';
+import 'package:my_fit_buddy/views/widgets/fit_header.dart';
 import 'package:my_fit_buddy/views/widgets/session_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,33 +28,9 @@ class SessionsListPageState extends State<SessionsListPage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            color: fitBlueDark,
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.sessionListTitle,
-                  style: const TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    fontSize: 18,
-                    fontWeight: fitWeightBold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  AppLocalizations.of(context)!.sessionListSubtitle,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          FitHeader(
+              title: AppLocalizations.of(context)!.sessionListTitle,
+              subtitle: AppLocalizations.of(context)!.sessionListSubtitle),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -78,7 +54,10 @@ class SessionsListPageState extends State<SessionsListPage> {
                           subtitle: "X exercices",
                           icon: Icons.fitness_center_rounded,
                           onTap: () {
-                            print(session.name);
+                            context.goNamed(
+                              'sessionDetails',
+                              pathParameters: {'id': session.id.toString()},
+                            );
                           },
                         );
                       },

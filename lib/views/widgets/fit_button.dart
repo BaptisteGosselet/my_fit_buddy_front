@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 
-class MyFitButton extends StatelessWidget {
+class FitButton extends StatelessWidget {
   final Color buttonColor;
   final Color textColor;
   final String label;
   final VoidCallback onClick;
 
-  const MyFitButton({
+  const FitButton({
     super.key,
     required this.buttonColor,
     this.textColor = Colors.white,
