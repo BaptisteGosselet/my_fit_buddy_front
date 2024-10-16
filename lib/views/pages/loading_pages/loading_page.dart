@@ -29,7 +29,6 @@ class LoadingPage extends StatelessWidget {
         ),
       ),
       asyncNavigationCallback: () async {
-        // TODO : authentification -> https://pub.dev/packages/another_flutter_splash_screen
         await Future.delayed(const Duration(seconds: 2));
         final bool isRefreshed =
             await APIService.instance.retrieveRefreshToken();

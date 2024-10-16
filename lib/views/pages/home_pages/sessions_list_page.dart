@@ -78,7 +78,10 @@ class SessionsListPageState extends State<SessionsListPage> {
                           subtitle: "X exercices",
                           icon: Icons.fitness_center_rounded,
                           onTap: () {
-                            print(session.name);
+                            context.goNamed(
+                              'sessionDetails', 
+                              pathParameters: {'id': session.id.toString()}, 
+                            );
                           },
                         );
                       },
