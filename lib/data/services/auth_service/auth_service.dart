@@ -11,8 +11,8 @@ class AuthService {
   Future<String?> register(String username, String password) async {
     final RegisterForm registerForm =
         RegisterForm(username: username, password: password);
-
     try {
+      await TokenStorageService.instance.removeToken();
       final response = await APIService.instance.request(
           "$authUrl/signup", DioMethod.post,
           param: registerForm.toJson());
@@ -33,8 +33,8 @@ class AuthService {
   Future<bool> login(String username, String password) async {
     final LoginForm loginForm =
         LoginForm(username: username, password: password);
-
     try {
+      await TokenStorageService.instance.removeToken();
       final response = await APIService.instance.request(
           "$authUrl/signin", DioMethod.post,
           param: loginForm.toJson());

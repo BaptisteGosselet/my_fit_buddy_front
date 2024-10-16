@@ -11,7 +11,7 @@ class TokenStorageService {
   Future<void> saveToken(Token token) async {
     final tokenJson = jsonEncode(token.toJson());
     await storage.write(key: 'jwt', value: tokenJson);
-    print('Token enregistré sous forme de JSON.');
+    print('TokenStorageService : Token enregistré sous forme de JSON.');
   }
 
   Future<Token?> getToken() async {
@@ -20,12 +20,12 @@ class TokenStorageService {
       final Map<String, dynamic> tokenMap = jsonDecode(tokenJson);
       return Token.fromJson(tokenMap);
     }
-    print('Aucun token trouvé.');
+    print('TokenStorageService : Aucun token trouvé.');
     return null;
   }
 
   Future<void> removeToken() async {
     await storage.delete(key: 'jwt');
-    print('Token supprimé.');
+    print('TokenStorageService : Token supprimé.');
   }
 }
