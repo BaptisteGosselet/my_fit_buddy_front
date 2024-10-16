@@ -23,29 +23,19 @@ class SessionCard extends StatefulWidget {
 class SessionCardState extends State<SessionCard> {
   bool _isPressed = false;
 
+  void _handleTap(bool pressed) => setState(() => _isPressed = pressed);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: GestureDetector(
-        onTapDown: (_) {
-          setState(() {
-            _isPressed = true;
-          });
-        },
+        onTapDown: (_) => _handleTap(true),
         onTapUp: (_) {
-          setState(() {
-            _isPressed = false;
-          });
-          if (widget.onTap != null) {
-            widget.onTap!();
-          }
+          _handleTap(false);
+          widget.onTap?.call();
         },
-        onTapCancel: () {
-          setState(() {
-            _isPressed = false;
-          });
-        },
+        onTapCancel: () => _handleTap(false),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
           curve: Curves.easeInOut,
@@ -64,55 +54,52 @@ class SessionCardState extends State<SessionCard> {
             ],
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: fitWeightBold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        if (widget.icon != null)
-                          Icon(
-                            widget.icon,
-                            color: fitBlueMiddle,
-                            size: 20,
-                          ),
-                        const SizedBox(width: 4),
-                        Text(
-                          widget.subtitle ?? '',
-                          style: const TextStyle(
-                            color: fitBlueMiddle,
-                            fontSize: 16,
-                            fontWeight: fitWeightMedium,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(
-                Icons.chevron_right,
-                color: fitBlueDark,
-                size: 40,
-              ),
+              _buildTextContent(),
+              const SizedBox(width: 16),
+              const Icon(Icons.chevron_right, color: fitBlueDark, size: 40),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextContent() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: fitWeightBold,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              if (widget.icon != null)
+                Icon(widget.icon, color: fitBlueMiddle, size: 20),
+              if (widget.icon != null) const SizedBox(width: 4),
+              Text(
+                widget.subtitle ?? '',
+                style: const TextStyle(
+                  color: fitBlueMiddle,
+                  fontSize: 16,
+                  fontWeight: fitWeightMedium,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

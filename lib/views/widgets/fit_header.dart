@@ -24,6 +24,18 @@ class FitHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     const double iconSize = 25;
     Color highlightColor = Colors.white.withOpacity(0.1);
+
+    Widget? buildIcon(IconData? icon, VoidCallback? onPressed) {
+      return icon == null
+          ? null
+          : IconButton(
+              icon: Icon(icon, color: Colors.white, size: iconSize),
+              onPressed: onPressed,
+              padding: const EdgeInsets.all(8),
+              highlightColor: highlightColor,
+            );
+    }
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(top: 30, bottom: 16, left: 10, right: 10),
@@ -31,19 +43,9 @@ class FitHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (leftIcon != null)
-            IconButton(
-              icon: Icon(
-                leftIcon,
-                color: Colors.white,
-                size: iconSize,
-              ),
-              onPressed: onLeftIconPressed,
-              padding: const EdgeInsets.all(8),
-              highlightColor: highlightColor,
-            ),
+          buildIcon(leftIcon, onLeftIconPressed) ?? const SizedBox.shrink(),
           Expanded(
-            child: Container(
+            child: Padding(
               padding: const EdgeInsets.only(left: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,30 +58,23 @@ class FitHeader extends StatelessWidget {
                       fontWeight: fitWeightBold,
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
+                  if (subtitle.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
           ),
-          if (rightIcon != null)
-            IconButton(
-              icon: Icon(
-                rightIcon,
-                color: Colors.white,
-                size: iconSize,
-              ),
-              onPressed: onRightIconPressed,
-              padding: const EdgeInsets.all(8),
-              highlightColor: highlightColor,
-            ),
+          buildIcon(rightIcon, onRightIconPressed) ?? const SizedBox.shrink(),
         ],
       ),
     );
