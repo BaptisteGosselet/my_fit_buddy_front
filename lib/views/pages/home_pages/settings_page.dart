@@ -13,14 +13,14 @@ class SettingsPage extends StatelessWidget {
       backgroundColor: fitCloudWhite,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text('Settings Page', style: TextStyle(color: Colors.black)),
             FitButton(
               buttonColor: fitBlueDark,
               label: 'LABEL DECONNEXION',
-              onClick: () => { authViewmodel.logout(context) },
+              onClick: () => {authViewmodel.logout(context)},
             ),
           ],
         ),

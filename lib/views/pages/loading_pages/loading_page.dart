@@ -33,9 +33,8 @@ class LoadingPage extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 2));
 
         bool isTokenValid = await TokenStorageService.instance.hasToken();
-        if(isTokenValid){
-          isTokenValid = 
-            await APIService.instance.retrieveRefreshToken();
+        if (isTokenValid) {
+          isTokenValid = await APIService.instance.retrieveRefreshToken();
         }
 
         if (context.mounted) {

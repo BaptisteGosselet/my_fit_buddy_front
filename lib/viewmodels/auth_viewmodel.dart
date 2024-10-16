@@ -49,7 +49,7 @@ class AuthViewmodel {
   Future<void> logout(BuildContext context) async {
     await TokenStorageService.instance.removeToken();
     if (context.mounted) {
-        context.goNamed('loading');
+      context.goNamed('loading');
     }
     return;
   }

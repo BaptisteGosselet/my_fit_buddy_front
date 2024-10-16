@@ -29,7 +29,7 @@ class TokenStorageService {
     print('TokenStorageService : Token supprimé.');
   }
 
-    Future<bool> hasToken() async {
+  Future<bool> hasToken() async {
     final tokenJson = await storage.read(key: 'jwt');
     if (tokenJson != null) {
       return true;
