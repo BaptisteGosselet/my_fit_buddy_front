@@ -30,12 +30,11 @@ final router = GoRouter(
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      name: 'sessionDetails',
-      path: '/session/:id',
-      builder: (context, state) {
-        final id = state.pathParameters['id'];
-        return SessionDetailPage(id: id!); 
-      }
-    ),
+        name: 'sessionDetails',
+        path: '/session/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'];
+          return SessionDetailPage(id: id!);
+        }),
   ],
 );
