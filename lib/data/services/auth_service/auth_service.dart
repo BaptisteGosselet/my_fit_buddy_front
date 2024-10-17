@@ -32,7 +32,7 @@ class AuthService {
 
   Future<bool> login(String username, String password) async {
     final LoginForm loginForm =
-        LoginForm(username: username, password: password);
+        LoginForm(usernameOrEmail: username, password: password);
     try {
       await TokenStorageService.instance.removeToken();
       final response = await APIService.instance.request(

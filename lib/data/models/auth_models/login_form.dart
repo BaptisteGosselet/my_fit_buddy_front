@@ -1,15 +1,15 @@
 class LoginForm {
-  final String username;
+  final String usernameOrEmail;
   final String password;
 
   LoginForm({
-    required this.username,
+    required this.usernameOrEmail,
     required this.password,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
+      'usernameOrEmail': usernameOrEmail,
       'password': password,
     };
   }
