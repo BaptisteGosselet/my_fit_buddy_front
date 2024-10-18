@@ -1,21 +1,26 @@
 class Token {
   String? accessToken;
   String? refreshToken;
-  int? expiresIn;
+  int? accessExpiresIn;
+  int? refreshExpiresIn;
 
   Token({
     this.accessToken,
     this.refreshToken,
-    this.expiresIn,
+    this.accessExpiresIn,
+    this.refreshExpiresIn,
   });
 
   factory Token.fromJson(Map<String, dynamic> json) {
     return Token(
       accessToken: json['accessToken']?.toString(),
       refreshToken: json['refreshToken']?.toString(),
-      expiresIn: json['expiresIn'] is String
-          ? int.tryParse(json['expiresIn'])
-          : json['expiresIn'] as int?,
+      accessExpiresIn: json['accessExpiresIn'] is String
+          ? int.tryParse(json['accessExpiresIn'])
+          : json['accessExpiresIn'] as int?,
+      refreshExpiresIn: json['refreshExpiresIn'] is String
+          ? int.tryParse(json['refreshExpiresIn'])
+          : json['refreshExpiresIn'] as int?,
     );
   }
 
@@ -23,12 +28,13 @@ class Token {
     return {
       'accessToken': accessToken,
       'refreshToken': refreshToken,
-      'expiresIn': expiresIn,
+      'accessExpiresIn': accessExpiresIn,
+      'refreshExpiresIn': refreshExpiresIn,
     };
   }
 
   @override
   String toString() {
-    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken, expiresIn: $expiresIn)';
+    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken, accessExpiresIn: $accessExpiresIn, refreshExpiresIn: $refreshExpiresIn)';
   }
 }
