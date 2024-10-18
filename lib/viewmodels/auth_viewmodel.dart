@@ -37,6 +37,7 @@ class AuthViewmodel {
   Future<void> login(
       String username, String password, BuildContext context) async {
     await test();
+    print('AuthViewModel.login');
     bool redirect = await authService.login(username, password);
     if (redirect) {
       if (context.mounted) {
