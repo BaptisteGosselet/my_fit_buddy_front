@@ -46,4 +46,22 @@ class TokenStorageService {
       return tokenJson.isAccessTokenValid() || tokenJson.isRefreshTokenValid();
     }
   }
+
+  Future<bool> isAccessTokenValid() async {
+    final Token? tokenJson = await getToken();
+    if (tokenJson == null) {
+      return false;
+    } else {
+      return tokenJson.isAccessTokenValid();
+    }
+  }
+
+  Future<bool> isRefreshTokenValid() async {
+    final Token? tokenJson = await getToken();
+    if (tokenJson == null) {
+      return false;
+    } else {
+      return tokenJson.isRefreshTokenValid();
+    }
+  }
 }

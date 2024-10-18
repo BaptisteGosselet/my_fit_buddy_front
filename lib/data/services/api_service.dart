@@ -26,12 +26,23 @@ class APIService {
   }) async {
     final currentToken = await TokenStorageService.instance.getToken();
     if (currentToken != null) {
-      await retrieveRefreshToken();
-      final newToken = await TokenStorageService.instance.getToken();
+      bool accessValid =
+          await TokenStorageService.instance.isAccessTokenValid();
+      if (!accessValid) {
+        bool refreshValid =
+            await TokenStorageService.instance.isRefreshTokenValid();
+        if (refreshValid) {
+          await retrieveRefreshToken();
+        } else {
+          await TokenStorageService.instance.removeToken();
+        }
+      }
 
-      if (newToken?.accessToken != null) {
+      final token = await TokenStorageService.instance.getToken();
+
+      if (token?.accessToken != null) {
         dio.options.headers[HttpHeaders.authorizationHeader] =
-            'Bearer ${newToken!.accessToken}';
+            'Bearer ${token!.accessToken}';
       }
     }
 
