@@ -8,11 +8,23 @@
     "goToLogin": "Me connecter",
     "goToRegister": "Créer un compte",
 
-    "name": "Nom d'utilisateur",
+    "name": "Nom utilisateur",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
     
     "sessionListTitle": "myFitBuddy",
-    "sessionListSubtitle": "Prêt pour une nouvelle séance ?"
+    "sessionListSubtitle": "Prêt pour une nouvelle séance ?",
+
+    "unknownError": "Une erreur est survenue",
+    "loginBadCredentials": "Cet identifiant ou mot de passe est incorrect",
+    "registerUsernameAlreadyExists": "Ce nom d'utilisateur existe déjà",
+    "registerEmailAlreadyExists": "Cet email est déjà associé à un compte",
+    "registerUsernameTooLong": "Le nom d'utilisateur doit faire moins de 20 caractères",
+    "registerForbiddenUsernameCharacters": "Le nom d'utilisateur ne doit pas contenir : ",
+    "registerNotValidEmailFormat": "Le champ email est invalide",
+    "registerPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+    "registerDifferentPassword": "Les mots de passe sont différents",
+    "registerSuccess": "Account created"
+      
 }

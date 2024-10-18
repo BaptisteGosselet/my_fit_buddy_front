@@ -14,5 +14,17 @@
     "passwordConfirm": "Confirm Password",
 
     "sessionListTitle": "myFitBuddy",
-    "sessionListSubtitle": "Ready to train ?"
+    "sessionListSubtitle": "Ready to train ?",
+
+    "unknownError": "An error occurred",
+    "loginBadCredentials": "The username or password is incorrect",
+    "registerUsernameAlreadyExists": "This username already exists",
+    "registerEmailAlreadyExists": "This email is already associated with an account",
+    "registerUsernameTooLong": "The username must be less than 20 characters",
+    "registerForbiddenUsernameCharacters": "The username must not contain: ",
+    "registerNotValidEmailFormat": "The email field is invalid",
+    "registerPasswordTooShort": "The password must be at least 8 characters long",
+    "registerDifferentPassword": "Passwords must be the same",
+    "registerSuccess": "Compte crée"
+
 }

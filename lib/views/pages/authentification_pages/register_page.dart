@@ -14,6 +14,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthViewmodel authViewModel = AuthViewmodel();
     final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController passwordConfirmController =
         TextEditingController();
@@ -48,6 +49,10 @@ class RegisterPage extends StatelessWidget {
                     controller: nameController,
                   ),
                   TextInput(
+                    label: AppLocalizations.of(context)!.email,
+                    controller: emailController,
+                  ),
+                  TextInput(
                     label: AppLocalizations.of(context)!.password,
                     isHidden: true,
                     controller: passwordController,
@@ -70,12 +75,10 @@ class RegisterPage extends StatelessWidget {
                       onClick: () => {
                             authViewModel.register(
                                 nameController.text,
+                                emailController.text,
                                 passwordController.text,
                                 passwordConfirmController.text,
                                 context),
-                            //ajouter une condition
-
-                            //ajouter une condition
                           }),
                   FitButton(
                       buttonColor: fitBlueMiddle,
