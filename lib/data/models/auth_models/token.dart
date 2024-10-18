@@ -41,13 +41,15 @@ class Token {
 
   bool isAccessTokenValid() {
     if (accessExpiresIn == null || accessTokenCreatedAt == null) return false;
-    final expirationTime = accessTokenCreatedAt!.add(Duration(milliseconds: accessExpiresIn!));
+    final expirationTime =
+        accessTokenCreatedAt!.add(Duration(milliseconds: accessExpiresIn!));
     return DateTime.now().isBefore(expirationTime);
   }
 
   bool isRefreshTokenValid() {
     if (refreshExpiresIn == null || refreshTokenCreatedAt == null) return false;
-    final expirationTime = refreshTokenCreatedAt!.add(Duration(milliseconds: refreshExpiresIn!));
+    final expirationTime =
+        refreshTokenCreatedAt!.add(Duration(milliseconds: refreshExpiresIn!));
     return DateTime.now().isBefore(expirationTime);
   }
 

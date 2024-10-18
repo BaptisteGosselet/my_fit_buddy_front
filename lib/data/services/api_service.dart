@@ -38,34 +38,40 @@ class APIService {
     try {
       switch (method) {
         case DioMethod.post:
-          return dio.post(
+          return await dio.post(
             endpoint,
             data: param ?? formData,
           );
         case DioMethod.get:
-          return dio.get(
+          return await dio.get(
             endpoint,
             queryParameters: param,
           );
         case DioMethod.put:
-          return dio.put(
+          return await dio.put(
             endpoint,
             data: param ?? formData,
           );
         case DioMethod.delete:
-          return dio.delete(
+          return await dio.delete(
             endpoint,
             data: param ?? formData,
           );
         default:
-          return dio.post(
+          return await dio.post(
             endpoint,
             data: param ?? formData,
           );
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
-      rethrow;
+
+      return e.response ??
+          Response(
+            requestOptions: RequestOptions(path: endpoint),
+            statusCode: 500,
+            statusMessage: 'Request failed: ${e.message}',
+          );
     }
   }
 

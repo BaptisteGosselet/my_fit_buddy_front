@@ -31,6 +31,7 @@ class LoadingPage extends StatelessWidget {
       ),
       asyncNavigationCallback: () async {
         await Future.delayed(const Duration(seconds: 2));
+
         bool isTokenValid = await TokenStorageService.instance.isTokenValid();
         if (isTokenValid) {
           isTokenValid = await APIService.instance.retrieveRefreshToken();
@@ -43,7 +44,6 @@ class LoadingPage extends StatelessWidget {
             GoRouter.of(context).goNamed("register");
           }
         }
-
       },
     );
   }
