@@ -13,10 +13,8 @@ class LoggingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthViewmodel loggingViewmodel = AuthViewmodel();
-    final TextEditingController usernameController =
-        TextEditingController(text: "dbuser");
-    final TextEditingController passwordController =
-        TextEditingController(text: "toto");
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
