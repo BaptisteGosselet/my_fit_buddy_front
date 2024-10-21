@@ -93,7 +93,7 @@ class SessionsListPageState extends State<SessionsListPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('add session');
-          context.goNamed('sessionDetails');
+          context.pushNamed('sessionDetails');
         },
         backgroundColor: fitBlueDark,
         child: const Icon(
