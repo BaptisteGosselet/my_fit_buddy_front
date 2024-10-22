@@ -32,6 +32,8 @@ class LoadingPage extends StatelessWidget {
       asyncNavigationCallback: () async {
         await Future.delayed(const Duration(seconds: 2));
 
+        print(TokenStorageService.instance.getToken().toString());
+
         bool isTokenValid = await TokenStorageService.instance.isTokenValid();
         if (isTokenValid) {
           isTokenValid = await APIService.instance.retrieveRefreshToken();

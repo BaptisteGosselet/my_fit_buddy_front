@@ -1,60 +1,59 @@
 class Token {
   String? accessToken;
   String? refreshToken;
-  int? accessExpiresIn; // en millisecondes
-  int? refreshExpiresIn; // en millisecondes
-  DateTime? accessTokenCreatedAt;
-  DateTime? refreshTokenCreatedAt;
+  DateTime? accessExpirationDate;
+  DateTime? refreshExpirationDate;
 
   Token({
     this.accessToken,
     this.refreshToken,
-    this.accessExpiresIn,
-    this.refreshExpiresIn,
-    this.accessTokenCreatedAt,
-    this.refreshTokenCreatedAt,
+    this.accessExpirationDate,
+    this.refreshExpirationDate,
   });
 
   factory Token.fromJson(Map<String, dynamic> json) {
+    print(
+        "accessToken : ${json['accessToken']?.toString()} - refreshToken: ${json['refreshToken']?.toString()} - accessExpirationDate : ${json['accessExpirationDate']} - refreshExpirationDate: ${json['refreshExpirationDate']}");
+    
     return Token(
       accessToken: json['accessToken']?.toString(),
       refreshToken: json['refreshToken']?.toString(),
-      accessExpiresIn: json['accessExpiresIn'] is String
-          ? int.tryParse(json['accessExpiresIn'])
-          : json['accessExpiresIn'] as int?,
-      refreshExpiresIn: json['refreshExpiresIn'] is String
-          ? int.tryParse(json['refreshExpiresIn'])
-          : json['refreshExpiresIn'] as int?,
-      accessTokenCreatedAt: DateTime.now(), // moment où le token est créé
-      refreshTokenCreatedAt: DateTime.now(),
+      accessExpirationDate: json['accessExpirationDate'] != null
+          ? DateTime.parse(json['accessExpirationDate'])
+          : null,
+      refreshExpirationDate: json['refreshExpirationDate'] != null
+          ? DateTime.parse(json['refreshExpirationDate'])
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
+    print(toString());
+
     return {
       'accessToken': accessToken,
       'refreshToken': refreshToken,
-      'accessExpiresIn': accessExpiresIn,
-      'refreshExpiresIn': refreshExpiresIn,
+      'accessExpirationDate': accessExpirationDate?.toIso8601String(),
+      'refreshExpirationDate': refreshExpirationDate?.toIso8601String(),
     };
   }
 
   bool isAccessTokenValid() {
-    if (accessExpiresIn == null || accessTokenCreatedAt == null) return false;
-    final expirationTime =
-        accessTokenCreatedAt!.add(Duration(milliseconds: accessExpiresIn!));
-    return DateTime.now().isBefore(expirationTime);
+    if (accessExpirationDate == null) return false;
+    return DateTime.now().isBefore(accessExpirationDate!);
   }
 
   bool isRefreshTokenValid() {
-    if (refreshExpiresIn == null || refreshTokenCreatedAt == null) return false;
-    final expirationTime =
-        refreshTokenCreatedAt!.add(Duration(milliseconds: refreshExpiresIn!));
-    return DateTime.now().isBefore(expirationTime);
+    if (refreshExpirationDate == null) return false;
+    return DateTime.now().isBefore(refreshExpirationDate!);
   }
 
   @override
   String toString() {
-    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken, accessExpiresIn: $accessExpiresIn, refreshExpiresIn: $refreshExpiresIn)';
+    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken, accessExpirationDate: $accessExpirationDate, refreshExpirationDate: $refreshExpirationDate)';
+  }
+
+  DateTime? getAccessEndDate() {
+    return accessExpirationDate;
   }
 }

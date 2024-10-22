@@ -41,8 +41,10 @@ class TokenStorageService {
   Future<bool> isTokenValid() async {
     final Token? tokenJson = await getToken();
     if (tokenJson == null) {
+      print("Token is invalid");
       return false;
     } else {
+      print("Token is valid");
       return tokenJson.isAccessTokenValid() || tokenJson.isRefreshTokenValid();
     }
   }
