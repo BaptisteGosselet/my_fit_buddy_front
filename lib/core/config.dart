@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+var deployed = true;
 
 //Local API config
-var configBaseAPI =
-    (!kIsWeb) ? "http://10.0.2.2:8080" : "http://localhost:8080";
+var configBaseAPI = (deployed)
+    ? "https://myfitbuddybackend-4022873906.europe-west1.run.app"
+    : "http://10.0.2.2:8080";
