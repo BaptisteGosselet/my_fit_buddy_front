@@ -29,6 +29,8 @@
 
     "exercisesTitle" : "Exercises",
     "exercisesSearch" : "Search for an exercise",
-    "muscleGroupMenu" : "Muscle group"
+    "muscleGroupMenu" : "Muscle group",
+    "registerSuccess": "Compte crée",
 
+    "skipButton": "Skip"
 }

@@ -29,7 +29,8 @@
 
     "exercisesTitle": "Exercices",
     "exercisesSearch" : "Rechercher un exercice",
-    "muscleGroupMenu" : "Grp. musculaire"
+    "muscleGroupMenu" : "Grp. musculaire",
     
       
+    "skipButton": "Passer"
 }

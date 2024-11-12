@@ -25,6 +25,7 @@ dependencies:
   another_flutter_splash_screen: ^1.2.1
   flutter_native_splash: ^2.4.1
   fluttertoast: ^8.2.8
+  circular_countdown_timer: ^0.2.4
 
 
 dev_dependencies:
