@@ -23,36 +23,47 @@ class ExercisesListPageState extends State<ExercisesListPage> {
 
   int currentPage = 0;
   List<Exercise> exercises = [];
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchExercises();
+    fetchExercises();
   }
 
-  void _fetchExercises() async {
-    await exercisesViewmodel.updateExercises(
+  Future<void> fetchExercises() async {
+    if (isLoading) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    List<Exercise> newExercises = await exercisesViewmodel.updateExercises(
       searchController.text,
       muscleGroupController.text,
       currentPage,
     );
+
     setState(() {
-      exercises = exercisesViewmodel.exercises;
+      if (newExercises.isNotEmpty) {
+        exercises.addAll(newExercises);
+        currentPage++;
+      }
+      isLoading = false;
     });
   }
 
-  void _handleScroll(ScrollController scrollController) {
+  void handleScroll(ScrollController scrollController) {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      setState(() => currentPage++);
-      _fetchExercises();
+      fetchExercises();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    scrollController.addListener(() => _handleScroll(scrollController));
+    scrollController.addListener(() => handleScroll(scrollController));
 
     return Scaffold(
       backgroundColor: fitCloudWhite,
@@ -68,7 +79,13 @@ class ExercisesListPageState extends State<ExercisesListPage> {
           ),
           FitSearchBar(
             controller: searchController,
-            onSearchChanged: (_) => _fetchExercises(),
+            onSearchChanged: (_) {
+              setState(() {
+                currentPage = 0;
+                exercises.clear();
+              });
+              fetchExercises();
+            },
           ),
           const SizedBox(height: 16),
           Padding(
@@ -80,8 +97,11 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                   options: muscleGroups,
                   controller: muscleGroupController,
                   onItemChanged: () {
-                    currentPage = 0;
-                    _fetchExercises();
+                    setState(() {
+                      currentPage = 0;
+                      exercises.clear();
+                    });
+                    fetchExercises();
                   },
                 ),
                 const Spacer(),
@@ -100,13 +120,18 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               itemCount: exercises.length,
               itemBuilder: (context, index) {
                 final exercise = exercises[index];
+                print(exercise);
                 return ExercisesCard(
-                  title: exercise.key,
-                  subtitle: exercise.muscleGroup,
+                  exercise: exercise,
                 );
               },
             ),
           ),
+          if (isLoading)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: CircularProgressIndicator(),
+            ),
         ],
       ),
     );

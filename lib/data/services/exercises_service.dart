@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
@@ -25,11 +26,17 @@ class ExercisesService {
     String endpoint =
         generateGetEndpoint(key, muscleGroup, pageIndex, pageSize);
     print(endpoint);
+
     try {
       final response =
           await APIService.instance.request(endpoint, DioMethod.get);
       print(response);
-      return [];
+
+      final content = (response.data['content'] as List)
+          .map((item) => Exercise.fromJson(item))
+          .toList();
+      print(content);
+      return content;
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return [];

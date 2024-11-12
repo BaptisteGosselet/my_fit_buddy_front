@@ -5,13 +5,36 @@ class ExercisesViewmodel {
   final ExercisesService exercisesService = ExercisesService();
 
   List<Exercise> exercises = [];
+  bool isLoading = false; // Indicateur de chargement
 
-  Future<void> updateExercises(
+  Future<List<Exercise>> updateExercises(
       String key, String muscleGroup, int pageIndex) async {
-    print("VM updateExercises");
-    print("$key $muscleGroup $pageIndex");
-    exercises =
-        await exercisesService.getExercises(key, muscleGroup, pageIndex);
-    print(exercises);
+    if (isLoading)
+      return []; // Évite de lancer une requête si une est déjà en cours
+
+    print("VM updateExercises - Start");
+    print(
+        "Paramètres: key=$key, muscleGroup=$muscleGroup, pageIndex=$pageIndex");
+    isLoading = true;
+
+    try {
+      List<Exercise> newExercises = await exercisesService.getExercises(
+        key,
+        muscleGroup,
+        pageIndex,
+      );
+
+      exercises.addAll(newExercises);
+
+      print("Total exercises loaded: ${exercises.length}");
+      return newExercises;
+    } catch (error) {
+      print("Erreur lors de l'appel à l'API: $error");
+      return [];
+    } finally {
+      isLoading = false;
+      print("VM updateExercises - End");
+    }
   }
+
 }

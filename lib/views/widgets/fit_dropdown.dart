@@ -25,13 +25,13 @@ class _FitDropdownState extends State<FitDropdown> {
   @override
   void initState() {
     super.initState();
-    selectedItem = widget.options.isNotEmpty ? widget.options.first : null;
-    widget.controller.text = selectedItem ?? '';
+    selectedItem = '';
+    widget.controller.clear();
   }
 
   void clear() {
     setState(() {
-      selectedItem = null;
+      selectedItem = '';
       widget.controller.clear();
     });
   }
@@ -61,7 +61,7 @@ class _FitDropdownState extends State<FitDropdown> {
               fontSize: 12,
             ),
           ),
-          value: selectedItem,
+          value: selectedItem!.isEmpty ? null : selectedItem,
           icon: const Icon(Icons.arrow_drop_down, color: widgetColor),
           items: dropdownOptions.map((String item) {
             return DropdownMenuItem<String>(
@@ -72,7 +72,7 @@ class _FitDropdownState extends State<FitDropdown> {
                 child: Text(
                   item.isEmpty ? '' : item,
                   style: TextStyle(
-                    color: item.isEmpty ? Colors.transparent : fitBlueDark,
+                    color: item.isEmpty ? fitBlueDark : fitBlueDark,
                     fontSize: 14,
                   ),
                 ),
@@ -82,7 +82,7 @@ class _FitDropdownState extends State<FitDropdown> {
           onChanged: (String? newValue) {
             setState(() {
               if (newValue == '') {
-                clear();
+                clear(); // Sélectionne « Clear »
               } else {
                 selectedItem = newValue;
                 widget.controller.text = newValue ?? '';
