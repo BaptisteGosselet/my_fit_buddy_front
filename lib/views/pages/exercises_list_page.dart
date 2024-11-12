@@ -7,6 +7,7 @@ import 'package:my_fit_buddy/views/widgets/exercises_card.dart';
 import 'package:my_fit_buddy/views/widgets/fit_dropdown.dart';
 import 'package:my_fit_buddy/views/widgets/fit_header.dart';
 import 'package:my_fit_buddy/views/widgets/fit_search_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesListPage extends StatefulWidget {
   const ExercisesListPage({super.key});
@@ -72,7 +73,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FitHeader(
-              title: 'TITLE EXERCISES',
+              title: AppLocalizations.of(context)!.exercisesTitle,
               leftIcon: Icons.arrow_back_ios,
               onLeftIconPressed: () => print('retour'),
             ),
@@ -93,7 +94,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
             child: Row(
               children: [
                 FitDropdown(
-                  title: 'Muscle Group',
+                  title: AppLocalizations.of(context)!.muscleGroupMenu,
                   options: muscleGroups,
                   controller: muscleGroupController,
                   onItemChanged: () {
@@ -123,6 +124,8 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                 print(exercise);
                 return ExercisesCard(
                   exercise: exercise,
+                  onTap: (int id) =>
+                      {print('add $id')}, //Todo remplacer par add exercise
                 );
               },
             ),

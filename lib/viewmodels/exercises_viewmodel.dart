@@ -5,12 +5,13 @@ class ExercisesViewmodel {
   final ExercisesService exercisesService = ExercisesService();
 
   List<Exercise> exercises = [];
-  bool isLoading = false; // Indicateur de chargement
+  bool isLoading = false;
 
   Future<List<Exercise>> updateExercises(
       String key, String muscleGroup, int pageIndex) async {
-    if (isLoading)
-      return []; // Évite de lancer une requête si une est déjà en cours
+    if (isLoading) {
+      return [];
+    }
 
     print("VM updateExercises - Start");
     print(

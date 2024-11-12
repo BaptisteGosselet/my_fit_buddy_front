@@ -8,40 +8,37 @@ class ExercisesCard extends StatefulWidget {
   const ExercisesCard({
     super.key,
     required this.exercise,
-    this.onTap,
+    required this.onTap,
   });
 
   final Exercise exercise;
-  final VoidCallback? onTap;
+  final Function(int id) onTap;
 
   @override
   ExercisesCardState createState() => ExercisesCardState();
 }
 
 class ExercisesCardState extends State<ExercisesCard> {
-  bool isPressed = false;
+  bool _isPressed = false;
 
-  void handleTap(bool pressed) {
-    setState(() {
-      isPressed = pressed;
-    });
-  }
+  void _handleTap(bool pressed) => setState(() => _isPressed = pressed);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: GestureDetector(
-        onTapDown: (_) => handleTap(true),
+        onTapDown: (_) => _handleTap(true),
         onTapUp: (_) {
-          handleTap(false);
-          widget.onTap?.call();
+          _handleTap(false);
+          print('Exercice ID: ${widget.exercise.id}');
+          widget.onTap(widget.exercise.id);
         },
-        onTapCancel: () => handleTap(false),
+        onTapCancel: () => _handleTap(false),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
           curve: Curves.easeInOut,
-          transform: Matrix4.identity()..scale(isPressed ? 0.95 : 1.0),
+          transform: Matrix4.identity()..scale(_isPressed ? 0.95 : 1.0),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -95,7 +92,7 @@ class ExercisesCardState extends State<ExercisesCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.exercise.key,
+            widget.exercise.key, // Utilise l'exercice.key pour le titre
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -109,7 +106,7 @@ class ExercisesCardState extends State<ExercisesCard> {
             children: [
               const SizedBox(width: 4),
               Text(
-                widget.exercise.muscleGroup,
+                widget.exercise.muscleGroup, // Affichage du groupe musculaire
                 style: const TextStyle(
                   color: fitBlueMiddle,
                   fontSize: 16,

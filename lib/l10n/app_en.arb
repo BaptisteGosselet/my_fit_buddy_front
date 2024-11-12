@@ -25,6 +25,10 @@
     "registerNotValidEmailFormat": "The email field is invalid",
     "registerPasswordTooShort": "The password must be at least 8 characters long",
     "registerDifferentPassword": "Passwords must be the same",
-    "registerSuccess": "Compte crée"
+    "registerSuccess": "Registered successfuly",
+
+    "exercisesTitle" : "Exercises",
+    "exercisesSearch" : "Search for an exercise",
+    "muscleGroupMenu" : "Muscle group"
 
 }

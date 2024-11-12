@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FitSearchBar extends StatelessWidget {
   final TextEditingController controller;
@@ -28,14 +29,13 @@ class FitSearchBar extends StatelessWidget {
             ),
             child: TextField(
               controller: controller,
-              onChanged:
-                  onSearchChanged, // Ajout de l'écoute du changement de texte
-              decoration: const InputDecoration(
+              onChanged: onSearchChanged,
+              decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'LABEL ENTREZ DU TEXTE ICI',
+                hintText: AppLocalizations.of(context)!.exercisesSearch,
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                suffixIcon: Icon(
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                suffixIcon: const Icon(
                   Icons.search,
                   color: fitBlueDark,
                 ),
