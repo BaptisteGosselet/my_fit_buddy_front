@@ -3,8 +3,13 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 
 class FitSearchBar extends StatelessWidget {
   final TextEditingController controller;
+  final ValueChanged<String>? onSearchChanged;
 
-  const FitSearchBar({super.key, required this.controller});
+  const FitSearchBar({
+    super.key,
+    required this.controller,
+    this.onSearchChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,8 @@ class FitSearchBar extends StatelessWidget {
             ),
             child: TextField(
               controller: controller,
+              onChanged:
+                  onSearchChanged, // Ajout de l'écoute du changement de texte
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'LABEL ENTREZ DU TEXTE ICI',

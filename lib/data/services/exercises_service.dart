@@ -1,0 +1,38 @@
+import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/data/models/exercise.dart';
+import 'package:my_fit_buddy/data/services/api_service.dart';
+
+class ExercisesService {
+  static const String exercisesUrl = "/exercises";
+
+  String generateGetEndpoint(
+      String key, String muscleGroup, int pageIndex, int pageSize) {
+    List<String> params = [];
+
+    if (key.isNotEmpty) params.add('key=$key');
+    if (muscleGroup.isNotEmpty) params.add('muscleGroup=$muscleGroup');
+
+    params.add('page=$pageIndex');
+    params.add('size=$pageSize');
+
+    return '$exercisesUrl?${params.join('&')}';
+  }
+
+  Future<List<Exercise>> getExercises(
+      String key, String muscleGroup, int pageIndex) async {
+    print("S getExercises");
+    const int pageSize = 10;
+    String endpoint =
+        generateGetEndpoint(key, muscleGroup, pageIndex, pageSize);
+    print(endpoint);
+    try {
+      final response =
+          await APIService.instance.request(endpoint, DioMethod.get);
+      print(response);
+      return [];
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return [];
+    }
+  }
+}
