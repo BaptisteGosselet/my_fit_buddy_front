@@ -25,6 +25,11 @@
     "registerNotValidEmailFormat": "Le champ email est invalide",
     "registerPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
     "registerDifferentPassword": "Les mots de passe sont différents",
-    "registerSuccess": "Account created"
+    "registerSuccess": "Account created",
+
+    "exercisesTitle": "Exercices",
+    "exercisesSearch" : "Rechercher un exercice",
+    "muscleGroupMenu" : "Grp. musculaire"
+    
       
 }

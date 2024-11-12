@@ -23,23 +23,11 @@ class APIService {
     DioMethod method, {
     Map<String, dynamic>? param,
     FormData? formData,
+    bool authenticated = true,
   }) async {
-    final currentToken = await TokenStorageService.instance.getToken();
-    if (currentToken != null) {
-      bool accessValid =
-          await TokenStorageService.instance.isAccessTokenValid();
-      if (!accessValid) {
-        bool refreshValid =
-            await TokenStorageService.instance.isRefreshTokenValid();
-        if (refreshValid) {
-          await retrieveRefreshToken();
-        } else {
-          await TokenStorageService.instance.removeToken();
-        }
-      }
-
+    if (authenticated) {
+      updateToken();
       final token = await TokenStorageService.instance.getToken();
-
       if (token?.accessToken != null) {
         dio.options.headers[HttpHeaders.authorizationHeader] =
             'Bearer ${token!.accessToken}';
@@ -76,13 +64,31 @@ class APIService {
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
-
       return e.response ??
           Response(
             requestOptions: RequestOptions(path: endpoint),
             statusCode: 500,
             statusMessage: 'Request failed: ${e.message}',
           );
+    }
+  }
+
+  Future<bool> updateToken() async {
+    bool accessValid = await TokenStorageService.instance.isAccessTokenValid();
+    if (accessValid) {
+      print('UT access est valide');
+      return await retrieveRefreshToken();
+    } else {
+      print('UT access est invalide');
+      bool refreshValid =
+          await TokenStorageService.instance.isRefreshTokenValid();
+      if (refreshValid) {
+        print('UT refresh est valide');
+        return await TokenStorageService.instance.isRefreshTokenValid();
+      } else {
+        print('UT refresh est invalide');
+        return false;
+      }
     }
   }
 
@@ -96,9 +102,9 @@ class APIService {
           'Bearer ${token!.accessToken}';
     }
 
-    final Response response = await dio.post(endpoint);
-
     try {
+      final Response response = await dio.post(endpoint);
+
       if (response.statusCode == 200) {
         TokenStorageService.instance.saveToken(Token.fromJson(response.data));
         return true;

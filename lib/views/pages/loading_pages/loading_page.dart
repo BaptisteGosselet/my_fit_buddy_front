@@ -32,15 +32,17 @@ class LoadingPage extends StatelessWidget {
       asyncNavigationCallback: () async {
         await Future.delayed(const Duration(seconds: 2));
 
-        print(TokenStorageService.instance.getToken().toString());
-
-        bool isTokenValid = await TokenStorageService.instance.isTokenValid();
-        if (isTokenValid) {
-          isTokenValid = await APIService.instance.retrieveRefreshToken();
+        bool isRefreshTokenValid =
+            await TokenStorageService.instance.isRefreshTokenValid();
+        bool tokenLoaded = false;
+        if (isRefreshTokenValid) {
+          tokenLoaded = await APIService.instance.retrieveRefreshToken();
+        } else {
+          print("LOADING refresh est invalide");
         }
 
         if (context.mounted) {
-          if (isTokenValid) {
+          if (tokenLoaded) {
             GoRouter.of(context).goNamed("home");
           } else {
             GoRouter.of(context).goNamed("register");

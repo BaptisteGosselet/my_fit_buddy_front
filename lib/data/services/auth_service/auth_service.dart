@@ -17,7 +17,7 @@ class AuthService {
       await TokenStorageService.instance.removeToken();
       final response = await APIService.instance.request(
           "$authUrl/signup", DioMethod.post,
-          param: registerForm.toJson());
+          param: registerForm.toJson(), authenticated: false);
 
       if (response.statusCode == 200) {
         return StatusType.ok;
@@ -49,13 +49,14 @@ class AuthService {
       await TokenStorageService.instance.removeToken();
       final response = await APIService.instance.request(
           "$authUrl/signin", DioMethod.post,
-          param: loginForm.toJson());
+          param: loginForm.toJson(), authenticated: false);
 
       print(response);
       print(response.data['detail']);
 
       if (response.statusCode == 200) {
         TokenStorageService.instance.saveToken(Token.fromJson(response.data));
+        await APIService.instance.retrieveRefreshToken();
         return StatusType.ok;
       } else if (response.statusCode == 401) {
         if (response.data['detail'] != null) {
