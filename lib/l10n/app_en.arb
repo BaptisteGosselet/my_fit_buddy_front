@@ -1,4 +1,6 @@
 {
+    "languageCode": "en",
+    
     "isLoading": "Loading ...",
     
     "welcomeRegisterMessage": "Register",

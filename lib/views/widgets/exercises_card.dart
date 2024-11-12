@@ -3,6 +3,7 @@ import 'package:my_fit_buddy/core/config.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesCard extends StatefulWidget {
   const ExercisesCard({
@@ -87,12 +88,17 @@ class ExercisesCardState extends State<ExercisesCard> {
   }
 
   Widget buildTextContent() {
+    final String exerciseLabel =
+        AppLocalizations.of(context)!.languageCode == 'fr'
+            ? widget.exercise.labelFr
+            : widget.exercise.labelEn;
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.exercise.key, // Utilise l'exercice.key pour le titre
+            exerciseLabel,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
