@@ -22,11 +22,12 @@ class FitSearchBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextField(
-              controller: controller, 
-              decoration: InputDecoration(
+              controller: controller,
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'LABEL ENTREZ DU TEXTE ICI',
-                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 suffixIcon: Icon(
                   Icons.search,
                   color: fitBlueDark,
