@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({super.key, this.title});
@@ -67,7 +68,7 @@ class _TimerPageState extends State<TimerPage> {
                   width: 30,
                 ),
                 _button(
-                  title: "Passer",
+                  title: AppLocalizations.of(context)!.skipButton,
                   onPressed: () => context.goNamed('home'),
                 ),
                 const SizedBox(
