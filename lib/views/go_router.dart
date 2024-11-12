@@ -36,5 +36,10 @@ final router = GoRouter(
           final id = state.pathParameters['id'];
           return SessionDetailPage(id: id!);
         }),
+    GoRoute(
+      name: 'exercises',
+      path: '/exercises',
+      builder: (context, state) => const HomePage(),
+    ),
   ],
 );

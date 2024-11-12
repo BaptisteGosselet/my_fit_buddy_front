@@ -18,7 +18,7 @@ class FitSearchBar extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: fitBlueDark, width: 2),
+              border: Border.all(color: fitBlueDark, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextField(
