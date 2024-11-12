@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/logging_page.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/timer_page.dart';
 import 'package:my_fit_buddy/views/pages/session_detail_page.dart';
 import 'package:my_fit_buddy/views/pages/loading_pages/loading_page.dart';
 
@@ -40,6 +41,11 @@ final router = GoRouter(
       name: 'exercises',
       path: '/exercises',
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      name: 'timer',
+      path: '/timer',
+      builder: (context, state) => const TimerPage(),
     ),
   ],
 );
