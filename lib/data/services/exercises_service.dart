@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:my_fit_buddy/data/models/exercise.dart';
+import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class ExercisesService {

@@ -1,4 +1,4 @@
-import 'package:my_fit_buddy/data/models/exercise.dart';
+import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/services/exercises_service.dart';
 
 class ExercisesViewmodel {

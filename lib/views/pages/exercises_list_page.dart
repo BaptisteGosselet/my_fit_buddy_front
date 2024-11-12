@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/data/models/exercise.dart';
+import 'package:my_fit_buddy/data/exercises/exercise.dart';
+import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/viewmodels/exercises_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/exercises_card.dart';
@@ -23,13 +24,6 @@ class ExercisesListPageState extends State<ExercisesListPage> {
   int currentPage = 0;
   List<Exercise> exercises = [];
 
-  final Map<String, String> muscleGroupMapping = {
-    'Pectoraux': 'PECTORAL',
-    'Abdominaux': 'ABDOMINAL',
-    'Biceps': 'BICEPS',
-    //TODO Ajouter les autres muscles attendus
-  };
-
   @override
   void initState() {
     super.initState();
@@ -37,11 +31,9 @@ class ExercisesListPageState extends State<ExercisesListPage> {
   }
 
   void _fetchExercises() async {
-    String selectedMuscleGroup =
-        muscleGroupMapping[muscleGroupController.text] ?? '';
     await exercisesViewmodel.updateExercises(
       searchController.text,
-      selectedMuscleGroup,
+      muscleGroupController.text,
       currentPage,
     );
     setState(() {
@@ -74,21 +66,18 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               onLeftIconPressed: () => print('retour'),
             ),
           ),
-
           FitSearchBar(
             controller: searchController,
             onSearchChanged: (_) => _fetchExercises(),
           ),
-
           const SizedBox(height: 16),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               children: [
                 FitDropdown(
                   title: 'Muscle Group',
-                  options: muscleGroupMapping.keys.toList(),
+                  options: muscleGroups,
                   controller: muscleGroupController,
                   onItemChanged: () {
                     currentPage = 0;
@@ -104,8 +93,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               ],
             ),
           ),
-          const SizedBox(height: 10), 
-
+          const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -114,8 +102,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                 final exercise = exercises[index];
                 return ExercisesCard(
                   title: exercise.key,
-                  subtitle: exercise
-                      .muscleGroup, 
+                  subtitle: exercise.muscleGroup,
                 );
               },
             ),

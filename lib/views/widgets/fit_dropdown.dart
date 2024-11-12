@@ -25,13 +25,23 @@ class _FitDropdownState extends State<FitDropdown> {
   @override
   void initState() {
     super.initState();
-    widget.controller.text = selectedItem ?? widget.options.first;
+    selectedItem = widget.options.isNotEmpty ? widget.options.first : null;
+    widget.controller.text = selectedItem ?? '';
+  }
+
+  void clear() {
+    setState(() {
+      selectedItem = null;
+      widget.controller.clear();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     const Color widgetColor = fitBlueDark;
     const double minWidth = 150.0;
+
+    List<String> dropdownOptions = [''] + widget.options;
 
     return Container(
       constraints: const BoxConstraints(minWidth: minWidth),
@@ -53,16 +63,16 @@ class _FitDropdownState extends State<FitDropdown> {
           ),
           value: selectedItem,
           icon: const Icon(Icons.arrow_drop_down, color: widgetColor),
-          items: widget.options.map((String item) {
+          items: dropdownOptions.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 child: Text(
-                  item,
-                  style: const TextStyle(
-                    color: fitBlueDark,
+                  item.isEmpty ? '' : item,
+                  style: TextStyle(
+                    color: item.isEmpty ? Colors.transparent : fitBlueDark,
                     fontSize: 14,
                   ),
                 ),
@@ -71,8 +81,12 @@ class _FitDropdownState extends State<FitDropdown> {
           }).toList(),
           onChanged: (String? newValue) {
             setState(() {
-              selectedItem = newValue;
-              widget.controller.text = newValue ?? '';
+              if (newValue == '') {
+                clear();
+              } else {
+                selectedItem = newValue;
+                widget.controller.text = newValue ?? '';
+              }
             });
 
             if (widget.onItemChanged != null) {
