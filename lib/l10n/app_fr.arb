@@ -1,4 +1,6 @@
 {
+    "languageCode": "fr",
+
     "isLoading": "Chargement ...",
 
     "welcomeRegisterMessage": "Inscription",
@@ -31,6 +33,12 @@
     "exercisesSearch" : "Rechercher un exercice",
     "muscleGroupMenu" : "Grp. musculaire",
     
-      
-    "skipButton": "Passer"
+    
+    "pectorals" : "Pectoraux",
+    "back" : "Dos",
+    "legs" : "Jambes",
+    "shoulders" : "Epaules",
+    "arms" : "Bras",
+    "abs" : "Abdos"
+
 }

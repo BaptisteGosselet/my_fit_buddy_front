@@ -63,6 +63,22 @@ class ExercisesListPageState extends State<ExercisesListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> muscleGroupsOptions =
+        MuscleGroupsUtils.muscleGroups.map((muscle) {
+      final String tradMuscle =
+          MuscleGroupsUtils.translateMuscle(context, muscle.toLowerCase());
+      return {
+        'label': tradMuscle,
+        'value': muscle,
+      };
+    }).toList();
+
+    final List<Map<String, String>> matOptions = [
+      {'label': 'Material 1', 'value': 'm1'},
+      {'label': 'Material 2', 'value': 'm2'},
+      {'label': 'Material 3', 'value': 'm3'},
+    ];
+
     final ScrollController scrollController = ScrollController();
     scrollController.addListener(() => handleScroll(scrollController));
 
@@ -95,7 +111,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               children: [
                 FitDropdown(
                   title: AppLocalizations.of(context)!.muscleGroupMenu,
-                  options: muscleGroups,
+                  options: muscleGroupsOptions,
                   controller: muscleGroupController,
                   onItemChanged: () {
                     setState(() {
@@ -108,7 +124,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                 const Spacer(),
                 FitDropdown(
                   title: 'Mat',
-                  options: const ['m1', 'm2', 'm3'],
+                  options: matOptions,
                   controller: matController,
                 ),
               ],

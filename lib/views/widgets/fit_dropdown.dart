@@ -3,7 +3,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 
 class FitDropdown extends StatefulWidget {
   final String title;
-  final List<String> options;
+  final List<Map<String, String>> options;
   final TextEditingController controller;
   final Function()? onItemChanged;
 
@@ -20,18 +20,18 @@ class FitDropdown extends StatefulWidget {
 }
 
 class _FitDropdownState extends State<FitDropdown> {
-  String? selectedItem;
+  String? selectedValue;
 
   @override
   void initState() {
     super.initState();
-    selectedItem = '';
+    selectedValue = '';
     widget.controller.clear();
   }
 
   void clear() {
     setState(() {
-      selectedItem = '';
+      selectedValue = '';
       widget.controller.clear();
     });
   }
@@ -41,7 +41,10 @@ class _FitDropdownState extends State<FitDropdown> {
     const Color widgetColor = fitBlueDark;
     const double minWidth = 150.0;
 
-    List<String> dropdownOptions = [''] + widget.options;
+    List<Map<String, String>> dropdownOptions = [
+          {'label': '', 'value': ''}
+        ] +
+        widget.options;
 
     return Container(
       constraints: const BoxConstraints(minWidth: minWidth),
@@ -61,18 +64,18 @@ class _FitDropdownState extends State<FitDropdown> {
               fontSize: 12,
             ),
           ),
-          value: selectedItem!.isEmpty ? null : selectedItem,
+          value: selectedValue!.isEmpty ? null : selectedValue,
           icon: const Icon(Icons.arrow_drop_down, color: widgetColor),
-          items: dropdownOptions.map((String item) {
+          items: dropdownOptions.map((option) {
             return DropdownMenuItem<String>(
-              value: item,
+              value: option['value'],
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 child: Text(
-                  item.isEmpty ? '' : item,
+                  option['label'] ?? '',
                   style: TextStyle(
-                    color: item.isEmpty ? fitBlueDark : fitBlueDark,
+                    color: option['value']!.isEmpty ? fitBlueDark : fitBlueDark,
                     fontSize: 14,
                   ),
                 ),
@@ -82,9 +85,9 @@ class _FitDropdownState extends State<FitDropdown> {
           onChanged: (String? newValue) {
             setState(() {
               if (newValue == '') {
-                clear(); // Sélectionne « Clear »
+                clear();
               } else {
-                selectedItem = newValue;
+                selectedValue = newValue;
                 widget.controller.text = newValue ?? '';
               }
             });
