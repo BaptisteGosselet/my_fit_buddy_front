@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/core/config.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
+import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -112,7 +113,8 @@ class ExercisesCardState extends State<ExercisesCard> {
             children: [
               const SizedBox(width: 4),
               Text(
-                widget.exercise.muscleGroup, // Affichage du groupe musculaire
+                MuscleGroupsUtils.translateMuscle(
+                    context, widget.exercise.muscleGroup.toLowerCase()),
                 style: const TextStyle(
                   color: fitBlueMiddle,
                   fontSize: 16,

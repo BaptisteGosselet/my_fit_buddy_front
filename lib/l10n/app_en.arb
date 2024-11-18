@@ -32,7 +32,15 @@
     "exercisesTitle" : "Exercises",
     "exercisesSearch" : "Search for an exercise",
     "muscleGroupMenu" : "Muscle group",
-    "registerSuccess": "Compte crée",
+
+    
+    "pectorals" : "Pectorals",
+    "back" : "Back",
+    "legs" : "Legs",
+    "shoulders" : "Shoulders",
+    "arms" : "Arms",
+    "abs" : "Abs",
+
 
     "skipButton": "Skip"
 }
