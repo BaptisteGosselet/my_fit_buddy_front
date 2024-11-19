@@ -3,10 +3,10 @@ import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/viewmodels/exercises_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/widgets/exercises_card.dart';
-import 'package:my_fit_buddy/views/widgets/fit_dropdown.dart';
+import 'package:my_fit_buddy/views/widgets/elementCards/exercises_card.dart';
+import 'package:my_fit_buddy/views/widgets/inputs/fit_dropdown.dart';
 import 'package:my_fit_buddy/views/widgets/fit_header.dart';
-import 'package:my_fit_buddy/views/widgets/fit_search_bar.dart';
+import 'package:my_fit_buddy/views/widgets/inputs/fit_search_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesListPage extends StatefulWidget {
@@ -140,8 +140,9 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                 print(exercise);
                 return ExercisesCard(
                   exercise: exercise,
-                  onTap: (int id) =>
-                      {print('add $id')}, //Todo remplacer par add exercise
+                  onTap: (int id, int arg1, int restSeconds) => {
+                    print('add $id $arg1 $restSeconds')
+                  }, //Todo remplacer par add exercise
                 );
               },
             ),

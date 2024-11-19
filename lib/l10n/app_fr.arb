@@ -2,6 +2,7 @@
     "languageCode": "fr",
 
     "isLoading": "Chargement ...",
+    "buttonOk": "Ok",
 
     "welcomeRegisterMessage": "Inscription",
     "welcomeLoginMessage": "Salut,\nBon Retour !",
@@ -39,6 +40,18 @@
     "legs" : "Jambes",
     "shoulders" : "Epaules",
     "arms" : "Bras",
-    "abs" : "Abdos"
+    "abs" : "Abdos",
+
+    "skipButton": "Passer",
+
+    "createExerciseDialogTitle": "Ajouter l'exercice",
+    "repetitionsInputLabel": "Reps",
+    "restInputLabel": "Repos",
+    "addButton": "Ajouter",
+
+    "timePickerTitle": "Temps de repos",
+    "minutes": "Minutes",
+    "seconds": "Secondes"
+
 
 }

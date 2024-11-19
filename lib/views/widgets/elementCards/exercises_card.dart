@@ -5,6 +5,7 @@ import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_fit_buddy/views/widgets/modals/customize_exercise_dialog.dart';
 
 class ExercisesCard extends StatefulWidget {
   const ExercisesCard({
@@ -14,7 +15,7 @@ class ExercisesCard extends StatefulWidget {
   });
 
   final Exercise exercise;
-  final Function(int id) onTap;
+  final Function(int id, int reps, int restSeconds) onTap;
 
   @override
   ExercisesCardState createState() => ExercisesCardState();
@@ -25,6 +26,19 @@ class ExercisesCardState extends State<ExercisesCard> {
 
   void _handleTap(bool pressed) => setState(() => _isPressed = pressed);
 
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomizeExerciseDialog(
+          onConfirm: (int reps, int restSeconds) {
+            widget.onTap(widget.exercise.id, reps, restSeconds);
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,8 +47,7 @@ class ExercisesCardState extends State<ExercisesCard> {
         onTapDown: (_) => _handleTap(true),
         onTapUp: (_) {
           _handleTap(false);
-          print('Exercice ID: ${widget.exercise.id}');
-          widget.onTap(widget.exercise.id);
+          _showConfirmationDialog(context);
         },
         onTapCancel: () => _handleTap(false),
         child: AnimatedContainer(
