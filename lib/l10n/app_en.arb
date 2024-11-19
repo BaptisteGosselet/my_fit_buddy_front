@@ -2,7 +2,8 @@
     "languageCode": "en",
     
     "isLoading": "Loading ...",
-    
+    "buttonOk": "Ok",
+
     "welcomeRegisterMessage": "Register",
     "welcomeLoginMessage": "Welcome back !",
     "login": "Login",
@@ -42,5 +43,15 @@
     "abs" : "Abs",
 
 
-    "skipButton": "Skip"
+    "skipButton": "Skip",
+
+
+    "createExerciseDialogTitle": "Add exercise",
+    "repetitionsInputLabel": "Reps",
+    "restInputLabel": "Rest",
+    "addButton": "Add",
+
+    "timePickerTitle": "Rest time",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
 }

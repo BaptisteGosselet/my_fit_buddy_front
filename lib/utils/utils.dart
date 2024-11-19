@@ -25,4 +25,17 @@ class Utils {
 
     return forbiddenCharacters;
   }
+
+  int convertStringTimeToSeconds(final String mmss) {
+/** Exemple mmss = "123:00" ou "0:123" */
+    final parts = mmss.split(':');
+    if (parts.length != 2) {
+      throw const FormatException('Le format attendu est mm:ss');
+    }
+
+    final minutes = int.tryParse(parts[0]) ?? 0;
+    final seconds = int.tryParse(parts[1]) ?? 0;
+
+    return (minutes * 60) + seconds;
+  }
 }
