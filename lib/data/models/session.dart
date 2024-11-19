@@ -9,7 +9,7 @@ class Session {
 
   factory Session.fromJson(Map<String, dynamic> json) {
     return Session(
-      id: json['id'] as int,
+      id: json['id'],
       name: json['name'] as String,
     );
   }

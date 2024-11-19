@@ -1,34 +1,35 @@
-import 'dart:ffi';
-
 class SessionContentExoKey {
-  final Long id;
-  final Long sessionId;
-  final Long exerciseId;
+  final int id;
+  final int sessionId;
+  final int exerciseId;
   final int numberOfSet;
   final int restTimeInSecond;
   final int index;
 
   final String key;
 
-  SessionContentExoKey({
-    required this.id,
-    required this.sessionId,
-    required this.exerciseId,
-    required this.numberOfSet,
-    required this.restTimeInSecond,
-    required this.index,
-    required this.key
-  });
+  SessionContentExoKey(
+      {required this.id,
+      required this.sessionId,
+      required this.exerciseId,
+      required this.numberOfSet,
+      required this.restTimeInSecond,
+      required this.index,
+      required this.key});
+
+  @override
+  String toString() {
+    return "$id + $sessionId + $exerciseId + $numberOfSet + $restTimeInSecond";
+  }
 
   factory SessionContentExoKey.fromJson(Map<String, dynamic> json) {
     return SessionContentExoKey(
-      id: json['id'] as Long,
-      sessionId: json['sessionId'] as Long,
-      exerciseId: json['exerciseId'] as Long,
-      numberOfSet: json['numberOfSet'] as int,
-      restTimeInSecond: json['restTimeInSecond'] as int,
-      index: json['index'] as int,
-      key: json['key'] as String
-    );
+        id: json['id'],
+        sessionId: json['sessionId'],
+        exerciseId: json['exerciseId'],
+        numberOfSet: json['numberOfSet'],
+        restTimeInSecond: json['restTimeInSecond'],
+        index: json['index'],
+        key: json['key'] as String);
   }
 }
