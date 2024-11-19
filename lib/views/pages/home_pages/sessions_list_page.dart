@@ -77,8 +77,8 @@ class SessionsListPageState extends State<SessionsListPage> {
               .createNewSession(AppLocalizations.of(context)!.newSessionName);
           sessionFuture.then((session) {
             if (context.mounted) {
-              context.pushNamed('newSessionDetails',
-                  pathParameters: {'id': session.id.toString()});
+              // context.pushNamed('s',
+              //     pathParameters: {'id': session.id.toString()});
             }
           });
         },
