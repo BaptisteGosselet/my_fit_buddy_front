@@ -53,5 +53,10 @@
 
     "timePickerTitle": "Rest time",
     "minutes": "Minutes",
-    "seconds": "Seconds"
+    "seconds": "Seconds",
+
+    "newSessionName": "Nouvelle session",
+
+    "newExercise": "Ajouter un exercice",
+    "runSession": "Lancer la séance"
 }
