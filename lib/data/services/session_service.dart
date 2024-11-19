@@ -34,11 +34,12 @@ class SessionService {
 
   Future<Session> getUserSessionByID(String id) async {
     try {
-      final response = await APIService.instance
-          .request("$sessionsUrl/user", DioMethod.get); // Todo : Update URL
+      final response =
+          await APIService.instance.request("$sessionsUrl/user", DioMethod.get);
       if (response.statusCode == 200) {
-        if (response.data) {
-          return Session.fromJson(response.data);
+        if (response.data.isNotEmpty) {
+          Session session = Session.fromJson(response.data[0]);
+          return session;
         } else {
           print('Aucune donnée');
           return Future.error('Aucune donnée');
@@ -48,6 +49,33 @@ class SessionService {
             'Erreur lors de la récupération des sessions : ${response.statusCode}');
         return Future.error(
             'Erreur lors de la récupération de la session $id : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
+
+  Future<Session> createNewSession(String newSessionName) async {
+    try {
+      final FormData data = FormData.fromMap({
+        'name': newSessionName,
+      });
+      final response = await APIService.instance
+          .request(sessionsUrl, DioMethod.post, formData: data);
+      if (response.statusCode == 200) {
+        if (response.data) {
+          return Session.fromJson(response.data);
+        } else {
+          print('Aucune donnée');
+          return Future.error('Aucune donnée');
+        }
+      } else {
+        print(
+            'Erreur lors de la création des sessions : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de la création de la session : ${response.statusCode}');
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
