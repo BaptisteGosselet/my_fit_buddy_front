@@ -34,7 +34,6 @@
     "exercisesSearch" : "Rechercher un exercice",
     "muscleGroupMenu" : "Grp. musculaire",
     
-    
     "pectorals" : "Pectoraux",
     "back" : "Dos",
     "legs" : "Jambes",
@@ -53,10 +52,9 @@
     "minutes": "Minutes",
     "seconds": "Secondes",
 
-
-    
-
-
     "newExercise": "Ajouter un exercice",
-    "runSession": "Lancer la séance"
+    "runSession": "Lancer la séance",
+
+    "textNotePlaceholder": "Ecrivez vos notes...",
+    "validateButton": "Sauvegarder"
 }
