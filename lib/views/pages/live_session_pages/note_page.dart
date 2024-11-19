@@ -125,10 +125,6 @@ class _NotePageState extends State<NotePage> with SingleTickerProviderStateMixin
                   ],
                 ),
               ),
-              const Align(
-                alignment: Alignment.bottomCenter,
-                child: ExerciceCardScroll()
-              ),
           ],
         ),
       );
