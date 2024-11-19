@@ -52,6 +52,8 @@
     "minutes": "Minutes",
     "seconds": "Secondes",
 
+    "newSessionName": "Nouvelle session",
+
     "newExercise": "Ajouter un exercice",
     "runSession": "Lancer la séance",
 

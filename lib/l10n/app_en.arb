@@ -53,11 +53,11 @@
     "minutes": "Minutes",
     "seconds": "Seconds",
 
-    "newSessionName": "Nouvelle session",
+    "newSessionName": "New session",
 
     "newExercise": "Ajouter un exercice",
     "runSession": "Lancer la séance",
-    
+
     "textNotePlaceholder": "Write your notes...",
     "validateButton": "Save"
 }
