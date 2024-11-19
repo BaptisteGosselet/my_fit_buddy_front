@@ -51,7 +51,7 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                 children: [
                   FitHeader(
                     title: session.name,
-                    subtitle: "NB EXERCICE",  // TODO Number of exercise
+                    subtitle: "NB EXERCICE", // TODO Number of exercise
                     leftIcon: Icons.arrow_back_ios,
                     rightIcon: Icons.edit,
                     onLeftIconPressed: () => {context.pop()},
