@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/previous_records_widget/previous_records_row.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PreviousRecordsList extends StatelessWidget {
   const PreviousRecordsList({super.key});
@@ -12,52 +13,51 @@ class PreviousRecordsList extends StatelessWidget {
     const Color thisTextColor = Colors.black54;
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16.0, 
+        horizontal: 16.0,
         vertical: 8.0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'TDate',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.date,
+                  style: const TextStyle(
                     fontSize: thisFontSize,
                     fontWeight: thisFontWeight,
                     color: thisTextColor,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
-                  'TReps',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.reps,
+                  style: const TextStyle(
                     fontSize: thisFontSize,
                     fontWeight: thisFontWeight,
                     color: thisTextColor,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
-                  'TKG',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.kg,
+                  style: const TextStyle(
                     fontSize: thisFontSize,
                     fontWeight: thisFontWeight,
                     color: thisTextColor,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ),
           const SizedBox(height: 8.0),
-          
           ConstrainedBox(
             constraints: const BoxConstraints(
-              maxHeight: 120, 
+              maxHeight: 120,
             ),
             child: SingleChildScrollView(
               child: Column(

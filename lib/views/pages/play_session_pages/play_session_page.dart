@@ -4,6 +4,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/play_session_header.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_text_input.dart';
 import 'package:my_fit_buddy/views/widgets/previous_records_widget/previous_records_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaySessionPage extends StatelessWidget {
   const PlaySessionPage({super.key});
@@ -11,7 +12,8 @@ class PlaySessionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController repsTextController = TextEditingController(text: "6");
-    TextEditingController weightTextController = TextEditingController(text: "45");
+    TextEditingController weightTextController =
+        TextEditingController(text: "45");
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -28,7 +30,7 @@ class PlaySessionPage extends StatelessWidget {
                   SizedBox(
                     width: 150,
                     child: FitTextInput(
-                      label: "TRep",
+                      label: AppLocalizations.of(context)!.reps,
                       controller: repsTextController,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
@@ -39,7 +41,7 @@ class PlaySessionPage extends StatelessWidget {
                   SizedBox(
                     width: 150,
                     child: FitTextInput(
-                      label: "TKG",
+                      label: AppLocalizations.of(context)!.kg,
                       controller: weightTextController,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
@@ -66,9 +68,9 @@ class PlaySessionPage extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-                  child: const Text(
-                    'TButton',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  child: Text(
+                    AppLocalizations.of(context)!.finishSet,
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
@@ -86,7 +88,6 @@ class PlaySessionPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
           ],
         ),
       ),
