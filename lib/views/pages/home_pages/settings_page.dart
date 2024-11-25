@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/viewmodels/auth_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/widgets/fit_button.dart';
+import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

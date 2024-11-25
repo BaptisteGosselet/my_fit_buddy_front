@@ -4,8 +4,8 @@ import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_exo_key.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/widgets/fit_button.dart';
-import 'package:my_fit_buddy/views/widgets/fit_header.dart';
+import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
+import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SessionDetailPage extends StatefulWidget {

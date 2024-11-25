@@ -58,5 +58,12 @@
     "runSession": "Lancer la séance",
 
     "textNotePlaceholder": "Ecrivez vos notes...",
-    "validateButton": "Sauvegarder"
+    "validateButton": "Sauvegarder",
+
+    "finishSet": "Finir le set",
+    "set": "Set",
+    "reps": "Reps",
+    "kg": "Kg",
+    "date": "Date"
+    
 }
