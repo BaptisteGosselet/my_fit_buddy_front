@@ -9,6 +9,7 @@ class PlaySessionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double squareSize = 100;
     return Column(
       children: [
         Container(
@@ -40,8 +41,8 @@ class PlaySessionHeader extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      height: 120,
-                      width: 120,
+                      height: squareSize,
+                      width: squareSize,
                       decoration: BoxDecoration(
                         color: Colors.green,
                         border: Border.all(color: Colors.lightBlue, width: 2),
@@ -53,7 +54,7 @@ class PlaySessionHeader extends StatelessWidget {
                         'Title dev couché incliné',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28,
+                          fontSize: 24,
                           fontWeight: fitWeightSemiBold,
                         ),
                         maxLines: 2,

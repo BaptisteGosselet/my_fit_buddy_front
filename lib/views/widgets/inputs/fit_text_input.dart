@@ -11,6 +11,7 @@ class FitTextInput extends StatelessWidget {
     this.inputFormatters,
     this.hintText,
     this.keyboardType,
+    this.borderRadiusValue = 20.0,
   });
 
   final String label;
@@ -19,6 +20,7 @@ class FitTextInput extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? hintText;
   final TextInputType? keyboardType;
+  final double borderRadiusValue;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +54,11 @@ class FitTextInput extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(borderRadiusValue),
                 borderSide: const BorderSide(width: 2, color: fitBlueDark),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(borderRadiusValue),
                 borderSide: const BorderSide(width: 2, color: fitBlueDark),
               ),
             ),
