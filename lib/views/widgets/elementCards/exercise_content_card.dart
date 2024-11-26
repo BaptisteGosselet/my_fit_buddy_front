@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/core/config.dart';
 import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
-import 'package:my_fit_buddy/views/widgets/modals/delete_session_content_dialog.dart';
 
 class ExerciseContentCard extends StatefulWidget {
   const ExerciseContentCard({super.key, required this.content});
