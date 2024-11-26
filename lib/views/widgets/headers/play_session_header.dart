@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/data/exercises/exercise.dart';
+import 'package:my_fit_buddy/core/config.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -8,8 +9,8 @@ import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/play_session_set_button.dart';
 
 class PlaySessionHeader extends StatelessWidget {
-  final Exercise exercise;  
-  const PlaySessionHeader({super.key, required this.exercise});
+  final SessionContentExercise sessionContentExercise;
+  const PlaySessionHeader({super.key, required this.sessionContentExercise});
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +49,30 @@ class PlaySessionHeader extends StatelessWidget {
                       height: squareSize,
                       width: squareSize,
                       decoration: BoxDecoration(
-                        color: Colors.green,
-                        border: Border.all(color: Colors.lightBlue, width: 2),
+                        border: Border.all(color: fitBlueMiddle, width: 2),
+                      ),
+                      child: Image.network(
+                        '$configBaseAPI/exercises/${sessionContentExercise.exercise.id}/image',
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error, color: Colors.red);
+                        },
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: AutoSizeText(
-                        Utils.instance.getTranslatedExerciseLabel(context, exercise),
+                        Utils.instance.getTranslatedExerciseLabel(
+                            context, sessionContentExercise.exercise),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -64,7 +81,7 @@ class PlaySessionHeader extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        minFontSize: 16,
+                        minFontSize: 14,
                       ),
                     ),
                   ],
@@ -81,7 +98,7 @@ class PlaySessionHeader extends StatelessWidget {
                     ),
                     child: Row(
                       children: List.generate(
-                        10, // Nombre de boutons PlaySessionSetButton (modifiable)
+                        sessionContentExercise.numberOfSet,
                         (index) => const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: PlaySessionSetButton(),

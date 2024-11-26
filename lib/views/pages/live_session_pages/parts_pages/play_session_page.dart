@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
-import 'package:my_fit_buddy/utils/utils.dart';
-import 'package:my_fit_buddy/viewmodels/live_session_viewmodel.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/play_session_header.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_text_input.dart';
@@ -30,7 +28,7 @@ class PlaySessionPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PlaySessionHeader(exercise: sessionContentExercise.exercise),
+            PlaySessionHeader(sessionContentExercise: sessionContentExercise),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -92,18 +90,6 @@ class PlaySessionPage extends StatelessWidget {
               ),
             ),
             const PreviousRecordsList(),
-            const SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              height: 100,
-              color: Colors.green,
-              child: const Center(
-                child: Text(
-                  'Container',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:my_fit_buddy/viewmodels/live_session_viewmodel.dart';
-import 'package:my_fit_buddy/views/pages/live_session_pages/play_session_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/play_session_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_fit_buddy/views/pages/live_session_pages/timer_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_page.dart';
 
 class MainLiveSessionPage extends StatefulWidget {
   final String sessionId;
@@ -62,8 +63,12 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToNextExercise() {
-    liveSessionViewmodel.incrementPos();
-    switchPage(0);
+    bool hasNext = liveSessionViewmodel.next();
+    if (hasNext) {
+      switchPage(0);
+    } else {
+      switchPage(2);
+    }
   }
 
   @override
@@ -73,25 +78,36 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     }
 
     Widget currentPage;
+    SessionContentExercise currentContent =
+        liveSessionViewmodel.getCurrentSessionContentExercise();
     if (currentIndex == 0) {
-      SessionContentExercise currentContent =
-          liveSessionViewmodel.getCurrentSessionContentExercise();
       currentPage = PlaySessionPage(
           sessionContentExercise: currentContent, onFinishClick: goToTimer);
     } else if (currentIndex == 1) {
-      currentPage = TimerPage(onSkip: goToNextExercise);
+      currentPage = TimerPage(
+          duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);
+    } else if (currentIndex == 2) {
+      currentPage = const NotePage();
     } else {
-      currentPage = Container(color: Colors.red,);
+      currentPage = Container(
+        color: Colors.red,
+      );
     }
 
     return Scaffold(
       body: Column(
         children: [
           Expanded(child: currentPage),
-          //TODO delete button
-          ElevatedButton(
-            onPressed: () => switchPage(0),
-            child: const Text('Changer de page'),
+          Container(
+            width: double.infinity,
+            height: 100,
+            color: Colors.green,
+            child: const Center(
+              child: Text(
+                'Container',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
         ],
       ),

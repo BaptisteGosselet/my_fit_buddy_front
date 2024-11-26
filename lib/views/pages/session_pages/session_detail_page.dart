@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/session.dart';
-import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';

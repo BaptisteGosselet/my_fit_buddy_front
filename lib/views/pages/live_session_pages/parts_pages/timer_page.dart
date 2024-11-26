@@ -4,16 +4,17 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimerPage extends StatefulWidget {
-  const TimerPage({super.key, this.title, required this.onSkip});
-  final Function onSkip;
+  const TimerPage(
+      {super.key, this.title, required this.duration, required this.onSkip});
   final String? title;
+  final int duration;
+  final Function onSkip;
 
   @override
   State<TimerPage> createState() => TimerPageState();
 }
 
 class TimerPageState extends State<TimerPage> {
-  final int _duration = 300;
   final CountDownController _controller = CountDownController();
 
   @override
@@ -31,7 +32,7 @@ class TimerPageState extends State<TimerPage> {
         child: Column(
           children: [
             CircularCountDownTimer(
-              duration: _duration,
+              duration: widget.duration,
               initialDuration: 0,
               controller: _controller,
               width: MediaQuery.of(context).size.width / 1.5,
@@ -63,7 +64,7 @@ class TimerPageState extends State<TimerPage> {
                 ),
                 _button(
                   title: AppLocalizations.of(context)!.skipButton,
-                  onPressed: () => widget.onSkip(), // Corrected function call
+                  onPressed: () => widget.onSkip(),
                 ),
                 const SizedBox(
                   width: 30,
@@ -80,7 +81,7 @@ class TimerPageState extends State<TimerPage> {
     return Expanded(
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(fitBlueDark),
+          backgroundColor: WidgetStateProperty.all(fitBlueDark),
         ),
         onPressed: onPressed,
         child: Text(
