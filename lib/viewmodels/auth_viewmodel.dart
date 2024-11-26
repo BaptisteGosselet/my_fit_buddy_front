@@ -22,6 +22,8 @@ class AuthViewmodel {
 
   Future<void> register(String username, String email, String password,
       String passwordConfirm, BuildContext context) async {
+    await TokenStorageService.instance.removeToken();
+
     String forbiddenUsernameCharacters =
         Utils.instance.usernameForbiddenCharacters(username);
 
@@ -85,6 +87,8 @@ class AuthViewmodel {
 
   Future<void> login(
       String username, String password, BuildContext context) async {
+    await TokenStorageService.instance.removeToken();
+
     await test();
     print('AuthViewModel.login');
     StatusType result = await authService.login(username, password);
