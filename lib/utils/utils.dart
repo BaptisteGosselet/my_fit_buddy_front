@@ -1,3 +1,5 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class Utils {
   Utils._singleton();
   static final Utils instance = Utils._singleton();
@@ -37,5 +39,11 @@ class Utils {
     final seconds = int.tryParse(parts[1]) ?? 0;
 
     return (minutes * 60) + seconds;
+  }
+
+  String getTranslatedExerciseLabel(context, exercise) {
+    return AppLocalizations.of(context)!.languageCode == 'fr'
+        ? exercise.labelFr
+        : exercise.labelEn;
   }
 }
