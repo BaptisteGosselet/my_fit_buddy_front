@@ -14,19 +14,19 @@ class ExerciseContentCard extends StatefulWidget {
 }
 
 class ExerciseContentCardState extends State<ExerciseContentCard> {
-  bool _isPressed = false;
+  // bool _isPressed = false;
 
-  void _handleTap(bool pressed) => setState(() => _isPressed = pressed);
+  // void _handleTap(bool pressed) => setState(() => _isPressed = pressed);
 
-  void _showConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return DeleteSessionContentDialog(
-            onConfirm: (id) => {print(id)}, id: widget.content.id);
-      },
-    );
-  }
+  // void _showConfirmationDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return DeleteSessionContentDialog(
+  //           onConfirm: (id) => {print(id)}, id: widget.content.id);
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
