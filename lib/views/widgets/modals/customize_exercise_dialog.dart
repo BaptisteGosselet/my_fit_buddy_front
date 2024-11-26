@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/widgets/fit_button.dart';
+import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_text_input.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_time_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

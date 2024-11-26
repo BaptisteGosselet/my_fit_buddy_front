@@ -3,8 +3,10 @@ import 'package:my_fit_buddy/views/pages/authentification_pages/logging_page.dar
 import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.dart';
 import 'package:my_fit_buddy/views/pages/exercises_list_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/note_page.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/timer_page.dart';
 import 'package:my_fit_buddy/views/pages/loading_pages/loading_page.dart';
+import 'package:my_fit_buddy/views/pages/play_session_pages/play_session_page.dart';
 import 'package:my_fit_buddy/views/pages/session_pages/session_detail_page.dart';
 
 // GoRouter configuration
@@ -51,9 +53,14 @@ final router = GoRouter(
       builder: (context, state) => const TimerPage(),
     ),
     GoRoute(
+      name: 'note',
+      path: '/note',
+      builder: (context, state) => const NotePage(),
+    ),
+    GoRoute(
       name: 'playSession',
       path: '/playSession',
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const PlaySessionPage(),
     ),
   ],
 );

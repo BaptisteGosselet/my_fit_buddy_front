@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/core/config.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
+import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/widgets/modals/customize_exercise_dialog.dart';
 
 class ExercisesCard extends StatefulWidget {
@@ -103,9 +103,7 @@ class ExercisesCardState extends State<ExercisesCard> {
 
   Widget buildTextContent() {
     final String exerciseLabel =
-        AppLocalizations.of(context)!.languageCode == 'fr'
-            ? widget.exercise.labelFr
-            : widget.exercise.labelEn;
+        Utils.instance.getTranslatedExerciseLabel(context, widget.exercise);
 
     return Expanded(
       child: Column(

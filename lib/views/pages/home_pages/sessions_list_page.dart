@@ -4,7 +4,7 @@ import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/viewmodels/sessions_list_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
-import 'package:my_fit_buddy/views/widgets/fit_header.dart';
+import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/session_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

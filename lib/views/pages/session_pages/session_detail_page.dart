@@ -4,10 +4,10 @@ import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
+import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/exercise_content_card.dart';
-import 'package:my_fit_buddy/views/widgets/fit_button.dart';
-import 'package:my_fit_buddy/views/widgets/fit_header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
 
 class SessionDetailPage extends StatefulWidget {
   final String id;
