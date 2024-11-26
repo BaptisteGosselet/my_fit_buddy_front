@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/logging_page.dart';
 import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.dart';
+import 'package:my_fit_buddy/views/pages/exercises_list_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/note_page.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/timer_page.dart';
@@ -40,10 +41,12 @@ final router = GoRouter(
           return SessionDetailPage(id: id!);
         }),
     GoRoute(
-      name: 'exercises',
-      path: '/exercises',
-      builder: (context, state) => const HomePage(),
-    ),
+        name: 'exercises',
+        path: '/exercises/:idSession',
+        builder: (context, state) {
+          final int id = int.parse(state.pathParameters['idSession']!);
+          return ExercisesListPage(idSession: id);
+        }),
     GoRoute(
       name: 'timer',
       path: '/timer',

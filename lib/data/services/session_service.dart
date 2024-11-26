@@ -35,10 +35,10 @@ class SessionService {
   Future<Session> getUserSessionByID(String id) async {
     try {
       final response =
-          await APIService.instance.request("$sessionsUrl/user", DioMethod.get);
+          await APIService.instance.request("$sessionsUrl/$id", DioMethod.get);
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
-          Session session = Session.fromJson(response.data[0]);
+          Session session = Session.fromJson(response.data);
           return session;
         } else {
           print('Aucune donnée');

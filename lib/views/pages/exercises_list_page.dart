@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/viewmodels/exercises_viewmodel.dart';
+import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/exercises_card.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_dropdown.dart';
@@ -10,7 +12,8 @@ import 'package:my_fit_buddy/views/widgets/inputs/fit_search_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesListPage extends StatefulWidget {
-  const ExercisesListPage({super.key});
+  final int idSession;
+  const ExercisesListPage({super.key, required this.idSession});
 
   @override
   ExercisesListPageState createState() => ExercisesListPageState();
@@ -18,6 +21,7 @@ class ExercisesListPage extends StatefulWidget {
 
 class ExercisesListPageState extends State<ExercisesListPage> {
   final ExercisesViewmodel exercisesViewmodel = ExercisesViewmodel();
+  final SessionViewmodel sessionViewmodel = SessionViewmodel();
   final TextEditingController searchController = TextEditingController();
   final TextEditingController muscleGroupController = TextEditingController();
   final TextEditingController matController = TextEditingController();
@@ -91,7 +95,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
             child: FitHeader(
               title: AppLocalizations.of(context)!.exercisesTitle,
               leftIcon: Icons.arrow_back_ios,
-              onLeftIconPressed: () => print('retour'),
+              onLeftIconPressed: () => {context.pop()},
             ),
           ),
           FitSearchBar(
@@ -140,9 +144,10 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                 print(exercise);
                 return ExercisesCard(
                   exercise: exercise,
-                  onTap: (int id, int arg1, int restSeconds) => {
-                    print('add $id $arg1 $restSeconds')
-                  }, //Todo remplacer par add exercise
+                  onTap: (int idExercise, int nbSet, int restSeconds) => {
+                    sessionViewmodel.createNewSessionContent(
+                        widget.idSession, idExercise, nbSet, restSeconds)
+                  },
                 );
               },
             ),

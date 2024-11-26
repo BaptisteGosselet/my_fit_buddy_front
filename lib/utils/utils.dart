@@ -30,6 +30,9 @@ class Utils {
 
   int convertStringTimeToSeconds(final String mmss) {
 /** Exemple mmss = "123:00" ou "0:123" */
+    if (mmss.isEmpty) {
+      return 0;
+    }
     final parts = mmss.split(':');
     if (parts.length != 2) {
       throw const FormatException('Le format attendu est mm:ss');
