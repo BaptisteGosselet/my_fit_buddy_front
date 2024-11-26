@@ -47,7 +47,7 @@
     "createExerciseDialogTitle": "Add exercise",
     "repetitionsInputLabel": "Reps",
     "restInputLabel": "Rest",
-
+    
     "addButton": "Add",
     "deleteButton": "Delete",
 
@@ -56,8 +56,18 @@
     "seconds": "Seconds",
 
     "newSessionName": "New session",
-    
+
     "exercises": "Exercise(s)",
-    "newExercise": "Add an exercise",
-    "runSession": "Start the session"
+    "newExercise": "Ajouter un exercice",
+    "runSession": "Lancer la séance",
+
+    "textNotePlaceholder": "Write your notes...",
+    "validateButton": "Save",
+
+    "finishSet": "Finir le set",
+    "set": "Set",
+    "reps": "Reps",
+    "kg": "Kg",
+    "date": "Date"
+
 }
