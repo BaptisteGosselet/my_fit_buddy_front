@@ -47,16 +47,17 @@
     "createExerciseDialogTitle": "Ajouter l'exercice",
     "repetitionsInputLabel": "Reps",
     "restInputLabel": "Repos",
+    
     "addButton": "Ajouter",
+    "deleteButton": "Supprimer",
 
     "timePickerTitle": "Temps de repos",
     "minutes": "Minutes",
     "seconds": "Secondes",
 
+    "newSessionName": "Nouvelle session",
 
-    
-
-
+    "exercises": "Exercice(s)",
     "newExercise": "Ajouter un exercice",
     "runSession": "Lancer la séance"
 }

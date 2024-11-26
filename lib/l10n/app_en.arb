@@ -42,21 +42,22 @@
     "arms" : "Arms",
     "abs" : "Abs",
 
-
     "skipButton": "Skip",
-
 
     "createExerciseDialogTitle": "Add exercise",
     "repetitionsInputLabel": "Reps",
     "restInputLabel": "Rest",
+
     "addButton": "Add",
+    "deleteButton": "Delete",
 
     "timePickerTitle": "Rest time",
     "minutes": "Minutes",
     "seconds": "Seconds",
 
-    "newSessionName": "Nouvelle session",
-
-    "newExercise": "Ajouter un exercice",
-    "runSession": "Lancer la séance"
+    "newSessionName": "New session",
+    
+    "exercises": "Exercise(s)",
+    "newExercise": "Add an exercise",
+    "runSession": "Start the session"
 }
