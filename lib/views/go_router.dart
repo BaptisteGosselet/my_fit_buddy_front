@@ -49,11 +49,6 @@ final router = GoRouter(
           return ExercisesListPage(idSession: id);
         }),
     GoRoute(
-      name: 'timer',
-      path: '/timer',
-      builder: (context, state) => const TimerPage(),
-    ),
-    GoRoute(
       name: 'note',
       path: '/note',
       builder: (context, state) => const NotePage(),

@@ -19,7 +19,7 @@ class SessionContentExercise {
 
   @override
   String toString() {
-    return "$id + $sessionId + $exercise + $numberOfSet + $restTimeInSecond";
+    return "$id $sessionId $exercise $numberOfSet $restTimeInSecond";
   }
 
   factory SessionContentExercise.fromJson(Map<String, dynamic> json) {

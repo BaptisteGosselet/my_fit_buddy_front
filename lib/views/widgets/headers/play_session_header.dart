@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_fit_buddy/data/exercises/exercise.dart';
+import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/play_session_set_button.dart';
 
 class PlaySessionHeader extends StatelessWidget {
-  const PlaySessionHeader({super.key});
+  final Exercise exercise;  
+  const PlaySessionHeader({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +53,10 @@ class PlaySessionHeader extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    const Expanded(
+                    Expanded(
                       child: AutoSizeText(
-                        'Title dev couché incliné',
-                        style: TextStyle(
+                        Utils.instance.getTranslatedExerciseLabel(context, exercise),
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: fitWeightSemiBold,

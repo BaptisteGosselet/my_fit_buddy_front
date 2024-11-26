@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimerPage extends StatefulWidget {
-  const TimerPage({super.key, this.title});
-
+  const TimerPage({super.key, this.title, required this.onSkip});
+  final Function onSkip;
   final String? title;
 
   @override
-  State<TimerPage> createState() => _TimerPageState();
+  State<TimerPage> createState() => TimerPageState();
 }
 
-class _TimerPageState extends State<TimerPage> {
+class TimerPageState extends State<TimerPage> {
   final int _duration = 300;
   final CountDownController _controller = CountDownController();
 
@@ -23,7 +22,7 @@ class _TimerPageState extends State<TimerPage> {
       appBar: AppBar(
         title: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 25),
-          onPressed: () => context.goNamed('home'),
+          onPressed: () => {print("bye bye")},
           padding: const EdgeInsets.all(8),
           highlightColor: Colors.white.withOpacity(0.1),
         ),
@@ -38,11 +37,8 @@ class _TimerPageState extends State<TimerPage> {
               width: MediaQuery.of(context).size.width / 1.5,
               height: MediaQuery.of(context).size.height / 2,
               ringColor: fitBlueDark,
-              ringGradient: null,
               fillColor: fitBlueMiddle,
-              fillGradient: null,
               backgroundColor: Colors.white,
-              backgroundGradient: null,
               strokeWidth: 20.0,
               strokeCap: StrokeCap.round,
               textStyle: const TextStyle(
@@ -52,12 +48,10 @@ class _TimerPageState extends State<TimerPage> {
               ),
               textFormat: CountdownTextFormat.MM_SS,
               isReverse: true,
-              isReverseAnimation: false,
               isTimerTextShown: true,
               autoStart: true,
-              onStart: () {},
               onComplete: () {
-                context.goNamed('home');
+                widget.onSkip(); // Corrected function call
               },
               onChange: (String timeStamp) {},
             ),
@@ -69,7 +63,7 @@ class _TimerPageState extends State<TimerPage> {
                 ),
                 _button(
                   title: AppLocalizations.of(context)!.skipButton,
-                  onPressed: () => context.goNamed('home'),
+                  onPressed: () => widget.onSkip(), // Corrected function call
                 ),
                 const SizedBox(
                   width: 30,
@@ -82,11 +76,11 @@ class _TimerPageState extends State<TimerPage> {
     );
   }
 
-  Widget _button({required String title, VoidCallback? onPressed}) {
+  Widget _button({required String title, required VoidCallback onPressed}) {
     return Expanded(
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(fitBlueDark),
+          backgroundColor: MaterialStateProperty.all(fitBlueDark),
         ),
         onPressed: onPressed,
         child: Text(

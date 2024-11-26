@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
+import 'package:my_fit_buddy/utils/utils.dart';
+import 'package:my_fit_buddy/viewmodels/live_session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/play_session_header.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_text_input.dart';
@@ -7,20 +10,27 @@ import 'package:my_fit_buddy/views/widgets/previous_records_widget/previous_reco
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaySessionPage extends StatelessWidget {
-  const PlaySessionPage({super.key});
+  final SessionContentExercise sessionContentExercise;
+  final Function(SessionContentExercise, int, int) onFinishClick;
+
+  const PlaySessionPage({
+    super.key,
+    required this.sessionContentExercise,
+    required this.onFinishClick,
+  });
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController repsTextController = TextEditingController(text: "6");
+    TextEditingController repsTextController = TextEditingController(text: "0");
     TextEditingController weightTextController =
-        TextEditingController(text: "45");
+        TextEditingController(text: "0");
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const PlaySessionHeader(),
+            PlaySessionHeader(exercise: sessionContentExercise.exercise),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -58,8 +68,14 @@ class PlaySessionPage extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    print(
-                        "reps : ${repsTextController.text}, weight : ${weightTextController.text}");
+                    final reps = int.tryParse(repsTextController.text);
+                    final weight = int.tryParse(weightTextController.text);
+
+                    if (reps != null && weight != null) {
+                      onFinishClick(sessionContentExercise, reps, weight);
+                    } else {
+                      print("ERREUR");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: fitBlueDark,
