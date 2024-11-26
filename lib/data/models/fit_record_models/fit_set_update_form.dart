@@ -17,4 +17,14 @@ class FitSetUpdateForm {
   String toString() {
     return 'FitSetUpdateForm(idFitSet: $idFitSet, idExercise: $idExercise, nbOrder: $nbOrder, nbRep: $nbRep, weight: $weight)';
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'idFitSet': idFitSet,
+      'idExercise': idExercise,
+      'nbOrder': nbOrder,
+      'nbRep': nbRep,
+      'weight': weight,
+    };
+  }
 }

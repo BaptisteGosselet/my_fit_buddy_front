@@ -24,7 +24,7 @@ class LiveSessionViewmodel {
     sessionContentExerciseList =
         await sessionContentService.getSessionContents(sessionId);
 
-    currentRecord = await fitRecordService.createRecord();
+    currentRecord = await fitRecordService.createRecord(sessionId);
 
     return sessionContentExerciseList.isNotEmpty;
   }
