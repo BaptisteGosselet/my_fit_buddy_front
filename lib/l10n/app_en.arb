@@ -73,6 +73,10 @@
     "kg": "Kg",
     "date": "Date",
 
-    "sessionEmpty": "The session is empty."
+    "sessionEmpty": "The session is empty.",
+
+    "recordListTitle": "myFitBuddy",
+    "recordListSubtitle": "View your progress"
+
 
 }

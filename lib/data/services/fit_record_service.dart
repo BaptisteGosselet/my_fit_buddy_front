@@ -6,6 +6,26 @@ class FitRecordService {
   static const String recordsUrl = "/records";
   static const String setsUrl = "/sets";
 
+  Future<List<FitRecord>> getUserRecords() async {
+    try {
+      final response = await APIService.instance.request(
+        '$recordsUrl/user',
+        DioMethod.get,
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        return data.map((json) => FitRecord.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to fetch records of user');
+      }
+    } catch (e) {
+      print(
+          'Erreur lors de la récupération des enregistrements de l\'utilisateur : $e');
+      return Future.error('Erreur lors de la récupération des enregistrements');
+    }
+  }
+
   Future<FitRecord> createRecord(String sessionId) async {
     print('$recordsUrl/create/$sessionId');
     try {
