@@ -70,6 +70,33 @@
     "set": "Set",
     "reps": "Reps",
     "kg": "Kg",
-    "date": "Date"
+    "date": "Date",
+
+    "sessionEmpty": "La séance est vide.",
+
+    "recordListTitle": "myFitBuddy",
+    "recordListSubtitle": "Consulte ta progression",
     
+    "monday_abr": "Lun",
+    "tuesday_abr": "Mar",
+    "wednesday_abr": "Mer",
+    "thursday_abr": "Jeu",
+    "friday_abr": "Ven",
+    "saturday_abr": "Sam",
+    "sunday_abr": "Dim",
+    "january_abr": "Jan",
+    "february_abr": "Feb",
+    "march_abr": "Mar",
+    "april_abr": "Apr",
+    "may_abr": "May",
+    "june_abr": "Jun",
+    "july_abr": "Jul",
+    "august_abr": "Aug",
+    "september_abr": "Sep",
+    "october_abr": "Oct",
+    "november_abr": "Nov",
+    "december_abr": "Dec"
+
+    
+
 }

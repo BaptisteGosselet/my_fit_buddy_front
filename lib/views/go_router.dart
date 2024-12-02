@@ -3,10 +3,10 @@ import 'package:my_fit_buddy/views/pages/authentification_pages/logging_page.dar
 import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.dart';
 import 'package:my_fit_buddy/views/pages/exercises_list_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
-import 'package:my_fit_buddy/views/pages/live_session_pages/note_page.dart';
-import 'package:my_fit_buddy/views/pages/live_session_pages/timer_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/main_live_session_page.dart';
+import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_page.dart';
 import 'package:my_fit_buddy/views/pages/loading_pages/loading_page.dart';
-import 'package:my_fit_buddy/views/pages/play_session_pages/play_session_page.dart';
+import 'package:my_fit_buddy/views/pages/records_pages/records_detail_page.dart';
 import 'package:my_fit_buddy/views/pages/session_pages/session_detail_page.dart';
 
 // GoRouter configuration
@@ -48,19 +48,24 @@ final router = GoRouter(
           return ExercisesListPage(idSession: id);
         }),
     GoRoute(
-      name: 'timer',
-      path: '/timer',
-      builder: (context, state) => const TimerPage(),
-    ),
-    GoRoute(
       name: 'note',
       path: '/note',
       builder: (context, state) => const NotePage(),
     ),
     GoRoute(
-      name: 'playSession',
-      path: '/playSession',
-      builder: (context, state) => const PlaySessionPage(),
-    ),
+        name: 'liveSession',
+        path: '/liveSession/:sessionId',
+        builder: (context, state) {
+          final sessionId = state.pathParameters['sessionId']!;
+          return MainLiveSessionPage(sessionId: sessionId);
+        }),
+    GoRoute(
+      name: 'recordDetails',
+      path: '/recordDetails/:recordId',
+      builder: (context, state) {
+        final recordId = int.parse(state.pathParameters['recordId']!);
+        return RecordsDetailPage(recordId: recordId);
+      },
+    )
   ],
 );
