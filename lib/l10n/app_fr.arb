@@ -50,6 +50,9 @@
     "addButton": "Ajouter",
     "deleteButton": "Supprimer",
 
+    "deleteContentConfirmTitle": "Supprimer l'exercice",
+    "deleteContentConfirmMsg": "Êtes-vous sur de vouloir suprimer cet exercice ?. Les statistiques liées à cet exercice seront toujours disponible.",
+    
     "timePickerTitle": "Temps de repos",
     "minutes": "Minutes",
     "seconds": "Secondes",

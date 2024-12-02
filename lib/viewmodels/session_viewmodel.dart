@@ -1,6 +1,7 @@
 import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_create_form.dart';
 import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
+import 'package:my_fit_buddy/data/models/session_create_form.dart';
 import 'package:my_fit_buddy/data/services/session_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
 
@@ -18,7 +19,8 @@ class SessionViewmodel {
   }
 
   Future<Session> createNewSession(String newSessionName) async {
-    return await sessionService.createNewSession(newSessionName);
+    return await sessionService
+        .createNewSession(SessionCreateForm(name: newSessionName));
   }
 
   Future<bool> createNewSessionContent(final int idSession,
@@ -29,5 +31,9 @@ class SessionViewmodel {
             exerciseId: idExercise,
             numberOfSet: nbSet,
             restTimeInSecond: restSeconds));
+  }
+
+  Future<bool> deleteSessionContent(final int id) async {
+    return await sessionContentService.deleteSessionContent(id);
   }
 }
