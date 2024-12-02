@@ -75,10 +75,10 @@ class SessionsListPageState extends State<SessionsListPage> {
           print('add session');
           final sessionFuture = SessionViewmodel()
               .createNewSession(AppLocalizations.of(context)!.newSessionName);
-          sessionFuture.then((session) {
+          sessionFuture.then((newSession) {
             if (context.mounted) {
-              // context.pushNamed('s',
-              //     pathParameters: {'id': session.id.toString()});
+              context.pushNamed('sessionDetails',
+                  pathParameters: {'id': newSession.id.toString()});
             }
           });
         },

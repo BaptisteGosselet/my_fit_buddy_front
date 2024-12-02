@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 
 class DeleteSessionContentDialog extends StatefulWidget {
@@ -29,8 +30,8 @@ class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            AppLocalizations.of(context)!.createExerciseDialogTitle,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            AppLocalizations.of(context)!.deleteContentConfirmTitle,
+            style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
           ),
           IconButton(
             icon: const Icon(Icons.close),
@@ -40,7 +41,9 @@ class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
           ),
         ],
       ),
-      content: const Text("Are you sure to supp ?"),
+      content: Text(
+        AppLocalizations.of(context)!.deleteContentConfirmMsg,
+      ),
       actions: [
         FitButton(
           buttonColor: fitBlueDark,

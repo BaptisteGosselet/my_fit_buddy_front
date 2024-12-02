@@ -19,21 +19,32 @@ class SessionDetailPage extends StatefulWidget {
 
 class SessionDetailPageState extends State<SessionDetailPage> {
   late Future<Session> _session;
-  late Future<List<SessionContentExercise>> _sessionContents;
+  List<SessionContentExercise> sessionContents = [];
 
   @override
   void initState() {
     super.initState();
     _fetchSession();
-    _fetchSessionContents();
+    _loadSessionContents();
   }
 
-  void _fetchSessionContents() {
-    _sessionContents = SessionViewmodel().getSessionContents(widget.id);
+  Future<void> _loadSessionContents() async {
+    final contents = await SessionViewmodel().getSessionContents(widget.id);
+    if(context.mounted) {
+      setState(() {
+      sessionContents = contents;
+    });
+    }
   }
 
   void _fetchSession() {
     _session = SessionViewmodel().getSessionByID(widget.id);
+  }
+
+  void _deleteSessionContent(int id) {
+    setState(() {
+      sessionContents.removeWhere((content) => content.id == id);
+    });
   }
 
   @override
@@ -54,105 +65,74 @@ class SessionDetailPageState extends State<SessionDetailPage> {
               }
               final Session sessionInformation = snapshot.data!;
               print("Session : $sessionInformation ");
-              return FutureBuilder<List<SessionContentExercise>>(
-                  future: _sessionContents,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      print("has error");
-                      return Center(child: Text('Erreur : ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      print("!hasData");
-                      return const Center(
-                          child: Text('Aucune session disponible'));
-                    } else {
-                      List<SessionContentExercise> sessionContents =
-                          snapshot.data!;
-
-                      return Column(children: [
-                        FitHeader(
-                          title: sessionInformation.name,
-                          subtitle:
-                              "${sessionContents.length.toString()} ${AppLocalizations.of(context)!.exercises}",
-                          leftIcon: Icons.arrow_back_ios,
-                          rightIcon: Icons.edit,
-                          onLeftIconPressed: () => {context.pop()},
-                          onRightIconPressed: () => {print("edit${widget.id}")},
-                        ),
-                        // List SessionContent
-                        SizedBox(
-                          height: 400,
-                          child: ReorderableListView(
-                              children: sessionContents
-                                  .map((item) => ExerciseContentCard(
-                                      key: ValueKey(item.id), content: item))
-                                  .toList(),
-                              onReorder: (int start, int current) {
-                                // dragging from top to bottom
-                                if (start < current) {
-                                  int end = current - 1;
-                                  SessionContentExercise startItem =
-                                      sessionContents[start];
-                                  int i = 0;
-                                  int local = start;
-                                  do {
-                                    sessionContents[local] =
-                                        sessionContents[++local];
-                                    i++;
-                                  } while (i < end - start);
-                                  sessionContents[end] = startItem;
-                                }
-                                // dragging from bottom to top
-                                else if (start > current) {
-                                  SessionContentExercise startItem =
-                                      sessionContents[start];
-                                  for (int i = start; i > current; i--) {
-                                    sessionContents[i] = sessionContents[i - 1];
-                                  }
-                                  sessionContents[current] = startItem;
-                                }
-                                setState(() {});
-                              }),
-
-                          // ListView.builder(
-                          //   itemCount: sessionContents.length,
-                          //   itemBuilder: (context, index) {
-                          //     final sessContent = sessionContents[index];
-                          //     print(sessContent.toString());
-                          //     return Text("Session: ${sessContent.toString()}");
-                          //   },
-                          // ),
-                        ),
-                        const Spacer(),
-                        // Bottom Buttons
-                        Column(
-                          children: [
-                            FitButton(
-                                buttonColor: fitBlueDark,
-                                label:
-                                    AppLocalizations.of(context)!.newExercise,
-                                onClick: () async {
-                                  await context.pushNamed(
-                                    'exercises',
-                                    pathParameters: {
-                                      'idSession': widget.id.toString()
-                                    },
-                                  );
-                                  setState(() {
-                                    _fetchSessionContents();
-                                  });
-                                }),
-                            FitButton(
-                                buttonColor: fitBlueMiddle,
-                                label: AppLocalizations.of(context)!.runSession,
-                                onClick: () =>
-                                    {context.pushNamed('playSession')}),
-                          ],
-                        ),
-                      ]);
-                    }
-                  });
+              return Column(children: [
+                FitHeader(
+                  title: sessionInformation.name,
+                  subtitle:
+                      "${sessionContents.length.toString()} ${AppLocalizations.of(context)!.exercises}",
+                  leftIcon: Icons.arrow_back_ios,
+                  rightIcon: Icons.edit,
+                  onLeftIconPressed: () => {context.pop()},
+                  onRightIconPressed: () => {print("edit${widget.id}")},
+                ),
+                // List SessionContent
+                Expanded(
+                  child: ReorderableListView(
+                      children: sessionContents
+                          .map((item) => ExerciseContentCard(
+                                key: ValueKey(item.id),
+                                content: item,
+                                onDelete: () => _deleteSessionContent(item.id),
+                              ))
+                          .toList(),
+                      onReorder: (int start, int current) {
+                        // dragging from top to bottom
+                        if (start < current) {
+                          int end = current - 1;
+                          SessionContentExercise startItem =
+                              sessionContents[start];
+                          int i = 0;
+                          int local = start;
+                          do {
+                            sessionContents[local] = sessionContents[++local];
+                            i++;
+                          } while (i < end - start);
+                          sessionContents[end] = startItem;
+                        }
+                        // dragging from bottom to top
+                        else if (start > current) {
+                          SessionContentExercise startItem =
+                              sessionContents[start];
+                          for (int i = start; i > current; i--) {
+                            sessionContents[i] = sessionContents[i - 1];
+                          }
+                          sessionContents[current] = startItem;
+                        }
+                        setState(() {});
+                      }),
+                ),
+                Column(
+                  children: [
+                    FitButton(
+                        buttonColor: fitBlueDark,
+                        label: AppLocalizations.of(context)!.newExercise,
+                        onClick: () async {
+                          await context.pushNamed(
+                            'exercises',
+                            pathParameters: {'idSession': widget.id.toString()},
+                          );
+                          setState(() {
+                            _loadSessionContents();
+                          });
+                        }),
+                    FitButton(
+                        buttonColor: fitBlueMiddle,
+                        label: AppLocalizations.of(context)!.runSession,
+                        onClick: () => {context.pushNamed('playSession')}),
+                    const SizedBox(height: 10)
+                  ],
+                ),
+              ]);
             }));
   }
 }

@@ -44,6 +44,12 @@ class Utils {
     return (minutes * 60) + seconds;
   }
 
+  String convertSecondsToStringTime(final int s) {
+    final int min = s ~/ 60;
+    final int sec = s % 60;
+    return "$min:${sec.toString().padLeft(2, '0')}";
+  }
+
   String getTranslatedExerciseLabel(context, exercise) {
     return AppLocalizations.of(context)!.languageCode == 'fr'
         ? exercise.labelFr

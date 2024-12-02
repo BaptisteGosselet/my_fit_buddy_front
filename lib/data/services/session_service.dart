@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:my_fit_buddy/data/models/session.dart';
+import 'package:my_fit_buddy/data/models/session_create_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionService {
@@ -57,15 +58,14 @@ class SessionService {
     }
   }
 
-  Future<Session> createNewSession(String newSessionName) async {
+  Future<Session> createNewSession(SessionCreateForm form) async {
     try {
-      final FormData data = FormData.fromMap({
-        'name': newSessionName,
-      });
+      print("SessionCreateForm ${form.name}");
+
       final response = await APIService.instance
-          .request(sessionsUrl, DioMethod.post, formData: data);
+          .request(sessionsUrl, DioMethod.post, param: form.toJson());
       if (response.statusCode == 200) {
-        if (response.data) {
+        if (response.data.isNotEmpty) {
           return Session.fromJson(response.data);
         } else {
           print('Aucune donnée');

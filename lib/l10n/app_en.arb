@@ -51,6 +51,9 @@
     "addButton": "Add",
     "deleteButton": "Delete",
 
+    "deleteContentConfirmTitle": "Delete exercise",
+    "deleteContentConfirmMsg": "Are you sure you want to delete this exercise? The statistics related to this exercise will still be available.",
+
     "timePickerTitle": "Rest time",
     "minutes": "Minutes",
     "seconds": "Seconds",

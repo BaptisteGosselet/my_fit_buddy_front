@@ -60,4 +60,24 @@ class SessionContentService {
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
   }
+
+  Future<bool> deleteSessionContent(int id) async {
+    try {
+      final response = await APIService.instance
+          .request("$sessionContentUrl/$id", DioMethod.delete);
+      if (response.statusCode == 200) {
+        print('return true delete sucess');
+        return true;
+      } else {
+        print(
+            'Erreur lors de la suppression du sessions content : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de la suppression de la session content : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
 }
