@@ -19,7 +19,8 @@ class SessionViewmodel {
   }
 
   Future<Session> createNewSession(String newSessionName) async {
-    return await sessionService.createNewSession(SessionCreateForm(name: newSessionName));
+    return await sessionService
+        .createNewSession(SessionCreateForm(name: newSessionName));
   }
 
   Future<bool> createNewSessionContent(final int idSession,

@@ -30,10 +30,10 @@ class SessionDetailPageState extends State<SessionDetailPage> {
 
   Future<void> _loadSessionContents() async {
     final contents = await SessionViewmodel().getSessionContents(widget.id);
-    if(context.mounted) {
+    if (context.mounted) {
       setState(() {
-      sessionContents = contents;
-    });
+        sessionContents = contents;
+      });
     }
   }
 

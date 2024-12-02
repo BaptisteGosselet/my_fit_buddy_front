@@ -5,7 +5,7 @@ class SessionCreateForm {
     required this.name,
   });
 
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
     };
