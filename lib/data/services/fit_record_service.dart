@@ -26,6 +26,25 @@ class FitRecordService {
     }
   }
 
+  Future<FitRecord> getRecordById(int recordId) async {
+    try {
+      final response = await APIService.instance.request(
+        '$recordsUrl/$recordId',
+        DioMethod.get,
+      );
+
+      if (response.statusCode == 200) {
+        return FitRecord.fromJson(response.data);
+      } else {
+        throw Exception('Failed to fetch record by id');
+      }
+    } catch (e) {
+      print('Erreur lors de la récupération de l\'enregistrement par id : $e');
+      return Future.error(
+          'Erreur lors de la récupération de l\'enregistrement');
+    }
+  }
+
   Future<FitRecord> createRecord(String sessionId) async {
     print('$recordsUrl/create/$sessionId');
     try {

@@ -128,7 +128,10 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                     FitButton(
                         buttonColor: fitBlueMiddle,
                         label: AppLocalizations.of(context)!.runSession,
-                        onClick: () => {context.pushNamed('playSession')}),
+                        onClick: () => {
+                              context.pushNamed('liveSession',
+                                  pathParameters: {'sessionId': widget.id})
+                            }),
                     const SizedBox(height: 10)
                   ],
                 ),

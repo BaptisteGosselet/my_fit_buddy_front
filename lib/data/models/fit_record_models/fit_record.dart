@@ -10,6 +10,10 @@ class FitRecord {
   });
 
   factory FitRecord.fromJson(Map<String, dynamic> json) {
-    return FitRecord(id: json['id'], date: json['date'], name: json['name']);
+    return FitRecord(
+      id: json['id'],
+      date: DateTime.parse(json['date']),
+      name: json['name'],
+    );
   }
 }

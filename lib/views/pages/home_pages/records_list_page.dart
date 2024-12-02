@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
+import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/viewmodels/records_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
@@ -56,12 +57,15 @@ class RecordsListPageState extends State<RecordsListPage> {
                         final record = records[index];
                         return SessionCard(
                           title: 'Record ${record.id}',
-                          subtitle: 'Créé le : ${record.date}',
+                          subtitle:
+                              'Créé le : ${Utils.instance.getRecordsDateString(context, record.date)}',
                           icon: Icons.fitness_center,
                           onTap: () {
                             context.pushNamed(
                               'recordDetails',
-                              pathParameters: {'id': record.id.toString()},
+                              pathParameters: {
+                                'recordId': record.id.toString()
+                              },
                             );
                           },
                         );
