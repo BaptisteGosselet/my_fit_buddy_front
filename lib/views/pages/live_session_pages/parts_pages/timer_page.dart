@@ -52,7 +52,7 @@ class TimerPageState extends State<TimerPage> {
               isTimerTextShown: true,
               autoStart: true,
               onComplete: () {
-                widget.onSkip(); // Corrected function call
+                widget.onSkip();
               },
               onChange: (String timeStamp) {},
             ),

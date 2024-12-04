@@ -7,6 +7,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/play_session_set_button.dart';
+import 'package:my_fit_buddy/views/widgets/modals/quit_live_session.dart';
 
 class PlaySessionHeader extends StatelessWidget {
   final SessionContentExercise sessionContentExercise;
@@ -25,8 +26,17 @@ class PlaySessionHeader extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: ElevatedButton(
-                  onPressed: () {
-                    context.pop();
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return QuitLiveSession(
+                          onConfirm: () {
+                            context.pop();
+                          },
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

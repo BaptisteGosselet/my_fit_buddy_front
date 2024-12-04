@@ -6,6 +6,7 @@ import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_pag
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/play_session_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_page.dart';
+import 'package:my_fit_buddy/views/widgets/exercice_card_scroll.dart';
 
 class MainLiveSessionPage extends StatefulWidget {
   final String sessionId;
@@ -98,17 +99,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       body: Column(
         children: [
           Expanded(child: currentPage),
-          Container(
-            width: double.infinity,
-            height: 100,
-            color: Colors.green,
-            child: const Center(
-              child: Text(
-                'Container',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
+          const ExerciceCardScroll(),
         ],
       ),
     );
