@@ -1,87 +1,128 @@
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
 
-class LiveSessionViewmodel {
+class LiveSessionViewModel {
+  // Fields
   final String sessionId;
+  final sessionContentService = SessionContentService();
+  final fitRecordService = FitRecordService();
+
   int idxExercise = 0;
   int idxSet = 0;
 
   late FitRecord currentRecord;
+  late List<SessionContentExercise> sessionContentExerciseList;
+  late List<List<int>> setIdsArray;
 
-  final sessionContentService = SessionContentService();
-  final fitRecordService = FitRecordService();
-  List<SessionContentExercise> sessionContentExerciseList = [];
-
-  LiveSessionViewmodel(this.sessionId) {
-    print('LiveSessionViewmodel created with sessionId: $sessionId');
+  // Constructor
+  LiveSessionViewModel(this.sessionId) {
+    print('LiveSessionViewModel created with sessionId: $sessionId');
   }
 
+  // Initialization
   Future<bool> init() async {
     idxExercise = 0;
     idxSet = 0;
+
     sessionContentExerciseList =
         await sessionContentService.getSessionContents(sessionId);
-
     currentRecord = await fitRecordService.createRecord(sessionId);
 
-    return sessionContentExerciseList.isNotEmpty;
+    if (sessionContentExerciseList.isEmpty) {
+      return false;
+    }
+
+    // Initialize setIdsArray without list comprehension
+    setIdsArray = [];
+    for (var exercise in sessionContentExerciseList) {
+      List<int> innerList = [];
+      for (int i = 0; i < exercise.getNumberOfSets(); i++) {
+        innerList.add(-1);
+      }
+      setIdsArray.add(innerList);
+    }
+
+    return true;
   }
 
+  // Getters for current indices and exercises
   SessionContentExercise getCurrentSessionContentExercise() {
-    print('GET EXERCICE INDEX $idxExercise');
+    print('Current exercise index: $idxExercise');
     return sessionContentExerciseList[idxExercise];
   }
 
-  int getCurrentSetIndex() {
-    return idxSet;
-  }
+  int getCurrentSetIndex() => idxSet;
+  int getCurrentExerciseIndex() => idxExercise;
 
-  int getCurrentExerciseIndex() {
-    return idxExercise;
-  }
-
-  void setFitSetIndex(int n) {
-    idxSet = n;
-  }
-
-  void setExerciseIndex(int n) {
-    idxExercise = n;
-  }
+  // Setters for indices
+  void setFitSetIndex(int n) => idxSet = n;
+  void setExerciseIndex(int n) => idxExercise = n;
 
   Future<void> saveRecord(
       SessionContentExercise sessionContentExercise, int reps, int kg) async {
-    //Gérer création, mais aussi modification !
+    print(
+        'Saving record for set ${idxSet + 1} of exercise ${sessionContentExercise.exercise.id}');
 
-    await fitRecordService.createFitSet(currentRecord.id,
-        sessionContentExercise.exercise.id, getCurrentSetIndex() + 1, reps, kg);
+    try {
+      int idSetToUpdate = setIdsArray[idxExercise][idxSet];
+      FitSet savedSet;
+
+      if (idSetToUpdate == -1) {
+        // Créer un nouveau set
+        savedSet = await fitRecordService.createFitSet(
+          currentRecord.id,
+          sessionContentExercise.exercise.id,
+          idxSet + 1,
+          reps,
+          kg,
+        );
+      } else {
+        // Mettre à jour un existant
+        savedSet = await fitRecordService.updateFitSet(
+          idSetToUpdate,
+          idxSet + 1,
+          reps,
+          kg,
+        );
+      }
+
+      // Met à jour l'ID dans la matrice
+      setIdsArray[idxExercise][idxSet] = savedSet.id;
+
+      print('Record saved with ID: ${savedSet.id}');
+    } catch (e) {
+      print('Error saving record: $e');
+    }
   }
 
+  // Move to the next set or exercise
   bool next() {
-    SessionContentExercise current = getCurrentSessionContentExercise();
-    if (idxSet < current.numberOfSet - 1) {
+    final current = getCurrentSessionContentExercise();
+
+    if (idxSet < current.getNumberOfSets() - 1) {
       idxSet++;
-      print('IdxSet incremented to $idxSet');
+      print('Moved to next set: $idxSet');
       return true;
     }
 
     idxSet = 0;
-    print('IdxSet reset to 0');
-    print(
-        'IdxExercise: $idxExercise / List Length: ${sessionContentExerciseList.length - 1}');
+    print('Reset set index to 0');
 
     if (idxExercise < sessionContentExerciseList.length - 1) {
       idxExercise++;
-      print('IdxExercise incremented to $idxExercise');
+      print('Moved to next exercise: $idxExercise');
       return true;
     }
 
-    print('Reached end of sessionContentExerciseList');
+    print('End of session reached');
     return false;
   }
 
+  // Get list of exercises
   List<Exercise> getExercisesList() {
     return sessionContentExerciseList
         .map((sessionContent) => sessionContent.getExercise())

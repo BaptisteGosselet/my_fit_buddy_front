@@ -116,7 +116,7 @@ class PlaySessionHeader extends StatelessWidget {
                     ),
                     child: Row(
                       children: List.generate(
-                        sessionContentExercise.numberOfSet,
+                        sessionContentExercise.getNumberOfSets(),
                         (index) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: PlaySessionSetButton(

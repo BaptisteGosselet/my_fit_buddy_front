@@ -19,7 +19,7 @@ class MainLiveSessionPage extends StatefulWidget {
 }
 
 class MainLiveSessionPageState extends State<MainLiveSessionPage> {
-  late LiveSessionViewmodel liveSessionViewmodel;
+  late LiveSessionViewModel liveSessionViewmodel;
   bool isLoading = true;
   int currentIndex = 0;
   late int currentSetIndex;
@@ -27,7 +27,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   @override
   void initState() {
     super.initState();
-    liveSessionViewmodel = LiveSessionViewmodel(widget.sessionId);
+    liveSessionViewmodel = LiveSessionViewModel(widget.sessionId);
     currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
     print("live${liveSessionViewmodel.sessionId}");
     initViewmodel();
