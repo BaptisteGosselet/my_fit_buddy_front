@@ -21,11 +21,13 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   late LiveSessionViewmodel liveSessionViewmodel;
   bool isLoading = true;
   int currentIndex = 0;
+  late int currentSetIndex;
 
   @override
   void initState() {
     super.initState();
     liveSessionViewmodel = LiveSessionViewmodel(widget.sessionId);
+    currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
     print("live${liveSessionViewmodel.sessionId}");
     initViewmodel();
   }
@@ -66,10 +68,21 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   void goToNextExercise() {
     bool hasNext = liveSessionViewmodel.next();
     if (hasNext) {
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
       switchPage(0);
     } else {
       switchPage(2);
     }
+  }
+
+  void goToSet(int setNumber) {
+    print("ici $setNumber");
+    liveSessionViewmodel.setFitSetIndex(setNumber);
+    setState(() {
+      currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+    });
   }
 
   @override
@@ -83,7 +96,11 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
         liveSessionViewmodel.getCurrentSessionContentExercise();
     if (currentIndex == 0) {
       currentPage = PlaySessionPage(
-          sessionContentExercise: currentContent, onFinishClick: goToTimer);
+        sessionContentExercise: currentContent,
+        onFinishClick: goToTimer,
+        onSetPressed: goToSet,
+        currentSetNumber: currentSetIndex,
+      );
     } else if (currentIndex == 1) {
       currentPage = TimerPage(
           duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);

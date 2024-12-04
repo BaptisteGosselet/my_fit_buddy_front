@@ -38,10 +38,16 @@ class LiveSessionViewmodel {
     return idxSet;
   }
 
+  void setFitSetIndex(int n) {
+    idxSet = n;
+  }
+
   Future<void> saveRecord(
       SessionContentExercise sessionContentExercise, int reps, int kg) async {
+    //Gérer création, mais aussi modification !
+
     await fitRecordService.createFitSet(currentRecord.id,
-        sessionContentExercise.exercise.id, getCurrentSetIndex(), reps, kg);
+        sessionContentExercise.exercise.id, getCurrentSetIndex() + 1, reps, kg);
   }
 
   bool next() {

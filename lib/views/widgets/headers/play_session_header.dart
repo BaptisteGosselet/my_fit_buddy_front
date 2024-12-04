@@ -11,7 +11,15 @@ import 'package:my_fit_buddy/views/widgets/modals/quit_live_session.dart';
 
 class PlaySessionHeader extends StatelessWidget {
   final SessionContentExercise sessionContentExercise;
-  const PlaySessionHeader({super.key, required this.sessionContentExercise});
+  final void Function(int setNumber) onSetPressed;
+  final int currentSetNumber;
+
+  const PlaySessionHeader({
+    super.key,
+    required this.sessionContentExercise,
+    required this.onSetPressed,
+    required this.currentSetNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +117,13 @@ class PlaySessionHeader extends StatelessWidget {
                     child: Row(
                       children: List.generate(
                         sessionContentExercise.numberOfSet,
-                        (index) => const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: PlaySessionSetButton(),
+                        (index) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: PlaySessionSetButton(
+                            isCurrentSet: (currentSetNumber == (index)),
+                            setNumber: index + 1,
+                            onPressed: () => onSetPressed(index),
+                          ),
                         ),
                       ),
                     ),

@@ -1,5 +1,4 @@
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
-import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_create_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class FitRecordService {
@@ -66,6 +65,9 @@ class FitRecordService {
 
   Future<bool> createFitSet(
       int idRecord, int idExercise, int nbOrder, int nbRep, int weight) async {
+    print("CREATE SET : $idRecord, $idExercise, $nbOrder, $nbRep, $weight");
+    return true;
+    /*
     try {
       FitSetCreateForm form = FitSetCreateForm(
           idRecord: idRecord,
@@ -89,5 +91,6 @@ class FitRecordService {
       print('Erreur lors de la création de l\'ensemble : $e');
       return false;
     }
+    */
   }
 }
