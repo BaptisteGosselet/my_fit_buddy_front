@@ -5,13 +5,17 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 
 class ExerciseCardScroll extends StatelessWidget {
   final List<Exercise> exercises;
-  final Function(int) goToExercice;
+  final Function(int) goToExercise;
 
   const ExerciseCardScroll(
-      {super.key, required this.exercises, required this.goToExercice});
+      {super.key, required this.exercises, required this.goToExercise});
 
   @override
   Widget build(BuildContext context) {
+    const double borderThickness = 5.0;
+    const double borderRadius = 5.0;
+    const Color borderColor = fitBlueMiddle;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       height: 100,
@@ -21,16 +25,16 @@ class ExerciseCardScroll extends StatelessWidget {
           Exercise exercise = exercises[index];
 
           return GestureDetector(
-            onTap: () => goToExercice(index),
+            onTap: () => goToExercise(index),
             child: Container(
               decoration: BoxDecoration(
-                color: fitBlueMiddle,
+                color: borderColor,
                 border: Border.all(
-                  color: fitBlueMiddle,
+                  color: borderColor,
                 ),
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
-              padding: const EdgeInsets.all(7),
+              padding: const EdgeInsets.all(borderThickness),
               width: 100,
               child: Image.network(
                 '$configBaseAPI/exercises/${exercise.id}/image',
