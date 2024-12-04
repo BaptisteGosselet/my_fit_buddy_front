@@ -1,3 +1,4 @@
+import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
@@ -38,8 +39,16 @@ class LiveSessionViewmodel {
     return idxSet;
   }
 
+  int getCurrentExerciseIndex() {
+    return idxExercise;
+  }
+
   void setFitSetIndex(int n) {
     idxSet = n;
+  }
+
+  void setExerciseIndex(int n) {
+    idxExercise = n;
   }
 
   Future<void> saveRecord(
@@ -71,5 +80,11 @@ class LiveSessionViewmodel {
 
     print('Reached end of sessionContentExerciseList');
     return false;
+  }
+
+  List<Exercise> getExercisesList() {
+    return sessionContentExerciseList
+        .map((sessionContent) => sessionContent.getExercise())
+        .toList();
   }
 }

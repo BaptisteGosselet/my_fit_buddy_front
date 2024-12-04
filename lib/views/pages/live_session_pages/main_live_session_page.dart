@@ -6,7 +6,8 @@ import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_pag
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/play_session_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_page.dart';
-import 'package:my_fit_buddy/views/widgets/exercice_card_scroll.dart';
+import 'package:my_fit_buddy/views/widgets/exercise_card_scroll.dart';
+import 'package:my_fit_buddy/views/widgets/modals/change_live_set.dart';
 
 class MainLiveSessionPage extends StatefulWidget {
   final String sessionId;
@@ -77,12 +78,44 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     }
   }
 
-  void goToSet(int setNumber) {
+  Future<bool?> showConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return const ChangeLiveSet();
+      },
+    );
+  }
+
+  void goToSet(int setNumber) async {
     print("ici $setNumber");
-    liveSessionViewmodel.setFitSetIndex(setNumber);
-    setState(() {
-      currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
-    });
+
+    bool? result = await showConfirmationDialog(context);
+
+    if (result == true) {
+      liveSessionViewmodel.setFitSetIndex(setNumber);
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
+    }
+  }
+
+  void goToExercice(int exerciceNumber) async {
+    print("ici $exerciceNumber");
+
+    if (exerciceNumber == liveSessionViewmodel.getCurrentExerciseIndex()) {
+      return;
+    }
+
+    bool? result = await showConfirmationDialog(context);
+
+    if (result == true) {
+      liveSessionViewmodel.setExerciseIndex(exerciceNumber);
+      liveSessionViewmodel.setFitSetIndex(0);
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
+    }
   }
 
   @override
@@ -116,7 +149,10 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       body: Column(
         children: [
           Expanded(child: currentPage),
-          const ExerciceCardScroll(),
+          ExerciseCardScroll(
+            exercises: liveSessionViewmodel.getExercisesList(),
+            goToExercice: goToExercice,
+          ),
         ],
       ),
     );

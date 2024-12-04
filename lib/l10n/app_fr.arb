@@ -81,6 +81,9 @@
     "quitSessionModalMessage":"Êtes-vous sûr de quitter la séance ? Les progrès non sauvegardés seront perdus.",
     "quitSessionModalOptionCancel":"Annuler",
     "quitSessionModalOptionConfirm":"Quitter",
+    "changeSetTitle": "Êtes-vous sûr de changer de set ?",
+    "changeSetOptionCancel": "Annuler",
+    "changeSetOptionConfirm": "Changer",
     
     "monday_abr": "Lun",
     "tuesday_abr": "Mar",

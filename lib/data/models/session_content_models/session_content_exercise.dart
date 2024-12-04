@@ -31,4 +31,8 @@ class SessionContentExercise {
         restTimeInSecond: json['restTimeInSecond'],
         index: json['index']);
   }
+
+  Exercise getExercise() {
+    return exercise;
+  }
 }
