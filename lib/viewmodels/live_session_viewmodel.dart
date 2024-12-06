@@ -18,6 +18,8 @@ class LiveSessionViewModel {
   late List<SessionContentExercise> sessionContentExerciseList;
   late List<List<int>> setIdsArray;
 
+  final int emptySetValue = -1;
+
   // Constructor
   LiveSessionViewModel(this.sessionId) {
     print('LiveSessionViewModel created with sessionId: $sessionId');
@@ -41,7 +43,7 @@ class LiveSessionViewModel {
     for (var exercise in sessionContentExerciseList) {
       List<int> innerList = [];
       for (int i = 0; i < exercise.getNumberOfSets(); i++) {
-        innerList.add(-1);
+        innerList.add(emptySetValue);
       }
       setIdsArray.add(innerList);
     }
@@ -71,7 +73,7 @@ class LiveSessionViewModel {
       int idSetToUpdate = setIdsArray[idxExercise][idxSet];
       FitSet savedSet;
 
-      if (idSetToUpdate == -1) {
+      if (idSetToUpdate == emptySetValue) {
         // Créer un nouveau set
         savedSet = await fitRecordService.createFitSet(
           currentRecord.id,
@@ -99,27 +101,38 @@ class LiveSessionViewModel {
     }
   }
 
-  // Move to the next set or exercise
   bool next() {
-    final current = getCurrentSessionContentExercise();
+    final SessionContentExercise current = getCurrentSessionContentExercise();
 
+    //Aller au set suivant
     if (idxSet < current.getNumberOfSets() - 1) {
       idxSet++;
       print('Moved to next set: $idxSet');
-      return true;
     }
 
-    idxSet = 0;
-    print('Reset set index to 0');
+    //Aller à l'exercice suivant set 1
+    else {
+      idxSet = 0;
+      print('Reset set index to 0');
 
-    if (idxExercise < sessionContentExerciseList.length - 1) {
-      idxExercise++;
-      print('Moved to next exercise: $idxExercise');
-      return true;
+      if (idxExercise < sessionContentExerciseList.length - 1) {
+        idxExercise++;
+        print('Moved to next exercise: $idxExercise');
+      }
+
+      // Séance terminée
+      else {
+        print('End of session reached');
+        return false;
+      }
     }
 
-    print('End of session reached');
-    return false;
+    // Vérifier si le set n'est pas déjà saisi
+    if (setIdsArray[idxExercise][idxSet] != emptySetValue) {
+      return next();
+    }
+
+    return true;
   }
 
   // Get list of exercises
