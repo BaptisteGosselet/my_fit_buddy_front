@@ -85,8 +85,8 @@ class FitRecordService {
         param: form.toJson(),
       );
 
-      if (response.statusCode == 200) {
-        return response.data;
+      if (response.statusCode == 201) {
+        return FitSet.fromJson(response.data);
       } else {
         print(
             'Échec de la création : Code de statut ${response.statusCode}, Message : ${response.data}');
@@ -116,7 +116,7 @@ class FitRecordService {
       );
 
       if (response.statusCode == 200) {
-        return response.data;
+        return FitSet.fromJson(response.data);
       } else {
         print(
             'Échec de la création : Code de statut ${response.statusCode}, Message : ${response.data}');
