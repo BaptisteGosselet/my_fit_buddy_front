@@ -55,7 +55,7 @@ class ExerciseContentCardState extends State<ExerciseContentCard> {
           buildLeftSquare(),
           const SizedBox(width: 10),
           Text(
-            "${widget.content.numberOfSet}x",
+            "${widget.content.getNumberOfSets()}x",
             style: const TextStyle(
               color: fitBlueDark,
               fontSize: 18,

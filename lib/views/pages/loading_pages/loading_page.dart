@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_fit_buddy/data/models/auth_models/token.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
@@ -32,17 +33,26 @@ class LoadingPage extends StatelessWidget {
       asyncNavigationCallback: () async {
         await Future.delayed(const Duration(seconds: 2));
 
-        bool isRefreshTokenValid =
-            await TokenStorageService.instance.isRefreshTokenValid();
-        bool tokenLoaded = false;
-        if (isRefreshTokenValid) {
-          tokenLoaded = await APIService.instance.retrieveRefreshToken();
-        } else {
-          print("LOADING refresh est invalide");
+        print("loading page.");
+
+        bool allowToGoHome = false;
+
+        Token? storedToken = await TokenStorageService.instance.getToken();
+        if (storedToken != null && storedToken.hasRefreshTokenValid()) {
+          if (await APIService.instance.retrieveRefreshToken()) {
+            print("loading page valide le token");
+            allowToGoHome = true;
+          }
+        }
+
+        if (!allowToGoHome) {
+          print("le token n'a pas été validé par loading page");
+          await TokenStorageService.instance.removeToken();
+          allowToGoHome = false;
         }
 
         if (context.mounted) {
-          if (tokenLoaded) {
+          if (allowToGoHome) {
             GoRouter.of(context).goNamed("home");
           } else {
             GoRouter.of(context).goNamed("register");

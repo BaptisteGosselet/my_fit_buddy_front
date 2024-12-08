@@ -26,7 +26,7 @@ class APIService {
     bool authenticated = true,
   }) async {
     if (authenticated) {
-      updateToken();
+      retrieveRefreshToken();
       final token = await TokenStorageService.instance.getToken();
       if (token?.accessToken != null) {
         dio.options.headers[HttpHeaders.authorizationHeader] =
@@ -70,25 +70,6 @@ class APIService {
             statusCode: 500,
             statusMessage: 'Request failed: ${e.message}',
           );
-    }
-  }
-
-  Future<bool> updateToken() async {
-    bool accessValid = await TokenStorageService.instance.isAccessTokenValid();
-    if (accessValid) {
-      print('UT access est valide');
-      return await retrieveRefreshToken();
-    } else {
-      print('UT access est invalide');
-      bool refreshValid =
-          await TokenStorageService.instance.isRefreshTokenValid();
-      if (refreshValid) {
-        print('UT refresh est valide');
-        return await TokenStorageService.instance.isRefreshTokenValid();
-      } else {
-        print('UT refresh est invalide');
-        return false;
-      }
     }
   }
 

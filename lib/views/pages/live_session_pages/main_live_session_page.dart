@@ -6,6 +6,8 @@ import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_pag
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/play_session_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_page.dart';
+import 'package:my_fit_buddy/views/widgets/exercise_card_scroll.dart';
+import 'package:my_fit_buddy/views/widgets/modals/change_live_set.dart';
 
 class MainLiveSessionPage extends StatefulWidget {
   final String sessionId;
@@ -17,14 +19,16 @@ class MainLiveSessionPage extends StatefulWidget {
 }
 
 class MainLiveSessionPageState extends State<MainLiveSessionPage> {
-  late LiveSessionViewmodel liveSessionViewmodel;
+  late LiveSessionViewModel liveSessionViewmodel;
   bool isLoading = true;
   int currentIndex = 0;
+  late int currentSetIndex;
 
   @override
   void initState() {
     super.initState();
-    liveSessionViewmodel = LiveSessionViewmodel(widget.sessionId);
+    liveSessionViewmodel = LiveSessionViewModel(widget.sessionId);
+    currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
     print("live${liveSessionViewmodel.sessionId}");
     initViewmodel();
   }
@@ -65,9 +69,52 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   void goToNextExercise() {
     bool hasNext = liveSessionViewmodel.next();
     if (hasNext) {
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
       switchPage(0);
     } else {
       switchPage(2);
+    }
+  }
+
+  Future<bool?> showConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return const ChangeLiveSet();
+      },
+    );
+  }
+
+  void goToSet(int setNumber) async {
+    print("ici $setNumber");
+
+    bool? result = await showConfirmationDialog(context);
+
+    if (result == true) {
+      liveSessionViewmodel.setFitSetIndex(setNumber);
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
+    }
+  }
+
+  void goToExercice(int exerciceNumber) async {
+    print("ici $exerciceNumber");
+
+    if (exerciceNumber == liveSessionViewmodel.getCurrentExerciseIndex()) {
+      return;
+    }
+
+    bool? result = await showConfirmationDialog(context);
+
+    if (result == true) {
+      liveSessionViewmodel.setExerciseIndex(exerciceNumber);
+      liveSessionViewmodel.setFitSetIndex(0);
+      setState(() {
+        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+      });
     }
   }
 
@@ -82,7 +129,11 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
         liveSessionViewmodel.getCurrentSessionContentExercise();
     if (currentIndex == 0) {
       currentPage = PlaySessionPage(
-          sessionContentExercise: currentContent, onFinishClick: goToTimer);
+        sessionContentExercise: currentContent,
+        onFinishClick: goToTimer,
+        onSetPressed: goToSet,
+        currentSetNumber: currentSetIndex,
+      );
     } else if (currentIndex == 1) {
       currentPage = TimerPage(
           duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);
@@ -98,16 +149,9 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       body: Column(
         children: [
           Expanded(child: currentPage),
-          Container(
-            width: double.infinity,
-            height: 100,
-            color: Colors.green,
-            child: const Center(
-              child: Text(
-                'Container',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+          ExerciseCardScroll(
+            exercises: liveSessionViewmodel.getExercisesList(),
+            goToExercise: goToExercice,
           ),
         ],
       ),

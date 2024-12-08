@@ -78,6 +78,14 @@
     "recordListTitle": "myFitBuddy",
     "recordListSubtitle": "View your progress",
 
+    "quitSessionModalTitle":"Quit the session ?",
+    "quitSessionModalMessage":"Are you sure to quit the session ? Not saved sets will be lost.",
+    "quitSessionModalOptionCancel":"Cancel",
+    "quitSessionModalOptionConfirm":"Exit Session",
+    "changeSetTitle": "Are you sure to change set ?",
+    "changeSetOptionCancel": "Cancel",
+    "changeSetOptionConfirm": "Change",
+
     "monday_abr": "Mon",
     "tuesday_abr": "Tue",
     "wednesday_abr": "Wed",

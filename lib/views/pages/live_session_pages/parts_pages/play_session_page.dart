@@ -10,11 +10,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PlaySessionPage extends StatelessWidget {
   final SessionContentExercise sessionContentExercise;
   final Function(SessionContentExercise, int, int) onFinishClick;
+  final Function(int setNumber) onSetPressed;
+  final int currentSetNumber;
 
   const PlaySessionPage({
     super.key,
     required this.sessionContentExercise,
     required this.onFinishClick,
+    required this.onSetPressed,
+    required this.currentSetNumber,
   });
 
   @override
@@ -28,7 +32,11 @@ class PlaySessionPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PlaySessionHeader(sessionContentExercise: sessionContentExercise),
+            PlaySessionHeader(
+              sessionContentExercise: sessionContentExercise,
+              onSetPressed: onSetPressed,
+              currentSetNumber: currentSetNumber,
+            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

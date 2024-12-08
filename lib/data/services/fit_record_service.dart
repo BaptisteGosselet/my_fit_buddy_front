@@ -1,5 +1,7 @@
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_create_form.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_update_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class FitRecordService {
@@ -64,15 +66,18 @@ class FitRecordService {
     }
   }
 
-  Future<bool> createFitSet(
+  Future<FitSet> createFitSet(
       int idRecord, int idExercise, int nbOrder, int nbRep, int weight) async {
+    print("CREATE SET : $idRecord, $idExercise, $nbOrder, $nbRep, $weight");
+
     try {
       FitSetCreateForm form = FitSetCreateForm(
-          idRecord: idRecord,
-          idExercise: idExercise,
-          nbOrder: nbOrder,
-          nbRep: nbRep,
-          weight: weight);
+        idRecord: idRecord,
+        idExercise: idExercise,
+        nbOrder: nbOrder,
+        nbRep: nbRep,
+        weight: weight,
+      );
 
       final response = await APIService.instance.request(
         '$setsUrl/create',
@@ -80,14 +85,45 @@ class FitRecordService {
         param: form.toJson(),
       );
 
-      if (response.statusCode == 200) {
-        return true;
+      if (response.statusCode == 201) {
+        return FitSet.fromJson(response.data);
       } else {
-        return false;
+        print(
+            'Échec de la création : Code de statut ${response.statusCode}, Message : ${response.data}');
       }
     } catch (e) {
       print('Erreur lors de la création de l\'ensemble : $e');
-      return false;
     }
+    return Future.error('Erreur lors de la récupération du set');
+  }
+
+  Future<FitSet> updateFitSet(
+      int idFitSet, int nbOrder, int nbRep, int weight) async {
+    print("UPDATE SET : $idFitSet, $nbOrder, $nbRep, $weight");
+
+    try {
+      FitSetUpdateForm form = FitSetUpdateForm(
+        idFitSet: idFitSet,
+        nbOrder: nbOrder,
+        nbRep: nbRep,
+        weight: weight,
+      );
+
+      final response = await APIService.instance.request(
+        '$setsUrl/update',
+        DioMethod.put,
+        param: form.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        return FitSet.fromJson(response.data);
+      } else {
+        print(
+            'Échec de la création : Code de statut ${response.statusCode}, Message : ${response.data}');
+      }
+    } catch (e) {
+      print('Erreur lors de la mise à jour de l\'ensemble : $e');
+    }
+    return Future.error('Erreur lors de la récupération du set');
   }
 }
