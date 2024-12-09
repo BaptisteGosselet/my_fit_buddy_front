@@ -144,8 +144,8 @@ class LiveSessionViewModel {
 
   Future<List<FitSet>> getExercisePreviousSets() async {
     final int idExercise = getCurrentSessionContentExercise().exercise.id;
-    print("VM GET $idExercise SETS");
-    List<FitSet> l = await fitRecordService.getExercisePreviousSets(idExercise);
-    return l;
+    List<FitSet> exercisePreviousSets =
+        await fitRecordService.getExercisePreviousSets(idExercise);
+    return exercisePreviousSets;
   }
 }

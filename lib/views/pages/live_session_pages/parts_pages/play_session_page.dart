@@ -24,11 +24,35 @@ class PlaySessionPage extends StatelessWidget {
     required this.currentSetNumber,
   });
 
+  FitSet? getExerciseLastSet() {
+    if (previousExerciseSets.isEmpty) {
+      return null;
+    }
+    return previousExerciseSets.last;
+  }
+
+  String lastReps() {
+    FitSet? lastSet = getExerciseLastSet();
+    if (lastSet == null) {
+      return "";
+    }
+    return lastSet.nbRep.toString();
+  }
+
+  String lastWeight() {
+    FitSet? lastSet = getExerciseLastSet();
+    if (lastSet == null) {
+      return "";
+    }
+    return lastSet.weight.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController repsTextController = TextEditingController(text: "");
+    TextEditingController repsTextController =
+        TextEditingController(text: lastReps());
     TextEditingController weightTextController =
-        TextEditingController(text: "");
+        TextEditingController(text: lastWeight());
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
