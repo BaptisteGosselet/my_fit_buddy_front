@@ -1,4 +1,3 @@
-import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
@@ -15,20 +14,11 @@ class NotePage extends StatefulWidget {
   State<NotePage> createState() => _NotePageState();
 }
 
-class _NotePageState extends State<NotePage>
-    with SingleTickerProviderStateMixin {
-  late final CustomTimerController _controller = CustomTimerController(
-      vsync: this,
-      begin: const Duration(minutes: 3),
-      end: const Duration(),
-      initialState: CustomTimerState.reset,
-      interval: CustomTimerInterval.milliseconds);
-
+class _NotePageState extends State<NotePage> {
   String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
-    _controller.start();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -41,19 +31,6 @@ class _NotePageState extends State<NotePage>
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomTimer(
-                  controller: _controller,
-                  builder: (state, time) {
-                    // Build the widget you want!🎉
-                    return Text("${time.minutes}:${time.seconds}",
-                        style: const TextStyle(
-                            fontSize: 70.0, color: fitBlueMiddle));
-                  }),
-            ],
-          ),
           Expanded(
             child: Padding(
               padding:
@@ -83,7 +60,6 @@ class _NotePageState extends State<NotePage>
                   textAlign: TextAlign.center,
                   initialSelection: list.first,
                   onSelected: (String? value) {
-                    // This is called when the user selects an item.
                     setState(() {
                       dropdownValue = value!;
                     });
@@ -105,7 +81,7 @@ class _NotePageState extends State<NotePage>
                     shadowColor: Colors.grey.withOpacity(0.5),
                   ),
                   onPressed: () {
-                    context.goNamed('home'); //TODO
+                    context.goNamed('home');
                   },
                   child: SizedBox(
                     width: 130,
