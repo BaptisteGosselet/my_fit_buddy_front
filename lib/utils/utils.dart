@@ -55,4 +55,61 @@ class Utils {
         ? exercise.labelFr
         : exercise.labelEn;
   }
+
+  String getRecordsDateString(context, DateTime date) {
+    String weekdayName = getWeekday(context, date.weekday);
+    String monthName = getMonth(context, date.month);
+
+    return "$weekdayName ${date.day} $monthName ${date.year}";
+  }
+
+  String getWeekday(context, int n) {
+    switch (n) {
+      case 1:
+        return AppLocalizations.of(context)!.monday_abr;
+      case 2:
+        return AppLocalizations.of(context)!.tuesday_abr;
+      case 3:
+        return AppLocalizations.of(context)!.wednesday_abr;
+      case 4:
+        return AppLocalizations.of(context)!.thursday_abr;
+      case 5:
+        return AppLocalizations.of(context)!.friday_abr;
+      case 6:
+        return AppLocalizations.of(context)!.saturday_abr;
+      case 7:
+        return AppLocalizations.of(context)!.sunday_abr;
+    }
+    return "";
+  }
+
+  String getMonth(context, int n) {
+    switch (n) {
+      case 1:
+        return AppLocalizations.of(context)!.january_abr;
+      case 2:
+        return AppLocalizations.of(context)!.february_abr;
+      case 3:
+        return AppLocalizations.of(context)!.march_abr;
+      case 4:
+        return AppLocalizations.of(context)!.april_abr;
+      case 5:
+        return AppLocalizations.of(context)!.may_abr;
+      case 6:
+        return AppLocalizations.of(context)!.june_abr;
+      case 7:
+        return AppLocalizations.of(context)!.july_abr;
+      case 8:
+        return AppLocalizations.of(context)!.august_abr;
+      case 9:
+        return AppLocalizations.of(context)!.september_abr;
+      case 10:
+        return AppLocalizations.of(context)!.october_abr;
+      case 11:
+        return AppLocalizations.of(context)!.november_abr;
+      case 12:
+        return AppLocalizations.of(context)!.december_abr;
+    }
+    return "";
+  }
 }

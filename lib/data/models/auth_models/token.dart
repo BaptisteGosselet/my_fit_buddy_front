@@ -38,12 +38,8 @@ class Token {
     };
   }
 
-  bool isAccessTokenValid() {
-    if (accessExpirationDate == null) return false;
-    return DateTime.now().isBefore(accessExpirationDate!);
-  }
-
-  bool isRefreshTokenValid() {
+  bool hasRefreshTokenValid() {
+    if (refreshToken == null) return false;
     if (refreshExpirationDate == null) return false;
     return DateTime.now().isBefore(refreshExpirationDate!);
   }

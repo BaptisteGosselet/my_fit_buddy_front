@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/core/config.dart';
-import 'package:my_fit_buddy/data/models/session_content_exercise.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
@@ -55,7 +55,7 @@ class ExerciseContentCardState extends State<ExerciseContentCard> {
           buildLeftSquare(),
           const SizedBox(width: 10),
           Text(
-            "${widget.content.numberOfSet}x",
+            "${widget.content.getNumberOfSets()}x",
             style: const TextStyle(
               color: fitBlueDark,
               fontSize: 18,

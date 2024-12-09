@@ -22,36 +22,48 @@ class AuthViewmodel {
 
   Future<void> register(String username, String email, String password,
       String passwordConfirm, BuildContext context) async {
+    await TokenStorageService.instance.removeToken();
+
     String forbiddenUsernameCharacters =
         Utils.instance.usernameForbiddenCharacters(username);
 
     if (username.length > 20) {
-      ToastManager.instance.showWarningToast(
-          context, AppLocalizations.of(context)!.registerUsernameTooLong);
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.registerUsernameTooLong);
+      }
       return;
     }
 
     if (forbiddenUsernameCharacters.isNotEmpty) {
-      ToastManager.instance.showWarningToast(
-          context,
-          AppLocalizations.of(context)!.registerForbiddenUsernameCharacters +
-              forbiddenUsernameCharacters);
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+            context,
+            AppLocalizations.of(context)!.registerForbiddenUsernameCharacters +
+                forbiddenUsernameCharacters);
+      }
       return;
     }
 
     if (!Utils.instance.isValidEmail(email)) {
-      ToastManager.instance.showWarningToast(
-          context, AppLocalizations.of(context)!.registerNotValidEmailFormat);
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.registerNotValidEmailFormat);
+      }
       return;
     }
     if (password.length < 8) {
-      ToastManager.instance.showWarningToast(
-          context, AppLocalizations.of(context)!.registerPasswordTooShort);
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.registerPasswordTooShort);
+      }
       return;
     }
     if (password != passwordConfirm) {
-      ToastManager.instance.showWarningToast(
-          context, AppLocalizations.of(context)!.registerDifferentPassword);
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.registerDifferentPassword);
+      }
       return;
     }
 
@@ -85,6 +97,8 @@ class AuthViewmodel {
 
   Future<void> login(
       String username, String password, BuildContext context) async {
+    await TokenStorageService.instance.removeToken();
+
     await test();
     print('AuthViewModel.login');
     StatusType result = await authService.login(username, password);
