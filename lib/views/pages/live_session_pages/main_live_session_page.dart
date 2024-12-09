@@ -171,6 +171,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
           ExerciseCardScroll(
             exercises: liveSessionViewmodel.getExercisesList(),
             goToExercise: goToExercice,
+            currentExerciseIdx: liveSessionViewmodel.getCurrentExerciseIndex(),
           ),
         ],
       ),
