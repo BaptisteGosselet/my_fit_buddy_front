@@ -102,37 +102,39 @@ class LiveSessionViewModel {
   }
 
   bool next() {
-    final SessionContentExercise current = getCurrentSessionContentExercise();
-
-    //Aller au set suivant
-    if (idxSet < current.getNumberOfSets() - 1) {
-      idxSet++;
-      print('Moved to next set: $idxSet');
-    }
-
-    //Aller à l'exercice suivant set 1
-    else {
-      idxSet = 0;
-      print('Reset set index to 0');
-
-      if (idxExercise < sessionContentExerciseList.length - 1) {
-        idxExercise++;
-        print('Moved to next exercise: $idxExercise');
-      }
-
-      // Séance terminée
-      else {
-        print('End of session reached');
-        return false;
+    // Vérifier si l'exercice courant a encore des sets non faits
+    if (idxExercise >= 0 && idxExercise < sessionContentExerciseList.length) {
+      final SessionContentExercise currentExercise =
+          sessionContentExerciseList[idxExercise];
+      for (int j = 0; j < currentExercise.getNumberOfSets(); j++) {
+        if (setIdsArray[idxExercise][j] == emptySetValue) {
+          idxSet = j;
+          print('Moved to exercise $idxExercise, set $idxSet');
+          return true;
+        }
       }
     }
 
-    // Vérifier si le set n'est pas déjà saisi
-    if (setIdsArray[idxExercise][idxSet] != emptySetValue) {
-      return next();
+    // Si tous les sets de l'exercice courant sont terminés, passer aux autres exercices
+    for (int i = 0; i < sessionContentExerciseList.length; i++) {
+      int exerciseIndex =
+          (idxExercise + 1 + i) % sessionContentExerciseList.length;
+      final SessionContentExercise exercise =
+          sessionContentExerciseList[exerciseIndex];
+
+      for (int j = 0; j < exercise.getNumberOfSets(); j++) {
+        if (setIdsArray[exerciseIndex][j] == emptySetValue) {
+          idxExercise = exerciseIndex;
+          idxSet = j;
+          print('Moved to exercise $idxExercise, set $idxSet');
+          return true;
+        }
+      }
     }
 
-    return true;
+    // Si aucun set non fait n'existe, la session est terminée
+    print('End of session reached');
+    return false;
   }
 
   // Get list of exercises
