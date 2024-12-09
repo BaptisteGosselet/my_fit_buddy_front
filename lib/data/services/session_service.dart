@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:my_fit_buddy/data/models/session.dart';
 import 'package:my_fit_buddy/data/models/session_create_form.dart';
+import 'package:my_fit_buddy/data/models/session_update_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionService {
@@ -60,10 +61,34 @@ class SessionService {
 
   Future<Session> createNewSession(SessionCreateForm form) async {
     try {
-      print("SessionCreateForm ${form.name}");
-
       final response = await APIService.instance
           .request(sessionsUrl, DioMethod.post, param: form.toJson());
+      if (response.statusCode == 200) {
+        if (response.data.isNotEmpty) {
+          return Session.fromJson(response.data);
+        } else {
+          return Future.error('Aucune donnée');
+        }
+      } else {
+        print(
+            'Erreur lors de la création des sessions : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de la création de la session : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
+
+  Future<Session> renameSession(SessionUpdateForm sessionUpdateForm) async {
+    try {
+      print('sessionsUrl/${sessionUpdateForm.sessionId}');
+
+      final response = await APIService.instance.request(
+          '$sessionsUrl/${sessionUpdateForm.sessionId}', DioMethod.put,
+          param: sessionUpdateForm.toJson());
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           return Session.fromJson(response.data);
@@ -72,10 +97,9 @@ class SessionService {
           return Future.error('Aucune donnée');
         }
       } else {
-        print(
-            'Erreur lors de la création des sessions : ${response.statusCode}');
+        print('Erreur lors du rename de la session : ${response.statusCode}');
         return Future.error(
-            'Erreur lors de la création de la session : ${response.statusCode}');
+            'Erreur lors du rename de la session : ${response.statusCode}');
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
