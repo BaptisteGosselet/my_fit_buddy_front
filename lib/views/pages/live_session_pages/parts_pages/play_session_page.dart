@@ -28,7 +28,7 @@ class PlaySessionPage extends StatelessWidget {
     if (previousExerciseSets.isEmpty) {
       return null;
     }
-    return previousExerciseSets.last;
+    return previousExerciseSets.first;
   }
 
   String lastReps() {

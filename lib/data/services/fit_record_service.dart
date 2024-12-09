@@ -127,11 +127,12 @@ class FitRecordService {
     return Future.error('Erreur lors de la récupération du set');
   }
 
-  Future<List<FitSet>> getExercisePreviousSets(int idExercise) async {
-    print("SERVICE GET PREVIOUS $idExercise SETS");
+  Future<List<FitSet>> getExercisePreviousSets(
+      int idExercise, int nbOrder) async {
+    print("SERVICE GET PREVIOUS $idExercise $nbOrder SETS");
     try {
       final response = await APIService.instance.request(
-        '$setsUrl/exercise/$idExercise',
+        '$setsUrl/exerciseSet/$idExercise/$nbOrder',
         DioMethod.get,
       );
 
