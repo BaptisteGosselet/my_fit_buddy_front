@@ -8,6 +8,7 @@ import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/exercise_content_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
+import 'package:my_fit_buddy/views/widgets/modals/rename_session_dialog.dart';
 
 class SessionDetailPage extends StatefulWidget {
   final String id;
@@ -47,6 +48,12 @@ class SessionDetailPageState extends State<SessionDetailPage> {
     });
   }
 
+  void _renameSession(int id, String newName) {
+    setState(() {
+      _session = SessionViewmodel().renameSession(id, newName);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +80,18 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                   leftIcon: Icons.arrow_back_ios,
                   rightIcon: Icons.edit,
                   onLeftIconPressed: () => {context.pop()},
-                  onRightIconPressed: () => {print("edit${widget.id}")},
+                  onRightIconPressed: () => {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return RenameSessionDialog(
+                          id: sessionInformation.id,
+                          title: sessionInformation.name,
+                          onRename: _renameSession,
+                        );
+                      },
+                    )
+                  },
                 ),
                 // List SessionContent
                 Expanded(
