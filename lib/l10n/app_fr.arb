@@ -5,13 +5,13 @@
     "buttonOk": "Ok",
 
     "welcomeRegisterMessage": "Inscription",
-    "welcomeLoginMessage": "Salut,\nBon Retour !",
+    "welcomeLoginMessage": "Salut,\nBon retour !",
     "login": "Connexion",
     "register": "Inscription",
     "goToLogin": "Me connecter",
     "goToRegister": "Créer un compte",
 
-    "name": "Nom utilisateur",
+    "name": "Nom d'utilisateur",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer le mot de passe",
@@ -23,35 +23,40 @@
     "loginBadCredentials": "Cet identifiant ou mot de passe est incorrect",
     "registerUsernameAlreadyExists": "Ce nom d'utilisateur existe déjà",
     "registerEmailAlreadyExists": "Cet email est déjà associé à un compte",
-    "registerUsernameTooLong": "Le nom d'utilisateur doit faire moins de 20 caractères",
-    "registerForbiddenUsernameCharacters": "Le nom d'utilisateur ne doit pas contenir : ",
+    "registerUsernameTooLong": "Le nom d'utilisateur doit comporter moins de 20 caractères",
+    "registerForbiddenUsernameCharacters": "Le nom d'utilisateur ne doit pas contenir de : ",
     "registerNotValidEmailFormat": "Le champ email est invalide",
     "registerPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
-    "registerDifferentPassword": "Les mots de passe sont différents",
-    "registerSuccess": "Account created",
+    "registerDifferentPassword": "Les mots de passe ne correspondent pas",
+    "registerSuccess": "Compte créé",
 
     "exercisesTitle": "Exercices",
-    "exercisesSearch" : "Rechercher un exercice",
-    "muscleGroupMenu" : "Grp. musculaire",
+    "exercisesSearch": "Rechercher un exercice",
+    "muscleGroupMenu": "Grp. musculaire",
     
-    "pectorals" : "Pectoraux",
-    "back" : "Dos",
-    "legs" : "Jambes",
-    "shoulders" : "Epaules",
-    "arms" : "Bras",
-    "abs" : "Abdos",
+    "pectorals": "Pectoraux",
+    "back": "Dos",
+    "legs": "Jambes",
+    "shoulders": "Épaules",
+    "arms": "Bras",
+    "abs": "Abdos",
 
     "skipButton": "Passer",
 
-    "createExerciseDialogTitle": "Ajouter l'exercice",
+    "createExerciseDialogTitle": "Ajouter un exercice",
     "repetitionsInputLabel": "Reps",
     "restInputLabel": "Repos",
     
     "addButton": "Ajouter",
     "deleteButton": "Supprimer",
+    "renameButton": "Renommer",
 
     "deleteContentConfirmTitle": "Supprimer l'exercice",
-    "deleteContentConfirmMsg": "Êtes-vous sur de vouloir suprimer cet exercice ?. Les statistiques liées à cet exercice seront toujours disponible.",
+    "deleteContentConfirmMsg": "Êtes-vous sûr de vouloir supprimer cet exercice ? Les statistiques liées à cet exercice seront toujours disponibles.",
+
+    "renameSessionTitle": "Renommer la session",
+    "renameSessionLabel": "Nouveau nom",
+    "renameSessionErrorMsg": "Le nom doit contenir entre 1 et 25 caractères.",
     
     "timePickerTitle": "Temps de repos",
     "minutes": "Minutes",
@@ -63,7 +68,7 @@
     "newExercise": "Ajouter un exercice",
     "runSession": "Lancer la séance",
 
-    "textNotePlaceholder": "Ecrivez vos notes...",
+    "textNotePlaceholder": "Écrivez vos notes...",
     "validateButton": "Sauvegarder",
 
     "finishSet": "Finir le set",
@@ -71,5 +76,4 @@
     "reps": "Reps",
     "kg": "Kg",
     "date": "Date"
-    
 }

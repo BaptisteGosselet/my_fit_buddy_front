@@ -5,19 +5,19 @@
     "buttonOk": "Ok",
 
     "welcomeRegisterMessage": "Register",
-    "welcomeLoginMessage": "Welcome back !",
+    "welcomeLoginMessage": "Welcome back!",
     "login": "Login",
     "register": "Register",
     "goToLogin": "I have an account",
     "goToRegister": "Create an account",
 
-    "name": "name",
+    "name": "Name",
     "email": "E-Mail",
     "password": "Password",
     "passwordConfirm": "Confirm Password",
 
     "sessionListTitle": "myFitBuddy",
-    "sessionListSubtitle": "Ready to train ?",
+    "sessionListSubtitle": "Ready to train?",
 
     "unknownError": "An error occurred",
     "loginBadCredentials": "The username or password is incorrect",
@@ -28,19 +28,18 @@
     "registerNotValidEmailFormat": "The email field is invalid",
     "registerPasswordTooShort": "The password must be at least 8 characters long",
     "registerDifferentPassword": "Passwords must be the same",
-    "registerSuccess": "Registered successfuly",
+    "registerSuccess": "Registered successfully",
 
-    "exercisesTitle" : "Exercises",
-    "exercisesSearch" : "Search for an exercise",
-    "muscleGroupMenu" : "Muscle group",
+    "exercisesTitle": "Exercises",
+    "exercisesSearch": "Search for an exercise",
+    "muscleGroupMenu": "Muscle group",
 
-    
-    "pectorals" : "Pectorals",
-    "back" : "Back",
-    "legs" : "Legs",
-    "shoulders" : "Shoulders",
-    "arms" : "Arms",
-    "abs" : "Abs",
+    "pectorals": "Pectorals",
+    "back": "Back",
+    "legs": "Legs",
+    "shoulders": "Shoulders",
+    "arms": "Arms",
+    "abs": "Abs",
 
     "skipButton": "Skip",
 
@@ -50,9 +49,14 @@
     
     "addButton": "Add",
     "deleteButton": "Delete",
+    "renameButton": "Rename",
 
     "deleteContentConfirmTitle": "Delete exercise",
     "deleteContentConfirmMsg": "Are you sure you want to delete this exercise? The statistics related to this exercise will still be available.",
+
+    "renameSessionTitle": "Rename session",
+    "renameSessionLabel": "New name",
+    "renameSessionErrorMsg": "The name must be between 1 and 25 characters long.",
 
     "timePickerTitle": "Rest time",
     "minutes": "Minutes",
@@ -61,16 +65,15 @@
     "newSessionName": "New session",
 
     "exercises": "Exercise(s)",
-    "newExercise": "Ajouter un exercice",
-    "runSession": "Lancer la séance",
+    "newExercise": "Add an exercise",
+    "runSession": "Start session",
 
     "textNotePlaceholder": "Write your notes...",
     "validateButton": "Save",
 
-    "finishSet": "Finir le set",
+    "finishSet": "Finish set",
     "set": "Set",
     "reps": "Reps",
     "kg": "Kg",
     "date": "Date"
-
 }
