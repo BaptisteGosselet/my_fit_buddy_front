@@ -21,7 +21,7 @@ class PlaySessionPage extends StatelessWidget {
     required this.previousExerciseSets,
     required this.onFinishClick,
     required this.onSetPressed,
-    required this.currentSetNumber, 
+    required this.currentSetNumber,
   });
 
   @override

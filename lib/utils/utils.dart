@@ -56,10 +56,15 @@ class Utils {
         : exercise.labelEn;
   }
 
-  String getRecordsDateString(context, DateTime date) {
+  String getRecordsDateString_1(context, DateTime date) {
+    final String monthName = getMonth(context, date.month);
+    final String shortYear = (date.year % 100).toString().padLeft(2, '0');
+    return "${date.day} $monthName $shortYear";
+  }
+
+  String getRecordsDateString_2(context, DateTime date) {
     String weekdayName = getWeekday(context, date.weekday);
     String monthName = getMonth(context, date.month);
-
     return "$weekdayName ${date.day} $monthName ${date.year}";
   }
 

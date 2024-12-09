@@ -37,7 +37,8 @@ class RecordRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              Utils.instance.getRecordsDateString(context, fitSet.record.date),
+              Utils.instance
+                  .getRecordsDateString_1(context, fitSet.record.date),
               style: const TextStyle(
                 fontSize: thisFontSize,
                 fontWeight: thisFontWeight,
