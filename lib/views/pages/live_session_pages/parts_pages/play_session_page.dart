@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/play_session_header.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaySessionPage extends StatelessWidget {
   final SessionContentExercise sessionContentExercise;
+  final List<FitSet> previousExerciseSets;
   final Function(SessionContentExercise, int, int) onFinishClick;
   final Function(int setNumber) onSetPressed;
   final int currentSetNumber;
@@ -16,16 +18,17 @@ class PlaySessionPage extends StatelessWidget {
   const PlaySessionPage({
     super.key,
     required this.sessionContentExercise,
+    required this.previousExerciseSets,
     required this.onFinishClick,
     required this.onSetPressed,
-    required this.currentSetNumber,
+    required this.currentSetNumber, 
   });
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController repsTextController = TextEditingController(text: "0");
+    TextEditingController repsTextController = TextEditingController(text: "");
     TextEditingController weightTextController =
-        TextEditingController(text: "0");
+        TextEditingController(text: "");
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -97,7 +100,7 @@ class PlaySessionPage extends StatelessWidget {
                 ),
               ),
             ),
-            const PreviousRecordsList(),
+            PreviousRecordsList(previousSets: previousExerciseSets),
           ],
         ),
       ),

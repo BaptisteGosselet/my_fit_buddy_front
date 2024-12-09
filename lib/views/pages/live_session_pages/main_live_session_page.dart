@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:my_fit_buddy/viewmodels/live_session_viewmodel.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_page.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/play_session_page.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/widgets/exercise_card_scroll.dart';
 import 'package:my_fit_buddy/views/widgets/modals/change_live_set.dart';
 
@@ -29,7 +30,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     super.initState();
     liveSessionViewmodel = LiveSessionViewModel(widget.sessionId);
     currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
-    print("live${liveSessionViewmodel.sessionId}");
+    print("live\${liveSessionViewmodel.sessionId}");
     initViewmodel();
   }
 
@@ -127,12 +128,30 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     Widget currentPage;
     SessionContentExercise currentContent =
         liveSessionViewmodel.getCurrentSessionContentExercise();
+
     if (currentIndex == 0) {
-      currentPage = PlaySessionPage(
-        sessionContentExercise: currentContent,
-        onFinishClick: goToTimer,
-        onSetPressed: goToSet,
-        currentSetNumber: currentSetIndex,
+      currentPage = FutureBuilder<List<FitSet>>(
+        future: liveSessionViewmodel.getExercisePreviousSets(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          List<FitSet> previousSets = [];
+          if (snapshot.hasError) {
+            print("Error loading previous sets: \${snapshot.error}");
+          } else if (snapshot.hasData) {
+            previousSets = snapshot.data!;
+          }
+
+          return PlaySessionPage(
+            sessionContentExercise: currentContent,
+            previousExerciseSets: previousSets,
+            onFinishClick: goToTimer,
+            onSetPressed: goToSet,
+            currentSetNumber: currentSetIndex,
+          );
+        },
       );
     } else if (currentIndex == 1) {
       currentPage = TimerPage(

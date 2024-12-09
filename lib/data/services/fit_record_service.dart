@@ -126,4 +126,10 @@ class FitRecordService {
     }
     return Future.error('Erreur lors de la récupération du set');
   }
+
+  Future<List<FitSet>> getExercisePreviousSets(int idExercise) async {
+    print("SERVICE GET PREVIOUS $idExercise SETS");
+    List<FitSet> l = [];
+    return l;
+  }
 }
