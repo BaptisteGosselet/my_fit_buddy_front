@@ -7,7 +7,7 @@ import 'package:my_fit_buddy/views/widgets/elementCards/session_card.dart';
 class RecordsList extends StatelessWidget {
   final Future<List<FitRecord>> recordsFuture;
 
-  const RecordsList({Key? key, required this.recordsFuture}) : super(key: key);
+  const RecordsList({super.key, required this.recordsFuture});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,7 @@ class RecordsList extends StatelessWidget {
                   onTap: () {
                     context.pushNamed(
                       'recordDetails',
-                      pathParameters: {
-                        'recordId': record.id.toString()
-                      },
+                      pathParameters: {'recordId': record.id.toString()},
                     );
                   },
                 );
@@ -54,4 +52,3 @@ class RecordsList extends StatelessWidget {
     );
   }
 }
-

@@ -8,7 +8,7 @@ import 'package:my_fit_buddy/views/widgets/inputs/fit_search_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExercisesRecordsList extends StatefulWidget {
-  const ExercisesRecordsList({Key? key}) : super(key: key);
+  const ExercisesRecordsList({super.key});
 
   @override
   ExercisesRecordsListState createState() => ExercisesRecordsListState();

@@ -5,7 +5,6 @@ import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
-import 'package:my_fit_buddy/views/widgets/modals/customize_exercise_dialog.dart';
 
 class ExerciseRecordCard extends StatefulWidget {
   const ExerciseRecordCard({
