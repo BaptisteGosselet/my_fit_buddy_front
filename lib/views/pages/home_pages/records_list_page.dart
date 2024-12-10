@@ -45,9 +45,9 @@ class RecordsListPageState extends State<RecordsListPage> with SingleTickerProvi
           ),
           TabBar(
             controller: _tabController,
-            tabs: const [
-              Tab(text: 'Label liste des Records'),
-              Tab(text: 'Label Container Bleu'),
+            tabs: [
+              Tab(text: AppLocalizations.of(context)!.recordsTitleToggle1),
+              Tab(text: AppLocalizations.of(context)!.recordsTitleToggle2),
             ],
           ),
           Expanded(
@@ -55,7 +55,7 @@ class RecordsListPageState extends State<RecordsListPage> with SingleTickerProvi
               controller: _tabController,
               children: [
                 RecordsList(recordsFuture: _recordsFuture),
-                ExercisesRecordsList(),
+                const ExercisesRecordsList(),
               ],
             ),
           ),

@@ -108,7 +108,10 @@
     "september_abr": "Sep",
     "october_abr": "Oct",
     "november_abr": "Nov",
-    "december_abr": "Dec"
+    "december_abr": "Dec",
+
+    "recordsTitleToggle1": "Sessions",
+    "recordsTitleToggle2": "Exercises"
 
 
 }
