@@ -58,7 +58,7 @@ class RecordsListPageState extends State<RecordsListPage> {
                         return SessionCard(
                           title: 'Record ${record.id}',
                           subtitle:
-                              'Créé le : ${Utils.instance.getRecordsDateString_2(context, record.date)}',
+                              'Créé le : ${Utils.instance.getRecordsDateString_1(context, record.date)}',
                           icon: Icons.fitness_center,
                           onTap: () {
                             context.pushNamed(
