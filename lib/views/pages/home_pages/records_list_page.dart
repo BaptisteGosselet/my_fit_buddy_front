@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/viewmodels/records_viewmodel.dart';
+import 'package:my_fit_buddy/views/pages/records_pages/exercises_records_list.dart';
+import 'package:my_fit_buddy/views/pages/records_pages/records_list.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/session_card.dart';
@@ -15,13 +17,21 @@ class RecordsListPage extends StatefulWidget {
   RecordsListPageState createState() => RecordsListPageState();
 }
 
-class RecordsListPageState extends State<RecordsListPage> {
+class RecordsListPageState extends State<RecordsListPage> with SingleTickerProviderStateMixin {
   late Future<List<FitRecord>> _recordsFuture;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _recordsFuture = RecordsViewmodel().fetchUserRecords();
+    _tabController = TabController(length: 2, vsync: this); 
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,61 +43,23 @@ class RecordsListPageState extends State<RecordsListPage> {
             title: AppLocalizations.of(context)!.recordListTitle,
             subtitle: AppLocalizations.of(context)!.recordListSubtitle,
           ),
+          TabBar(
+            controller: _tabController,
+            tabs: const [
+              Tab(text: 'Liste des Records'),
+              Tab(text: 'Container Bleu'),
+            ],
+          ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: FutureBuilder<List<FitRecord>>(
-                future: _recordsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Erreur : ${snapshot.error}'),
-                    );
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                      child: Text('Aucun record trouvé.'),
-                    );
-                  } else {
-                    final records = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: records.length,
-                      itemBuilder: (context, index) {
-                        final record = records[index];
-                        return SessionCard(
-                          title: 'Record ${record.id}',
-                          subtitle:
-                              'Créé le : ${Utils.instance.getRecordsDateString_1(context, record.date)}',
-                          icon: Icons.fitness_center,
-                          onTap: () {
-                            context.pushNamed(
-                              'recordDetails',
-                              pathParameters: {
-                                'recordId': record.id.toString()
-                              },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                RecordsList(recordsFuture: _recordsFuture),
+                const ExercisesRecordsList(),
+              ],
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('Add new record');
-        },
-        backgroundColor: fitBlueDark,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 35.0,
-        ),
       ),
     );
   }
