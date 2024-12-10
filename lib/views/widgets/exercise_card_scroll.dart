@@ -6,15 +6,20 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 class ExerciseCardScroll extends StatelessWidget {
   final List<Exercise> exercises;
   final Function(int) goToExercise;
+  final int currentExerciseIdx;
 
   const ExerciseCardScroll(
-      {super.key, required this.exercises, required this.goToExercise});
+      {super.key,
+      required this.exercises,
+      required this.goToExercise,
+      required this.currentExerciseIdx});
 
   @override
   Widget build(BuildContext context) {
-    const double borderThickness = 5.0;
-    const double borderRadius = 5.0;
-    const Color borderColor = fitBlueMiddle;
+    const double borderThickness = 1.0;
+    const double borderRadius = 3.0;
+    const Color defaultBorderColor = fitBlueSky;
+    const Color selectedBorderColor = fitBlueMiddle;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
@@ -24,6 +29,10 @@ class ExerciseCardScroll extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           Exercise exercise = exercises[index];
 
+          Color borderColor = (index == currentExerciseIdx)
+              ? selectedBorderColor
+              : defaultBorderColor;
+
           return GestureDetector(
             onTap: () => goToExercise(index),
             child: Container(
@@ -31,10 +40,11 @@ class ExerciseCardScroll extends StatelessWidget {
                 color: borderColor,
                 border: Border.all(
                   color: borderColor,
+                  width: borderThickness,
                 ),
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
-              padding: const EdgeInsets.all(borderThickness),
+              padding: const EdgeInsets.all(5.0),
               width: 100,
               child: Image.network(
                 '$configBaseAPI/exercises/${exercise.id}/image',

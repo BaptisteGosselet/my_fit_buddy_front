@@ -1,34 +1,39 @@
-import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-const List<String> list = <String>['🤷‍♂️', '😐', '👍', '😎'];
+const Map<String, int> emojiRatingMap = {
+  '🤷‍♂️': 0,
+  '😐': 1,
+  '👍': 2,
+  '😎': 3,
+};
 
 class NotePage extends StatefulWidget {
-  const NotePage({super.key, this.title});
+  const NotePage({
+    super.key,
+    this.title,
+    required this.onValidate,
+  });
 
   final String? title;
+  final Future<bool> Function(String text, int rate, BuildContext c) onValidate;
 
   @override
   State<NotePage> createState() => _NotePageState();
 }
 
-class _NotePageState extends State<NotePage>
-    with SingleTickerProviderStateMixin {
-  late final CustomTimerController _controller = CustomTimerController(
-      vsync: this,
-      begin: const Duration(minutes: 3),
-      end: const Duration(),
-      initialState: CustomTimerState.reset,
-      interval: CustomTimerInterval.milliseconds);
+class _NotePageState extends State<NotePage> {
+  String dropdownValue = emojiRatingMap.keys.first;
+  final TextEditingController _textController = TextEditingController();
 
-  String dropdownValue = list.first;
+  int getSelectedRate() {
+    return emojiRatingMap[dropdownValue]!;
+  }
 
   @override
   Widget build(BuildContext context) {
-    _controller.start();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -41,19 +46,6 @@ class _NotePageState extends State<NotePage>
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomTimer(
-                  controller: _controller,
-                  builder: (state, time) {
-                    // Build the widget you want!🎉
-                    return Text("${time.minutes}:${time.seconds}",
-                        style: const TextStyle(
-                            fontSize: 70.0, color: fitBlueMiddle));
-                  }),
-            ],
-          ),
           Expanded(
             child: Padding(
               padding:
@@ -63,6 +55,7 @@ class _NotePageState extends State<NotePage>
                 children: [
                   const Text("NOTES"),
                   TextField(
+                    controller: _textController,
                     maxLines: 12,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
@@ -81,17 +74,15 @@ class _NotePageState extends State<NotePage>
               children: [
                 DropdownMenu<String>(
                   textAlign: TextAlign.center,
-                  initialSelection: list.first,
+                  initialSelection: emojiRatingMap.keys.first,
                   onSelected: (String? value) {
-                    // This is called when the user selects an item.
                     setState(() {
                       dropdownValue = value!;
                     });
                   },
-                  dropdownMenuEntries:
-                      list.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
+                  dropdownMenuEntries: emojiRatingMap.keys
+                      .map<DropdownMenuEntry<String>>((String key) {
+                    return DropdownMenuEntry<String>(value: key, label: key);
                   }).toList(),
                 ),
                 TextButton(
@@ -104,8 +95,17 @@ class _NotePageState extends State<NotePage>
                     elevation: 4,
                     shadowColor: Colors.grey.withOpacity(0.5),
                   ),
-                  onPressed: () {
-                    context.goNamed('home'); //TODO
+                  onPressed: () async {
+                    final text = _textController.text;
+                    final rate = getSelectedRate();
+                    final success =
+                        await widget.onValidate(text, rate, context);
+
+                    if (mounted && success) {
+                      if (context.mounted) {
+                        context.goNamed('home');
+                      }
+                    }
                   },
                   child: SizedBox(
                     width: 130,

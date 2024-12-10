@@ -4,7 +4,6 @@ import 'package:my_fit_buddy/views/pages/authentification_pages/register_page.da
 import 'package:my_fit_buddy/views/pages/exercises_list_page.dart';
 import 'package:my_fit_buddy/views/pages/home_pages/home_page.dart';
 import 'package:my_fit_buddy/views/pages/live_session_pages/main_live_session_page.dart';
-import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/note_page.dart';
 import 'package:my_fit_buddy/views/pages/loading_pages/loading_page.dart';
 import 'package:my_fit_buddy/views/pages/records_pages/records_detail_page.dart';
 import 'package:my_fit_buddy/views/pages/session_pages/session_detail_page.dart';
@@ -47,11 +46,6 @@ final router = GoRouter(
           final int id = int.parse(state.pathParameters['idSession']!);
           return ExercisesListPage(idSession: id);
         }),
-    GoRoute(
-      name: 'note',
-      path: '/note',
-      builder: (context, state) => const NotePage(),
-    ),
     GoRoute(
         name: 'liveSession',
         path: '/liveSession/:sessionId',
