@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
-import 'package:my_fit_buddy/views/widgets/previous_records_widget/previous_records_row.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_fit_buddy/views/widgets/previous_records_widget/all_version/previous_records_row_with_order.dart';
 
-class PreviousRecordsList extends StatelessWidget {
+class PreviousRecordsListAll extends StatelessWidget {
   final List<FitSet> previousSets;
 
-  const PreviousRecordsList({
+  const PreviousRecordsListAll({
     super.key,
     required this.previousSets,
   });
@@ -18,7 +18,6 @@ class PreviousRecordsList extends StatelessWidget {
     const FontWeight thisFontWeight = fitWeightBold;
     const Color thisTextColor = Colors.black54;
 
-    // Si la liste est vide, affiche uniquement le message
     if (previousSets.isEmpty) {
       return const Center(
         child: Text(
@@ -32,12 +31,8 @@ class PreviousRecordsList extends StatelessWidget {
       );
     }
 
-    // Sinon, affiche la liste complète avec les titres et les colonnes
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,6 +43,15 @@ class PreviousRecordsList extends StatelessWidget {
               children: [
                 Text(
                   AppLocalizations.of(context)!.date,
+                  style: const TextStyle(
+                    fontSize: thisFontSize,
+                    fontWeight: thisFontWeight,
+                    color: thisTextColor,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  AppLocalizations.of(context)!.set,
                   style: const TextStyle(
                     fontSize: thisFontSize,
                     fontWeight: thisFontWeight,
@@ -72,21 +76,17 @@ class PreviousRecordsList extends StatelessWidget {
                     color: thisTextColor,
                   ),
                 ),
-                const Spacer(),
               ],
             ),
           ),
           const SizedBox(height: 8.0),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 120,
-            ),
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: previousSets.map((fitSet) {
                   return Column(
                     children: [
-                      RecordRow(fitSet: fitSet),
+                      RecordRowWithOrder(fitSet: fitSet),
                       const SizedBox(height: 8.0),
                     ],
                   );

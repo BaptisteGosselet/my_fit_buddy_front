@@ -5,7 +5,7 @@ import 'package:my_fit_buddy/data/models/session_content_models/session_content_
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/headers/play_session_header.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_text_input.dart';
-import 'package:my_fit_buddy/views/widgets/previous_records_widget/previous_records_list.dart';
+import 'package:my_fit_buddy/views/widgets/previous_records_widget/live_version/previous_records_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaySessionPage extends StatelessWidget {
