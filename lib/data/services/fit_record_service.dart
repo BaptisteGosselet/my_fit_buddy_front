@@ -128,7 +128,30 @@ class FitRecordService {
     return Future.error('Erreur lors de la récupération du set');
   }
 
-  Future<List<FitSet>> getExercisePreviousSets(
+  Future<List<FitSet>> getExercisePreviousSets(int idExercise) async {
+    print("SERVICE GET PREVIOUS $idExercise SETS");
+    try {
+      final response = await APIService.instance.request(
+        '$setsUrl/exerciseSet/$idExercise',
+        DioMethod.get,
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> dataList = response.data;
+        List<FitSet> sets =
+            dataList.map((elem) => FitSet.fromJson(elem)).toList();
+
+        return sets;
+      } else {
+        throw Exception('Failed to fetch previous sets for exercise');
+      }
+    } catch (e) {
+      print(e);
+      return Future.error('Erreur lors de la récupération des sets');
+    }
+  }
+
+  Future<List<FitSet>> getExercisePreviousSetsByNOrder(
       int idExercise, int nbOrder) async {
     print("SERVICE GET PREVIOUS $idExercise $nbOrder SETS");
     try {
