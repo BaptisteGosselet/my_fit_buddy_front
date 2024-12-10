@@ -84,7 +84,7 @@
     "recordListSubtitle": "Consulte ta progression",
 
     "quitSessionModalTitle":"Quitter la séance ?",
-    "quitSessionModalMessage":"Êtes-vous sûr de quitter la séance ? Les progrès non sauvegardés seront perdus.",
+    "quitSessionModalMessage":"Êtes-vous sûr de quitter la séance ? Les progrès seront sauvegardés.",
     "quitSessionModalOptionCancel":"Annuler",
     "quitSessionModalOptionConfirm":"Quitter",
     "changeSetTitle": "Êtes-vous sûr de changer de set ?",
@@ -109,7 +109,10 @@
     "september_abr": "Sep",
     "october_abr": "Oct",
     "november_abr": "Nov",
-    "december_abr": "Dec"
+    "december_abr": "Dec",
+
+    "recordsTitleToggle1": "Séances",
+    "recordsTitleToggle2": "Exercices"
 
 
 

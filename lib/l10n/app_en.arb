@@ -83,7 +83,7 @@
     "recordListSubtitle": "View your progress",
 
     "quitSessionModalTitle":"Quit the session ?",
-    "quitSessionModalMessage":"Are you sure to quit the session ? Not saved sets will be lost.",
+    "quitSessionModalMessage":"Are you sure to quit the session ? Sets will be saved.",
     "quitSessionModalOptionCancel":"Cancel",
     "quitSessionModalOptionConfirm":"Exit Session",
     "changeSetTitle": "Are you sure to change set ?",
@@ -108,7 +108,10 @@
     "september_abr": "Sep",
     "october_abr": "Oct",
     "november_abr": "Nov",
-    "december_abr": "Dec"
+    "december_abr": "Dec",
+
+    "recordsTitleToggle1": "Sessions",
+    "recordsTitleToggle2": "Exercises"
 
 
 }
