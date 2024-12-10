@@ -77,12 +77,6 @@ class ExercisesListPageState extends State<ExercisesListPage> {
       };
     }).toList();
 
-    final List<Map<String, String>> matOptions = [
-      {'label': 'Material 1', 'value': 'm1'},
-      {'label': 'Material 2', 'value': 'm2'},
-      {'label': 'Material 3', 'value': 'm3'},
-    ];
-
     final ScrollController scrollController = ScrollController();
     scrollController.addListener(() => handleScroll(scrollController));
 
@@ -125,12 +119,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
                     fetchExercises();
                   },
                 ),
-                const Spacer(),
-                FitDropdown(
-                  title: 'Mat',
-                  options: matOptions,
-                  controller: matController,
-                ),
+                const Spacer()
               ],
             ),
           ),

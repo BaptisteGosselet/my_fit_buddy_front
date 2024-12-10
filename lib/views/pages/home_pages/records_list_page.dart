@@ -46,8 +46,8 @@ class RecordsListPageState extends State<RecordsListPage> with SingleTickerProvi
           TabBar(
             controller: _tabController,
             tabs: const [
-              Tab(text: 'Liste des Records'),
-              Tab(text: 'Container Bleu'),
+              Tab(text: 'Label liste des Records'),
+              Tab(text: 'Label Container Bleu'),
             ],
           ),
           Expanded(
@@ -55,7 +55,7 @@ class RecordsListPageState extends State<RecordsListPage> with SingleTickerProvi
               controller: _tabController,
               children: [
                 RecordsList(recordsFuture: _recordsFuture),
-                const ExercisesRecordsList(),
+                ExercisesRecordsList(),
               ],
             ),
           ),
