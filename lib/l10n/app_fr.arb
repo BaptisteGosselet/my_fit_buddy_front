@@ -84,7 +84,7 @@
     "recordListSubtitle": "Consulte ta progression",
 
     "quitSessionModalTitle":"Quitter la séance ?",
-    "quitSessionModalMessage":"Êtes-vous sûr de quitter la séance ? Les progrès non sauvegardés seront perdus.",
+    "quitSessionModalMessage":"Êtes-vous sûr de quitter la séance ? Les progrès seront sauvegardés.",
     "quitSessionModalOptionCancel":"Annuler",
     "quitSessionModalOptionConfirm":"Quitter",
     "changeSetTitle": "Êtes-vous sûr de changer de set ?",

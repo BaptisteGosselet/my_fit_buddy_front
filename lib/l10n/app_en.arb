@@ -83,7 +83,7 @@
     "recordListSubtitle": "View your progress",
 
     "quitSessionModalTitle":"Quit the session ?",
-    "quitSessionModalMessage":"Are you sure to quit the session ? Not saved sets will be lost.",
+    "quitSessionModalMessage":"Are you sure to quit the session ? Sets will be saved.",
     "quitSessionModalOptionCancel":"Cancel",
     "quitSessionModalOptionConfirm":"Exit Session",
     "changeSetTitle": "Are you sure to change set ?",
