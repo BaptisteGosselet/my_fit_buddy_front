@@ -18,7 +18,7 @@ class NotePage extends StatefulWidget {
   });
 
   final String? title;
-  final bool Function(String text, int rate) onValidate;
+  final Future<bool> Function(String text, int rate, BuildContext c) onValidate;
 
   @override
   State<NotePage> createState() => _NotePageState();
@@ -95,13 +95,16 @@ class _NotePageState extends State<NotePage> {
                     elevation: 4,
                     shadowColor: Colors.grey.withOpacity(0.5),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     final text = _textController.text;
                     final rate = getSelectedRate();
-                    final success = widget.onValidate(text, rate);
+                    final success =
+                        await widget.onValidate(text, rate, context);
 
-                    if (success) {
-                      context.goNamed('home');
+                    if (mounted && success) {
+                      if (context.mounted) {
+                        context.goNamed('home');
+                      }
                     }
                   },
                   child: SizedBox(

@@ -1,4 +1,5 @@
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_record_note_form.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_create_form.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_update_form.dart';
@@ -148,6 +149,30 @@ class FitRecordService {
     } catch (e) {
       print(e);
       return Future.error('Erreur lors de la récupération des sets');
+    }
+  }
+
+  Future<bool> setNote(int recordId, String text, int rate) async {
+    try {
+      print("$recordId, '$text', $rate");
+      final form = FitRecordNoteForm(text: text, rate: rate);
+
+      final response = await APIService.instance.request(
+        '$recordsUrl/note/$recordId',
+        DioMethod.post,
+        param: form.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print(
+            'Échec de l\'ajout de la note : Code de statut ${response.statusCode}, Message : ${response.data}');
+        throw Exception('Failed to set note for record');
+      }
+    } catch (e) {
+      print('Erreur lors de l\'ajout de la note : $e');
+      return Future.error('Erreur lors de l\'ajout de la note');
     }
   }
 }

@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
+import 'package:my_fit_buddy/managers/toast_manager.dart';
 
 class LiveSessionViewModel {
   // Fields
@@ -152,10 +154,44 @@ class LiveSessionViewModel {
     return exercisePreviousSets;
   }
 
-  bool setNote(String text, int rate) {
-    print("$text - $rate");
-    //validation avant
-    //requête
-    return true;
+  Future<bool> setNote(String text, int rate, BuildContext context) async {
+    print("Texte reçu : $text - Note reçue : $rate");
+
+    if (!context.mounted) {
+      return false;
+    }
+
+    if (text.isEmpty) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(context, "LABEL texte vide");
+      }
+      return false;
+    }
+
+    if (text.length > 255) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL texte trop grand 255 max");
+      }
+      return false;
+    }
+
+    if (rate < 0 || rate > 3) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL rating hors min/max");
+      }
+      return false;
+    }
+
+    bool result = await fitRecordService.setNote(currentRecord.id, text, rate);
+
+    if (result) {
+      if (context.mounted) {
+        ToastManager.instance.showSuccessToast(context, "LABEL note set");
+      }
+    }
+
+    return result;
   }
 }
