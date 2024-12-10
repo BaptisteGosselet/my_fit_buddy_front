@@ -48,11 +48,6 @@ final router = GoRouter(
           return ExercisesListPage(idSession: id);
         }),
     GoRoute(
-      name: 'note',
-      path: '/note',
-      builder: (context, state) => const NotePage(),
-    ),
-    GoRoute(
         name: 'liveSession',
         path: '/liveSession/:sessionId',
         builder: (context, state) {

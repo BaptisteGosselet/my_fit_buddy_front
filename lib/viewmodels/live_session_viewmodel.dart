@@ -151,4 +151,11 @@ class LiveSessionViewModel {
         await fitRecordService.getExercisePreviousSets(idExercise, nbOrder);
     return exercisePreviousSets;
   }
+
+  bool setNote(String text, int rate) {
+    print("$text - $rate");
+    //validation avant
+    //requête
+    return true;
+  }
 }

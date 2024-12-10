@@ -3,19 +3,34 @@ import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-const List<String> list = <String>['🤷‍♂️', '😐', '👍', '😎'];
+const Map<String, int> emojiRatingMap = {
+  '🤷‍♂️': 0,
+  '😐': 1,
+  '👍': 2,
+  '😎': 3,
+};
 
 class NotePage extends StatefulWidget {
-  const NotePage({super.key, this.title});
+  const NotePage({
+    super.key,
+    this.title,
+    required this.onValidate,
+  });
 
   final String? title;
+  final bool Function(String text, int rate) onValidate;
 
   @override
   State<NotePage> createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {
-  String dropdownValue = list.first;
+  String dropdownValue = emojiRatingMap.keys.first;
+  final TextEditingController _textController = TextEditingController();
+
+  int getSelectedRate() {
+    return emojiRatingMap[dropdownValue]!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +55,7 @@ class _NotePageState extends State<NotePage> {
                 children: [
                   const Text("NOTES"),
                   TextField(
+                    controller: _textController,
                     maxLines: 12,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
@@ -58,16 +74,15 @@ class _NotePageState extends State<NotePage> {
               children: [
                 DropdownMenu<String>(
                   textAlign: TextAlign.center,
-                  initialSelection: list.first,
+                  initialSelection: emojiRatingMap.keys.first,
                   onSelected: (String? value) {
                     setState(() {
                       dropdownValue = value!;
                     });
                   },
-                  dropdownMenuEntries:
-                      list.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
+                  dropdownMenuEntries: emojiRatingMap.keys
+                      .map<DropdownMenuEntry<String>>((String key) {
+                    return DropdownMenuEntry<String>(value: key, label: key);
                   }).toList(),
                 ),
                 TextButton(
@@ -81,7 +96,13 @@ class _NotePageState extends State<NotePage> {
                     shadowColor: Colors.grey.withOpacity(0.5),
                   ),
                   onPressed: () {
-                    context.goNamed('home');
+                    final text = _textController.text;
+                    final rate = getSelectedRate();
+                    final success = widget.onValidate(text, rate);
+
+                    if (success) {
+                      context.goNamed('home');
+                    }
                   },
                   child: SizedBox(
                     width: 130,

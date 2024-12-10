@@ -116,6 +116,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       setState(() {
         currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
       });
+      switchPage(0);
     }
   }
 
@@ -157,7 +158,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       currentPage = TimerPage(
           duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);
     } else if (currentIndex == 2) {
-      currentPage = const NotePage();
+      currentPage = NotePage(onValidate: (String text, int rate) { return liveSessionViewmodel.setNote(text, rate); },  );
     } else {
       currentPage = Container(
         color: Colors.red,
