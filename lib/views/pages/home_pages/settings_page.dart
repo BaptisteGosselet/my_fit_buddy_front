@@ -3,6 +3,7 @@ import 'package:my_fit_buddy/viewmodels/auth_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -26,10 +27,28 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> _loadUserData() async {
     final username = await authViewmodel.getUsername();
     final email = await authViewmodel.getEmail();
-    setState(() {
-      nameController.text = username;
-      emailController.text = email;
-    });
+    if (mounted) {
+      setState(() {
+        nameController.text = username;
+        emailController.text = email;
+      });
+    }
+  }
+
+  Future<void> _deleteAccount() async {
+    // Ensure the context is still valid
+    if (!mounted) return;
+
+    final bool result = await authViewmodel.deleteAccount(context);
+    if (mounted) {
+      if (result) {
+        context.goNamed("register");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Échec de la suppression du compte")),
+        );
+      }
+    }
   }
 
   @override
@@ -125,33 +144,46 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: FitButton(
                           buttonColor: Colors.red,
                           label: 'Supprimer le compte',
-                          onClick: () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Confirmation'),
-                                content: const Text(
-                                    'Êtes-vous sûr de vouloir supprimer votre compte ?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Annuler'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      authViewmodel.deleteAccount(context);
-                                    },
-                                    style: TextButton.styleFrom(
-                                        foregroundColor: Colors.red),
-                                    child: Text('Confirmer'),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                          onClick: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Confirmation'),
+                                  content: const Text(
+                                      'Êtes-vous sûr de vouloir supprimer votre compte ?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Annuler'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        // Call the async deleteAccount method here
+                                        _deleteAccount();
+                                      },
+                                      style: TextButton.styleFrom(
+                                          foregroundColor: Colors.red),
+                                      child: const Text('Confirmer'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      )
+                    else
+                      Center(
+                        child: FitButton(
+                          buttonColor: fitBlueDark,
+                          label: 'Déconnexion',
+                          onClick: () {
+                            authViewmodel.logout(context);
+                          },
                         ),
                       ),
                   ],

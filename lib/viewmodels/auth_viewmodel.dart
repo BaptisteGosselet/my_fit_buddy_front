@@ -125,38 +125,36 @@ class AuthViewmodel {
   }
 
   Future<bool> deleteAccount(BuildContext context) async {
-    print("Compte deleted");
-    /*
-    try {
-      StatusType result = await authService.deleteAccount();
+    print("delete account");
 
-      if (result == StatusType.ok) {
+    //test account
+    if ((await getUsername()).contains("dbuser")) {
+      print("NE SUPPRIME PAS DBUSER !!");
+      return false;
+    }
+
+    try {
+      bool result = await authService.deleteAccount();
+
+      if (result) {
         await TokenStorageService.instance.removeToken();
         if (context.mounted) {
-          ToastManager.instance.showSuccessToast(
-              context, AppLocalizations.of(context)!.deleteAccountSuccess);
-          context.goNamed(
-              'welcome'); // Redirection vers la page d'accueil ou de bienvenue
+          ToastManager.instance
+              .showSuccessToast(context, "Compte supprimé avec succès");
+          context.goNamed('register');
         }
         return true;
-      } else if (result == StatusType.unauthorized) {
-        if (context.mounted) {
-          ToastManager.instance.showErrorToast(
-              context, AppLocalizations.of(context)!.unauthorizedAction);
-        }
       } else {
         if (context.mounted) {
-          ToastManager.instance.showErrorToast(
-              context, AppLocalizations.of(context)!.deleteAccountFailed);
+          ToastManager.instance
+              .showErrorToast(context, "Échec de la suppression du compte");
         }
       }
     } catch (e) {
       if (context.mounted) {
-        ToastManager.instance.showErrorToast(
-            context, AppLocalizations.of(context)!.unknownError);
+        ToastManager.instance.showErrorToast(context, "Erreur inconnue");
       }
     }
-    */
     return false;
   }
 
