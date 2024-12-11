@@ -167,10 +167,28 @@ class AuthViewmodel {
   }
 
   Future<String> getUsername() async {
-    return "my username";
+    try {
+      String? username = await authService.getUsername();
+      if (username != null) {
+        return username;
+      } else {
+        return "Failed to fetch username";
+      }
+    } catch (e) {
+      return "Error: $e";
+    }
   }
 
   Future<String> getEmail() async {
-    return "my email";
+    try {
+      String? email = await authService.getEmail();
+      if (email != null) {
+        return email;
+      } else {
+        return "Failed to fetch email";
+      }
+    } catch (e) {
+      return "Error: $e";
+    }
   }
 }

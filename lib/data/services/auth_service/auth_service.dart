@@ -72,4 +72,38 @@ class AuthService {
     }
     return StatusType.unknownError;
   }
+
+  Future<String?> getUsername() async {
+    try {
+      final response = await APIService.instance
+          .request("/me/username", DioMethod.get, authenticated: true);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        print(
+            'Erreur lors de la récupération du nom d\'utilisateur : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+    return null;
+  }
+
+  Future<String?> getEmail() async {
+    try {
+      final response = await APIService.instance
+          .request("/me/email", DioMethod.get, authenticated: true);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        print(
+            'Erreur lors de la récupération de l\'email : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+    return null;
+  }
 }
