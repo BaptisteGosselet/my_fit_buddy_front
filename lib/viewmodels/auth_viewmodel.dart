@@ -123,4 +123,54 @@ class AuthViewmodel {
     }
     return;
   }
+
+  Future<bool> deleteAccount(BuildContext context) async {
+    print("Compte deleted");
+    /*
+    try {
+      StatusType result = await authService.deleteAccount();
+
+      if (result == StatusType.ok) {
+        await TokenStorageService.instance.removeToken();
+        if (context.mounted) {
+          ToastManager.instance.showSuccessToast(
+              context, AppLocalizations.of(context)!.deleteAccountSuccess);
+          context.goNamed(
+              'welcome'); // Redirection vers la page d'accueil ou de bienvenue
+        }
+        return true;
+      } else if (result == StatusType.unauthorized) {
+        if (context.mounted) {
+          ToastManager.instance.showErrorToast(
+              context, AppLocalizations.of(context)!.unauthorizedAction);
+        }
+      } else {
+        if (context.mounted) {
+          ToastManager.instance.showErrorToast(
+              context, AppLocalizations.of(context)!.deleteAccountFailed);
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ToastManager.instance.showErrorToast(
+            context, AppLocalizations.of(context)!.unknownError);
+      }
+    }
+    */
+    return false;
+  }
+
+  Future<bool> editProfile(final String newUsername, final String newEmail,
+      final BuildContext context) async {
+    print("edit $newUsername, $newEmail");
+    return false;
+  }
+
+  Future<String> getUsername() async {
+    return "my username";
+  }
+
+  Future<String> getEmail() async {
+    return "my email";
+  }
 }
