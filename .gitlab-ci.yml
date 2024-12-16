@@ -7,7 +7,7 @@ quality_check:
   script:
     - flutter gen-l10n
     - dart format --set-exit-if-changed .
-    - flutter analyze
+    - flutter analyze --fatal-infos
   only:
     - merge_requests
     - branches
