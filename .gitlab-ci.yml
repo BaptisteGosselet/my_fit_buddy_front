@@ -3,8 +3,9 @@ stages:
 
 quality_check:
   stage: quality_check
-  image: instrumentisto/flutter:3.5.3
+  image: cirrusci/flutter:3.5.3
   script:
+    - flutter --version
     - flutter gen-l10n
     - dart format --set-exit-if-changed .
     - flutter analyze
