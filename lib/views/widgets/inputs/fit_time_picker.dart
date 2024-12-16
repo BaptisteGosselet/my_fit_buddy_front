@@ -20,12 +20,14 @@ class FitTimePicker extends StatefulWidget {
 }
 
 class _FitTimePickerState extends State<FitTimePicker> {
+  final double fontSize = 25.0;
+
   Future<void> _selectDuration(BuildContext context) async {
     int selectedMinutes = 0;
     int selectedSeconds = 0;
 
-    const itemStyle = TextStyle(
-        fontSize: 18, fontWeight: fitWeightMedium, color: fitBlueDark);
+    final itemStyle = TextStyle(
+        fontSize: fontSize, fontWeight: fitWeightMedium, color: fitBlueDark);
 
     await showDialog(
       context: context,
@@ -45,6 +47,7 @@ class _FitTimePickerState extends State<FitTimePicker> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // Sélection des minutes
                     Column(
                       children: [
                         Text(AppLocalizations.of(context)!.minutes),
@@ -67,6 +70,7 @@ class _FitTimePickerState extends State<FitTimePicker> {
                         ),
                       ],
                     ),
+                    // Sélection des secondes (par intervalles de 10 secondes)
                     Column(
                       children: [
                         Text(AppLocalizations.of(context)!.seconds),
@@ -77,14 +81,15 @@ class _FitTimePickerState extends State<FitTimePicker> {
                             itemExtent: 30,
                             physics: const FixedExtentScrollPhysics(),
                             onSelectedItemChanged: (value) {
-                              selectedSeconds = value;
+                              selectedSeconds = value * 10;
                             },
                             childDelegate: ListWheelChildBuilderDelegate(
                               builder: (context, index) => Text(
-                                index.toString().padLeft(2, '0'),
+                                (index * 10).toString().padLeft(2, '0'),
                                 style: itemStyle,
                               ),
-                              childCount: 60,
+                              childCount:
+                                  6, // 6 options (0, 10, 20, 30, 40, 50)
                             ),
                           ),
                         ),

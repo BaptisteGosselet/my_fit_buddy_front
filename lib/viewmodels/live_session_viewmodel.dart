@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
+import 'package:my_fit_buddy/managers/toast_manager.dart';
 
 class LiveSessionViewModel {
   // Fields
@@ -102,37 +104,39 @@ class LiveSessionViewModel {
   }
 
   bool next() {
-    final SessionContentExercise current = getCurrentSessionContentExercise();
-
-    //Aller au set suivant
-    if (idxSet < current.getNumberOfSets() - 1) {
-      idxSet++;
-      print('Moved to next set: $idxSet');
-    }
-
-    //Aller à l'exercice suivant set 1
-    else {
-      idxSet = 0;
-      print('Reset set index to 0');
-
-      if (idxExercise < sessionContentExerciseList.length - 1) {
-        idxExercise++;
-        print('Moved to next exercise: $idxExercise');
-      }
-
-      // Séance terminée
-      else {
-        print('End of session reached');
-        return false;
+    // Vérifier si l'exercice courant a encore des sets non faits
+    if (idxExercise >= 0 && idxExercise < sessionContentExerciseList.length) {
+      final SessionContentExercise currentExercise =
+          sessionContentExerciseList[idxExercise];
+      for (int j = 0; j < currentExercise.getNumberOfSets(); j++) {
+        if (setIdsArray[idxExercise][j] == emptySetValue) {
+          idxSet = j;
+          print('Moved to exercise $idxExercise, set $idxSet');
+          return true;
+        }
       }
     }
 
-    // Vérifier si le set n'est pas déjà saisi
-    if (setIdsArray[idxExercise][idxSet] != emptySetValue) {
-      return next();
+    // Si tous les sets de l'exercice courant sont terminés, passer aux autres exercices
+    for (int i = 0; i < sessionContentExerciseList.length; i++) {
+      int exerciseIndex =
+          (idxExercise + 1 + i) % sessionContentExerciseList.length;
+      final SessionContentExercise exercise =
+          sessionContentExerciseList[exerciseIndex];
+
+      for (int j = 0; j < exercise.getNumberOfSets(); j++) {
+        if (setIdsArray[exerciseIndex][j] == emptySetValue) {
+          idxExercise = exerciseIndex;
+          idxSet = j;
+          print('Moved to exercise $idxExercise, set $idxSet');
+          return true;
+        }
+      }
     }
 
-    return true;
+    // Si aucun set non fait n'existe, la session est terminée
+    print('End of session reached');
+    return false;
   }
 
   // Get list of exercises
@@ -140,5 +144,54 @@ class LiveSessionViewModel {
     return sessionContentExerciseList
         .map((sessionContent) => sessionContent.getExercise())
         .toList();
+  }
+
+  Future<List<FitSet>> getExercisePreviousSets() async {
+    final int idExercise = getCurrentSessionContentExercise().exercise.id;
+    final int nbOrder = idxSet + 1;
+    List<FitSet> exercisePreviousSets = await fitRecordService
+        .getExercisePreviousSetsByNOrder(idExercise, nbOrder);
+    return exercisePreviousSets;
+  }
+
+  Future<bool> setNote(String text, int rate, BuildContext context) async {
+    print("Texte reçu : $text - Note reçue : $rate");
+
+    if (!context.mounted) {
+      return false;
+    }
+
+    if (text.isEmpty) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(context, "LABEL texte vide");
+      }
+      return false;
+    }
+
+    if (text.length > 255) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL texte trop grand 255 max");
+      }
+      return false;
+    }
+
+    if (rate < 0 || rate > 3) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL rating hors min/max");
+      }
+      return false;
+    }
+
+    bool result = await fitRecordService.setNote(currentRecord.id, text, rate);
+
+    if (result) {
+      if (context.mounted) {
+        ToastManager.instance.showSuccessToast(context, "LABEL note set");
+      }
+    }
+
+    return result;
   }
 }

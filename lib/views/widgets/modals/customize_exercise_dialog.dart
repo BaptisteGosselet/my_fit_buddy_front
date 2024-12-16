@@ -8,7 +8,7 @@ import 'package:my_fit_buddy/views/widgets/inputs/fit_time_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomizeExerciseDialog extends StatefulWidget {
-  final Function(int reps, int restSeconds) onConfirm;
+  final Function(int nbSets, int restSeconds) onConfirm;
 
   const CustomizeExerciseDialog({
     super.key,
@@ -21,12 +21,12 @@ class CustomizeExerciseDialog extends StatefulWidget {
 }
 
 class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
-  final TextEditingController repsController = TextEditingController();
+  final TextEditingController nbSetsController = TextEditingController();
   final TextEditingController durationController = TextEditingController();
 
   @override
   void dispose() {
-    repsController.dispose();
+    nbSetsController.dispose();
     durationController.dispose();
     super.dispose();
   }
@@ -63,8 +63,8 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
               SizedBox(
                 width: inputWidth,
                 child: FitTextInput(
-                  label: AppLocalizations.of(context)!.repetitionsInputLabel,
-                  controller: repsController,
+                  label: AppLocalizations.of(context)!.set,
+                  controller: nbSetsController,
                   hintText: "0",
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   keyboardType: TextInputType.number,
@@ -89,7 +89,7 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
           onClick: () {
             Navigator.of(context).pop();
             widget.onConfirm(
-              int.tryParse(repsController.text) ?? 0,
+              int.tryParse(nbSetsController.text) ?? 0,
               Utils.instance
                   .convertStringTimeToSeconds(durationController.text),
             );
