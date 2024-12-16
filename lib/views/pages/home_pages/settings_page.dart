@@ -4,6 +4,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -14,7 +15,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final authViewmodel = AuthViewmodel();
-  bool isEditing = false;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
@@ -36,7 +36,6 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _deleteAccount() async {
-    // Ensure the context is still valid
     if (!mounted) return;
 
     final bool result = await authViewmodel.deleteAccount(context);
@@ -45,7 +44,8 @@ class _SettingsPageState extends State<SettingsPage> {
         context.goNamed("register");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Échec de la suppression du compte")),
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.accountDeleteFailed)),
         );
       }
     }
@@ -62,28 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FitHeader(
-                title: "Label Profil",
-                leftIcon: isEditing ? Icons.close : null,
-                onLeftIconPressed: isEditing
-                    ? () {
-                        setState(() {
-                          isEditing = false;
-                        });
-                      }
-                    : null,
-                rightIcon: isEditing ? Icons.check : Icons.edit,
-                onRightIconPressed: () {
-                  if (isEditing) {
-                    authViewmodel.editProfile(
-                      nameController.text,
-                      emailController.text,
-                      context,
-                    );
-                  }
-                  setState(() {
-                    isEditing = !isEditing;
-                  });
-                },
+                title: AppLocalizations.of(context)!.profile,
               ),
               const SizedBox(height: 16.0),
               Padding(
@@ -91,101 +70,102 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Informations',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)),
+                    Text(
+                      AppLocalizations.of(context)!.informationTitle,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     const Divider(color: Colors.grey, thickness: 1.0),
                     const SizedBox(height: 8.0),
-                    const Text('Nom',
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black)),
-                    const SizedBox(height: 4.0),
-                    isEditing
-                        ? TextField(
-                            controller: nameController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Entrez votre nom',
-                            ),
-                          )
-                        : Text(nameController.text,
-                            style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                    const SizedBox(height: 8.0),
-                    const Text('Email',
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black)),
-                    const SizedBox(height: 4.0),
-                    isEditing
-                        ? TextField(
-                            controller: emailController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Entrez votre email',
-                            ),
-                          )
-                        : Text(emailController.text,
-                            style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                    const SizedBox(height: 24.0),
-                    if (isEditing)
-                      Center(
-                        child: FitButton(
-                          buttonColor: Colors.red,
-                          label: 'Supprimer le compte',
-                          onClick: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Confirmation'),
-                                  content: const Text(
-                                      'Êtes-vous sûr de vouloir supprimer votre compte ?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Annuler'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        // Call the async deleteAccount method here
-                                        _deleteAccount();
-                                      },
-                                      style: TextButton.styleFrom(
-                                          foregroundColor: Colors.red),
-                                      child: const Text('Confirmer'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      )
-                    else
-                      Center(
-                        child: FitButton(
-                          buttonColor: fitBlueDark,
-                          label: 'Déconnexion',
-                          onClick: () {
-                            authViewmodel.logout(context);
-                          },
-                        ),
+                    Text(
+                      AppLocalizations.of(context)!.nameLabel,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      nameController.text,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      AppLocalizations.of(context)!.emailLabel,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      emailController.text,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                    Center(
+                      child: FitButton(
+                        buttonColor: fitBlueDark,
+                        label: AppLocalizations.of(context)!.logoutButton,
+                        onClick: () {
+                          authViewmodel.logout(context);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Center(
+                      child: FitButton(
+                        buttonColor: Colors.red,
+                        label:
+                            AppLocalizations.of(context)!.deleteAccountButton,
+                        onClick: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context)!.confirmation),
+                                content: Text(AppLocalizations.of(context)!
+                                    .deleteAccountConfirmation),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                        AppLocalizations.of(context)!.cancel),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      _deleteAccount();
+                                    },
+                                    style: TextButton.styleFrom(
+                                        foregroundColor: Colors.red),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.confirm),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
