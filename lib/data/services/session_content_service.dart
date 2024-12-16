@@ -82,18 +82,20 @@ class SessionContentService {
     }
   }
 
-  void setNewContentOrder(List<SessionContentUpdateForm> toUpdateList) async{
+  void setNewContentOrder(List<SessionContentUpdateForm> toUpdateList) async {
     try {
       final List<Map<String, dynamic>> jsonList =
-        toUpdateList.map((item) => item.toJson()).toList();
+          toUpdateList.map((item) => item.toJson()).toList();
 
       final response = await APIService.instance
           .request("$sessionContentUrl/list", DioMethod.put, params: jsonList);
       if (response.statusCode == 200) {
         print('return true update sucess');
       } else {
-        print('Erreur lors de l\'update de sessions content : ${response.statusCode}');
-        return Future.error('Erreur lors de l\'update de sessions content : ${response.statusCode}');
+        print(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');

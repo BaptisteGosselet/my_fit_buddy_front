@@ -47,7 +47,11 @@ class SessionViewmodel {
   void setNewContentOrder(List<SessionContentExercise> sessionContents) async {
     List<SessionContentUpdateForm> toUpdateList = [];
     for (int i = 0; i < sessionContents.length; i++) {
-      toUpdateList.add(SessionContentUpdateForm(id: sessionContents[i].id, index: i, numberOfSet: sessionContents[i].numberOfSets, restTimeInSecond: sessionContents[i].restTimeInSecond));
+      toUpdateList.add(SessionContentUpdateForm(
+          id: sessionContents[i].id,
+          index: i,
+          numberOfSet: sessionContents[i].numberOfSets,
+          restTimeInSecond: sessionContents[i].restTimeInSecond));
     }
     sessionContentService.setNewContentOrder(toUpdateList);
   }
