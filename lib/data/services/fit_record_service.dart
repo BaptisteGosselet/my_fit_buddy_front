@@ -48,6 +48,36 @@ class FitRecordService {
     }
   }
 
+  Future<Map<String,List<FitSet>>> getSetByExerciceByRecordId(int recordId) async {
+    try {
+      final response = await APIService.instance.request(
+        '$setsUrl/recordByExo/$recordId',
+        DioMethod.get,
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = response.data;
+        Map<String,List<FitSet>> returnData = {};
+        data.forEach((key,value) {
+          if (value is List) {
+          returnData[key] = value
+              .map((json) => FitSet.fromJson(json as Map<String, dynamic>))
+              .toList();
+        } else {
+          throw Exception("La valeur associée à la clé '$key' n'est pas une liste.");
+        }
+        });
+        return returnData;
+      } else {
+        throw Exception('Failed to fetch record by id');
+      }
+    } catch (e) {
+      print('Erreur lors de la récupération de l\'enregistrement par id : $e');
+      return Future.error(
+          'Erreur lors de la récupération des sets');
+    }
+  }
+
   Future<FitRecord> createRecord(String sessionId) async {
     print('$recordsUrl/create/$sessionId');
     try {

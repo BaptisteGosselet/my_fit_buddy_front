@@ -1,4 +1,5 @@
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
+import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 
 class RecordsViewmodel {
@@ -22,6 +23,17 @@ class RecordsViewmodel {
       return record;
     } catch (e) {
       print('Erreur lors de la récupération de l\'enregistrement par id : $e');
+      return Future.error(
+          'Erreur lors de la récupération de l\'enregistrement');
+    }
+  }
+
+  Future<Map<String,List<FitSet>>> getSetByExerciceByRecordId(int id) async {
+    try {
+      Map<String,List<FitSet>> record = await fitRecordService.getSetByExerciceByRecordId(id);
+      return record;
+    } catch (e) {
+      print('Erreur lors de la récupération des l\'enregistrement par id : $e');
       return Future.error(
           'Erreur lors de la récupération de l\'enregistrement');
     }
