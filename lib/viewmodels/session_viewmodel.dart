@@ -1,8 +1,9 @@
-import 'package:my_fit_buddy/data/models/session.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_update_form.dart';
+import 'package:my_fit_buddy/data/models/session_models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_create_form.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
-import 'package:my_fit_buddy/data/models/session_create_form.dart';
-import 'package:my_fit_buddy/data/models/session_update_form.dart';
+import 'package:my_fit_buddy/data/models/session_models/session_create_form.dart';
+import 'package:my_fit_buddy/data/models/session_models/session_update_form.dart';
 import 'package:my_fit_buddy/data/services/session_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
 
@@ -41,5 +42,13 @@ class SessionViewmodel {
   Future<Session> renameSession(int id, String newName) async {
     return await sessionService
         .renameSession(SessionUpdateForm(sessionId: id, name: newName));
+  }
+
+  void setNewContentOrder(List<SessionContentExercise> sessionContents) async {
+    List<SessionContentUpdateForm> toUpdateList = [];
+    for (int i = 0; i < sessionContents.length; i++) {
+      toUpdateList.add(SessionContentUpdateForm(id: sessionContents[i].id, index: i, numberOfSet: sessionContents[i].numberOfSets, restTimeInSecond: sessionContents[i].restTimeInSecond));
+    }
+    sessionContentService.setNewContentOrder(toUpdateList);
   }
 }

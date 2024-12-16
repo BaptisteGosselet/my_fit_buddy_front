@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/data/models/session.dart';
+import 'package:my_fit_buddy/data/models/session_models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
@@ -34,6 +34,7 @@ class SessionDetailPageState extends State<SessionDetailPage> {
     if (context.mounted) {
       setState(() {
         sessionContents = contents;
+        sessionContents.sort((a, b) => a.index.compareTo(b.index));
       });
     }
   }
@@ -51,6 +52,12 @@ class SessionDetailPageState extends State<SessionDetailPage> {
   void _renameSession(int id, String newName) {
     setState(() {
       _session = SessionViewmodel().renameSession(id, newName);
+    });
+  }
+
+  void _reOrderSession(List<SessionContentExercise> contents) {
+    setState(() {
+      SessionViewmodel().setNewContentOrder(contents);
     });
   }
 
@@ -126,6 +133,7 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                           }
                           sessionContents[current] = startItem;
                         }
+                        _reOrderSession(sessionContents);
                         setState(() {});
                       }),
                 ),

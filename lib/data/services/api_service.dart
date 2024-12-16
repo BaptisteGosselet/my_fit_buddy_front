@@ -22,6 +22,7 @@ class APIService {
     String endpoint,
     DioMethod method, {
     Map<String, dynamic>? param,
+    List<Map<String, dynamic>>? params,
     FormData? formData,
     bool authenticated = true,
   }) async {
@@ -39,7 +40,7 @@ class APIService {
         case DioMethod.post:
           return await dio.post(
             endpoint,
-            data: param ?? formData,
+            data: param ?? formData ?? params,
           );
         case DioMethod.get:
           return await dio.get(
@@ -49,17 +50,17 @@ class APIService {
         case DioMethod.put:
           return await dio.put(
             endpoint,
-            data: param ?? formData,
+            data: param ?? formData ?? params,
           );
         case DioMethod.delete:
           return await dio.delete(
             endpoint,
-            data: param ?? formData,
+            data: param ?? formData ?? params,
           );
         default:
           return await dio.post(
             endpoint,
-            data: param ?? formData,
+            data: param ?? formData ?? params,
           );
       }
     } on DioException catch (e) {
