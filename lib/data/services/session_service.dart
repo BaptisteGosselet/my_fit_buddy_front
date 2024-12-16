@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:my_fit_buddy/data/models/session.dart';
-import 'package:my_fit_buddy/data/models/session_create_form.dart';
-import 'package:my_fit_buddy/data/models/session_update_form.dart';
+import 'package:my_fit_buddy/data/models/session_models/session.dart';
+import 'package:my_fit_buddy/data/models/session_models/session_create_form.dart';
+import 'package:my_fit_buddy/data/models/session_models/session_update_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionService {

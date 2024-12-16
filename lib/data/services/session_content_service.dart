@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_create_form.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
+import 'package:my_fit_buddy/data/models/session_content_models/session_content_update_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionContentService {
@@ -73,6 +74,28 @@ class SessionContentService {
             'Erreur lors de la suppression du sessions content : ${response.statusCode}');
         return Future.error(
             'Erreur lors de la suppression de la session content : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
+
+  void setNewContentOrder(List<SessionContentUpdateForm> toUpdateList) async {
+    try {
+      final List<Map<String, dynamic>> jsonList =
+          toUpdateList.map((item) => item.toJson()).toList();
+
+      final response = await APIService.instance
+          .request("$sessionContentUrl/list", DioMethod.put, params: jsonList);
+      if (response.statusCode == 200) {
+        print('return true update sucess');
+      } else {
+        print(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
       }
     } on DioException catch (e) {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');

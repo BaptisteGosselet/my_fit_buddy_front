@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/data/models/session.dart';
+import 'package:my_fit_buddy/data/models/session_models/session.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/viewmodels/sessions_list_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
