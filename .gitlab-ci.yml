@@ -3,9 +3,8 @@ stages:
 
 quality_check:
   stage: quality_check
-  image: cirrusci/flutter:latest
+  image: instrumentisto/flutter:latest
   script:
-    - flutter --version
     - flutter gen-l10n
     - dart format --set-exit-if-changed .
     - flutter analyze
