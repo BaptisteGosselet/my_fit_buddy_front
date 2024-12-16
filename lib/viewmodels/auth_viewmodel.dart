@@ -123,4 +123,70 @@ class AuthViewmodel {
     }
     return;
   }
+
+  Future<bool> deleteAccount(BuildContext context) async {
+    print("delete account");
+
+    //test account
+    if ((await getUsername()).contains("dbuser")) {
+      print("NE SUPPRIME PAS DBUSER !!");
+      return false;
+    }
+
+    try {
+      bool result = await authService.deleteAccount();
+
+      if (result) {
+        await TokenStorageService.instance.removeToken();
+        if (context.mounted) {
+          ToastManager.instance
+              .showSuccessToast(context, "Compte supprimé avec succès");
+          context.goNamed('register');
+        }
+        return true;
+      } else {
+        if (context.mounted) {
+          ToastManager.instance
+              .showErrorToast(context, "Échec de la suppression du compte");
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ToastManager.instance.showErrorToast(context, "Erreur inconnue");
+      }
+    }
+    return false;
+  }
+
+  Future<bool> editProfile(final String newUsername, final String newEmail,
+      final BuildContext context) async {
+    print("edit $newUsername, $newEmail");
+    return false;
+  }
+
+  Future<String> getUsername() async {
+    try {
+      String? username = await authService.getUsername();
+      if (username != null) {
+        return username;
+      } else {
+        return "Failed to fetch username";
+      }
+    } catch (e) {
+      return "Error: $e";
+    }
+  }
+
+  Future<String> getEmail() async {
+    try {
+      String? email = await authService.getEmail();
+      if (email != null) {
+        return email;
+      } else {
+        return "Failed to fetch email";
+      }
+    } catch (e) {
+      return "Error: $e";
+    }
+  }
 }

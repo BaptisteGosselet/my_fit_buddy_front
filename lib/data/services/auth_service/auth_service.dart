@@ -8,6 +8,7 @@ import 'package:my_fit_buddy/utils/status_type.dart';
 
 class AuthService {
   static const String authUrl = "/auth";
+  static const String userUrl = "/users";
 
   Future<StatusType> register(
       String username, String email, String password) async {
@@ -71,5 +72,58 @@ class AuthService {
       print('Request failed: ${e.response?.statusCode}, ${e.message}');
     }
     return StatusType.unknownError;
+  }
+
+  Future<String?> getUsername() async {
+    try {
+      final response = await APIService.instance
+          .request("$userUrl/me/username", DioMethod.get, authenticated: true);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        print(
+            'Erreur lors de la récupération du nom d\'utilisateur : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+    return null;
+  }
+
+  Future<String?> getEmail() async {
+    try {
+      final response = await APIService.instance
+          .request("$userUrl/me/email", DioMethod.get, authenticated: true);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        print(
+            'Erreur lors de la récupération de l\'email : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+    return null;
+  }
+
+  // Nouvelle méthode deleteAccount
+  Future<bool> deleteAccount() async {
+    try {
+      final response = await APIService.instance
+          .request("$userUrl/me/delete", DioMethod.delete, authenticated: true);
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print(
+            'Erreur lors de la suppression du compte : ${response.statusCode}');
+        return false;
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return false;
+    }
   }
 }
