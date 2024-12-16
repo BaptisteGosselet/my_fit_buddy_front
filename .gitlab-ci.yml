@@ -3,7 +3,7 @@ stages:
 
 quality_check:
   stage: quality_check
-  image: instrumentisto/flutter:latest
+  image: instrumentisto/flutter:3.5.3
   script:
     - flutter gen-l10n
     - dart format --set-exit-if-changed .
