@@ -66,11 +66,9 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        Utils.instance
-                            .getRecordsDateString_2(context, recordData.date),
-                        style:
-                            const TextStyle(fontSize: 17, color: fitBlueMiddle),
-                      ),
+                          'Le ${recordData.date.day} ${Utils.instance.getMonthFull(context, recordData.date.month)} ${recordData.date.year}',
+                          style: const TextStyle(
+                              fontSize: 17, color: fitBlueMiddle)),
                       Text(
                         '${recordData.date.hour.toString().padLeft(2, '0')}:${recordData.date.minute.toString().padLeft(2, '0')}',
                         style:
