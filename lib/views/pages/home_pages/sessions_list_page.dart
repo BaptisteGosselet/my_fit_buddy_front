@@ -17,7 +17,7 @@ class SessionsListPage extends StatefulWidget {
 
 class SessionsListPageState extends State<SessionsListPage> {
   List<Session> _sessions = [];
-
+  SessionsListViewmodel sessionsListViewmodel = SessionsListViewmodel();
   @override
   void initState() {
     super.initState();
@@ -41,6 +41,8 @@ class SessionsListPageState extends State<SessionsListPage> {
     setState(() {
       _fetchSession();
     });
+    sessionsListViewmodel = SessionsListViewmodel();
+    _sessionsFuture = sessionsListViewmodel.getSessionsList();
   }
 
   @override
@@ -49,8 +51,9 @@ class SessionsListPageState extends State<SessionsListPage> {
       body: Column(
         children: [
           FitHeader(
-              title: AppLocalizations.of(context)!.sessionListTitle,
-              subtitle: AppLocalizations.of(context)!.sessionListSubtitle),
+            title: AppLocalizations.of(context)!.sessionListTitle,
+            subtitle: AppLocalizations.of(context)!.sessionListSubtitle,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -60,12 +63,31 @@ class SessionsListPageState extends State<SessionsListPage> {
                       itemCount: _sessions.length,
                       itemBuilder: (context, index) {
                         final session = _sessions[index];
-                        return SessionCard(
-                          title: session.name,
-                          subtitle: "X exercices",
-                          icon: Icons.fitness_center_rounded,
-                          onTap: () {
-                            pushToSessionDetails(session.id.toString());
+                        return FutureBuilder<int>(
+                          future: sessionsListViewmodel
+                              .getSessionExercicesNumber(session.id),
+                          builder: (context, exerciceSnapshot) {
+                            String subtitle = "Chargement...";
+                            if (exerciceSnapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (exerciceSnapshot.hasData) {
+                                subtitle = "${exerciceSnapshot.data} exercices";
+                              } else {
+                                subtitle = "Erreur de données";
+                              }
+                            }
+
+                            return SessionCard(
+                              title: session.name,
+                              subtitle: subtitle,
+                              icon: Icons.fitness_center_rounded,
+                              onTap: () {
+                                context.pushNamed(
+                                  'sessionDetails',
+                                  pathParameters: {'id': session.id.toString()},
+                                );
+                              },
+                            );
                           },
                         );
                       },
