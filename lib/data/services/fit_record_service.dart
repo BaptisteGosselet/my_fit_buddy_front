@@ -48,7 +48,8 @@ class FitRecordService {
     }
   }
 
-  Future<Map<String,List<FitSet>>> getSetByExerciceByRecordId(int recordId) async {
+  Future<Map<String, List<FitSet>>> getSetByExerciceByRecordId(
+      int recordId) async {
     try {
       final response = await APIService.instance.request(
         '$setsUrl/recordByExo/$recordId',
@@ -57,15 +58,16 @@ class FitRecordService {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = response.data;
-        Map<String,List<FitSet>> returnData = {};
-        data.forEach((key,value) {
+        Map<String, List<FitSet>> returnData = {};
+        data.forEach((key, value) {
           if (value is List) {
-          returnData[key] = value
-              .map((json) => FitSet.fromJson(json as Map<String, dynamic>))
-              .toList();
-        } else {
-          throw Exception("La valeur associée à la clé '$key' n'est pas une liste.");
-        }
+            returnData[key] = value
+                .map((json) => FitSet.fromJson(json as Map<String, dynamic>))
+                .toList();
+          } else {
+            throw Exception(
+                "La valeur associée à la clé '$key' n'est pas une liste.");
+          }
         });
         return returnData;
       } else {
@@ -73,8 +75,7 @@ class FitRecordService {
       }
     } catch (e) {
       print('Erreur lors de la récupération de l\'enregistrement par id : $e');
-      return Future.error(
-          'Erreur lors de la récupération des sets');
+      return Future.error('Erreur lors de la récupération des sets');
     }
   }
 

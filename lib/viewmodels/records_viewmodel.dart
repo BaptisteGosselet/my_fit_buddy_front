@@ -28,9 +28,10 @@ class RecordsViewmodel {
     }
   }
 
-  Future<Map<String,List<FitSet>>> getSetByExerciceByRecordId(int id) async {
+  Future<Map<String, List<FitSet>>> getSetByExerciceByRecordId(int id) async {
     try {
-      Map<String,List<FitSet>> record = await fitRecordService.getSetByExerciceByRecordId(id);
+      Map<String, List<FitSet>> record =
+          await fitRecordService.getSetByExerciceByRecordId(id);
       return record;
     } catch (e) {
       print('Erreur lors de la récupération des l\'enregistrement par id : $e');
