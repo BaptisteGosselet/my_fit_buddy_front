@@ -19,6 +19,7 @@ class TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
+    const int minTime = 1;
     return Scaffold(
       appBar: AppBar(
         title: IconButton(
@@ -32,7 +33,7 @@ class TimerPageState extends State<TimerPage> {
         child: Column(
           children: [
             CircularCountDownTimer(
-              duration: widget.duration,
+              duration: (widget.duration >= minTime) ? widget.duration : minTime,
               initialDuration: 0,
               controller: _controller,
               width: MediaQuery.of(context).size.width / 1.5,
