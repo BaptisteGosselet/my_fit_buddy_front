@@ -4,7 +4,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import '../inputs/fit_text_input.dart';
-import 'package:auto_size_text/auto_size_text.dart'; 
+import 'package:auto_size_text/auto_size_text.dart';
 
 class RenameSessionDialog extends StatefulWidget {
   final Function(int id, String newName) onRename;
