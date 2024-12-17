@@ -31,7 +31,7 @@ class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
         children: [
           Text(
             AppLocalizations.of(context)!.deleteContentConfirmTitle,
-            style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
+            style: const TextStyle(fontWeight: fitWeightBold, fontSize: 18),
           ),
           IconButton(
             icon: const Icon(Icons.close),
