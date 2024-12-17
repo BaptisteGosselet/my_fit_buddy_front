@@ -150,6 +150,6 @@
     "max255char" : "The input can contain max 255 characters",
     "defaultError" : "An error happened",
     "defaultSuccess" : "Action done with success",
-    "noPreviousSet": "No previous set for this exercise"
+    "noPreviousSet": "No previous set for this exercise",
     "noSessionFound" : "No session found"
 }
