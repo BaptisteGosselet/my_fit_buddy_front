@@ -8,7 +8,6 @@ import 'package:my_fit_buddy/data/services/session_content_service.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class LiveSessionViewModel {
   // Fields
   final String sessionId;
@@ -170,8 +169,8 @@ class LiveSessionViewModel {
 
     if (rate < 0 || rate > 3) {
       if (context.mounted) {
-        ToastManager.instance
-            .showErrorToast(context, AppLocalizations.of(context)!.defaultError);
+        ToastManager.instance.showErrorToast(
+            context, AppLocalizations.of(context)!.defaultError);
       }
       return false;
     }
@@ -179,7 +178,8 @@ class LiveSessionViewModel {
     bool result = await fitRecordService.setNote(currentRecord.id, text, rate);
     if (result && text.isNotEmpty) {
       if (context.mounted) {
-        ToastManager.instance.showSuccessToast(context, AppLocalizations.of(context)!.defaultSuccess);
+        ToastManager.instance.showSuccessToast(
+            context, AppLocalizations.of(context)!.defaultSuccess);
       }
     }
 

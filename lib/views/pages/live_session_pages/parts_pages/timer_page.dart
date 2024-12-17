@@ -33,7 +33,8 @@ class TimerPageState extends State<TimerPage> {
         child: Column(
           children: [
             CircularCountDownTimer(
-              duration: (widget.duration >= minTime) ? widget.duration : minTime,
+              duration:
+                  (widget.duration >= minTime) ? widget.duration : minTime,
               initialDuration: 0,
               controller: _controller,
               width: MediaQuery.of(context).size.width / 1.5,

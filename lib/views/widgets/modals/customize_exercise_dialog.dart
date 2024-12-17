@@ -88,23 +88,25 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
           buttonColor: fitBlueDark,
           label: AppLocalizations.of(context)!.addButton,
           onClick: () {
-            if(validInputs()) {
+            if (validInputs()) {
               Navigator.of(context).pop();
               widget.onConfirm(
                 int.tryParse(nbSetsController.text) ?? 1,
                 Utils.instance
                     .convertStringTimeToSeconds(durationController.text),
               );
-              ToastManager.instance.showSuccessToast(context, AppLocalizations.of(context)!.toastAddedExercise);
-            }else {
-              ToastManager.instance.showErrorToast(context, AppLocalizations.of(context)!.toastInvalidExerciseInputs);
+              ToastManager.instance.showSuccessToast(
+                  context, AppLocalizations.of(context)!.toastAddedExercise);
+            } else {
+              ToastManager.instance.showErrorToast(context,
+                  AppLocalizations.of(context)!.toastInvalidExerciseInputs);
             }
           },
         ),
       ],
     );
   }
-  
+
   bool validInputs() {
     print((nbSetsController.text != "0"));
     var value = int.tryParse(nbSetsController.text);
@@ -112,6 +114,5 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
       return (int.parse(nbSetsController.text) > 0);
     }
     return false;
-    
   }
 }

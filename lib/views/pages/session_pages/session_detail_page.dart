@@ -156,12 +156,18 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                         buttonColor: fitBlueMiddle,
                         label: AppLocalizations.of(context)!.runSession,
                         onClick: () => {
-                              if(sessionContents.isNotEmpty) {
-                                context.pushNamed('liveSession',
-                                  pathParameters: {'sessionId': widget.id})
-                              }else {
-                                ToastManager.instance.showErrorToast(context, AppLocalizations.of(context)!.liveSessionWithoutExe)
-                              }
+                              if (sessionContents.isNotEmpty)
+                                {
+                                  context.pushNamed('liveSession',
+                                      pathParameters: {'sessionId': widget.id})
+                                }
+                              else
+                                {
+                                  ToastManager.instance.showErrorToast(
+                                      context,
+                                      AppLocalizations.of(context)!
+                                          .liveSessionWithoutExe)
+                                }
                             }),
                     const SizedBox(height: 10)
                   ],

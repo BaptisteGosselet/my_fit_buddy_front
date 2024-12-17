@@ -54,22 +54,22 @@ class SessionsListPageState extends State<SessionsListPage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: _sessions.isEmpty ? 
-              const Center(child: Text('Aucune session trouvée.')) : 
-              ListView.builder(
-                itemCount: _sessions.length,
-                itemBuilder: (context, index) {
-                  final session = _sessions[index];
-                  return SessionCard(
-                    title: session.name,
-                    subtitle: "X exercices",
-                    icon: Icons.fitness_center_rounded,
-                    onTap: () {
-                      pushToSessionDetails(session.id.toString());
-                    },
-                  );
-                },
-              ),
+              child: _sessions.isEmpty
+                  ? const Center(child: Text('Aucune session trouvée.'))
+                  : ListView.builder(
+                      itemCount: _sessions.length,
+                      itemBuilder: (context, index) {
+                        final session = _sessions[index];
+                        return SessionCard(
+                          title: session.name,
+                          subtitle: "X exercices",
+                          icon: Icons.fitness_center_rounded,
+                          onTap: () {
+                            pushToSessionDetails(session.id.toString());
+                          },
+                        );
+                      },
+                    ),
             ),
           ),
         ],
