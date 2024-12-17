@@ -16,12 +16,31 @@ class SessionsListPage extends StatefulWidget {
 }
 
 class SessionsListPageState extends State<SessionsListPage> {
-  late Future<List<Session>> _sessionsFuture;
+  List<Session> _sessions = [];
 
   @override
   void initState() {
     super.initState();
-    _sessionsFuture = SessionsListViewmodel().getSessionsList();
+    _fetchSession();
+  }
+
+  _fetchSession() async {
+    final sessionsFuture = await SessionsListViewmodel().getSessionsList();
+    if (context.mounted) {
+      setState(() {
+        _sessions = sessionsFuture;
+      });
+    }
+  }
+
+  pushToSessionDetails(String stringId) async {
+    await context.pushNamed(
+      'sessionDetails',
+      pathParameters: {'id': stringId},
+    );
+    setState(() {
+      _fetchSession();
+    });
   }
 
   @override
@@ -35,35 +54,20 @@ class SessionsListPageState extends State<SessionsListPage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: FutureBuilder<List<Session>>(
-                future: _sessionsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Erreur : ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('Aucune session trouvée.'));
-                  } else {
-                    final sessions = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: sessions.length,
-                      itemBuilder: (context, index) {
-                        final session = sessions[index];
-                        return SessionCard(
-                          title: session.name,
-                          subtitle: "X exercices",
-                          icon: Icons.fitness_center_rounded,
-                          onTap: () {
-                            context.pushNamed(
-                              'sessionDetails',
-                              pathParameters: {'id': session.id.toString()},
-                            );
-                          },
-                        );
-                      },
-                    );
-                  }
+              child: _sessions.isEmpty ? 
+              const Center(child: Text('Aucune session trouvée.')) : 
+              ListView.builder(
+                itemCount: _sessions.length,
+                itemBuilder: (context, index) {
+                  final session = _sessions[index];
+                  return SessionCard(
+                    title: session.name,
+                    subtitle: "X exercices",
+                    icon: Icons.fitness_center_rounded,
+                    onTap: () {
+                      pushToSessionDetails(session.id.toString());
+                    },
+                  );
                 },
               ),
             ),
@@ -77,8 +81,7 @@ class SessionsListPageState extends State<SessionsListPage> {
               .createNewSession(AppLocalizations.of(context)!.newSessionName);
           sessionFuture.then((newSession) {
             if (context.mounted) {
-              context.pushNamed('sessionDetails',
-                  pathParameters: {'id': newSession.id.toString()});
+              pushToSessionDetails(newSession.id.toString());
             }
           });
         },
