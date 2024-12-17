@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
-
 import '../inputs/fit_text_input.dart';
+import 'package:auto_size_text/auto_size_text.dart'; 
 
 class RenameSessionDialog extends StatefulWidget {
   final Function(int id, String newName) onRename;
@@ -54,9 +54,15 @@ class _RenameSessionState extends State<RenameSessionDialog> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            AppLocalizations.of(context)!.renameSessionTitle,
-            style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
+          // Utilisation de AutoSizeText pour ajuster dynamiquement la taille de la police
+          Expanded(
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.renameSessionTitle,
+              style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
+              maxLines: 1,
+              minFontSize: 12, // Taille minimale de la police
+              overflow: TextOverflow.ellipsis, // Gérer l'overflow si nécessaire
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.close),
