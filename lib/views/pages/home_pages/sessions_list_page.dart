@@ -41,8 +41,6 @@ class SessionsListPageState extends State<SessionsListPage> {
     setState(() {
       _fetchSession();
     });
-    sessionsListViewmodel = SessionsListViewmodel();
-    _sessionsFuture = sessionsListViewmodel.getSessionsList();
   }
 
   @override
@@ -58,7 +56,7 @@ class SessionsListPageState extends State<SessionsListPage> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: _sessions.isEmpty
-                  ? const Center(child: Text('Aucune session trouvée.'))
+                  ? const Center(child: Text('LABEL Aucune session trouvée.'))
                   : ListView.builder(
                       itemCount: _sessions.length,
                       itemBuilder: (context, index) {

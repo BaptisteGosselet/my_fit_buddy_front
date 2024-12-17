@@ -54,14 +54,13 @@ class _RenameSessionState extends State<RenameSessionDialog> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Utilisation de AutoSizeText pour ajuster dynamiquement la taille de la police
           Expanded(
             child: AutoSizeText(
               AppLocalizations.of(context)!.renameSessionTitle,
               style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
               maxLines: 1,
-              minFontSize: 12, // Taille minimale de la police
-              overflow: TextOverflow.ellipsis, // Gérer l'overflow si nécessaire
+              minFontSize: 12,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           IconButton(
