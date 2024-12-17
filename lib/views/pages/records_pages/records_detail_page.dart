@@ -127,10 +127,7 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                                 context.pushNamed(
                                   'exerciseSetsDetail',
                                   pathParameters: {
-                                    'exerciseId': fitSet
-                                        .exercise
-                                        .id
-                                        .toString()
+                                    'exerciseId': fitSet.exercise.id.toString()
                                   },
                                 );
                               },
