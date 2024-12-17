@@ -6,6 +6,8 @@ import 'package:my_fit_buddy/data/models/session_content_models/session_content_
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 import 'package:my_fit_buddy/data/services/session_content_service.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class LiveSessionViewModel {
   // Fields
@@ -155,23 +157,13 @@ class LiveSessionViewModel {
   }
 
   Future<bool> setNote(String text, int rate, BuildContext context) async {
-    print("Texte reçu : $text - Note reçue : $rate");
-
     if (!context.mounted) {
       return false;
     }
-
-    if (text.isEmpty) {
-      if (context.mounted) {
-        ToastManager.instance.showWarningToast(context, "LABEL texte vide");
-      }
-      return false;
-    }
-
     if (text.length > 255) {
       if (context.mounted) {
         ToastManager.instance
-            .showWarningToast(context, "LABEL texte trop grand 255 max");
+            .showErrorToast(context, AppLocalizations.of(context)!.max255char);
       }
       return false;
     }
@@ -179,16 +171,15 @@ class LiveSessionViewModel {
     if (rate < 0 || rate > 3) {
       if (context.mounted) {
         ToastManager.instance
-            .showWarningToast(context, "LABEL rating hors min/max");
+            .showErrorToast(context, AppLocalizations.of(context)!.defaultError);
       }
       return false;
     }
 
     bool result = await fitRecordService.setNote(currentRecord.id, text, rate);
-
-    if (result) {
+    if (result && text.isNotEmpty) {
       if (context.mounted) {
-        ToastManager.instance.showSuccessToast(context, "LABEL note set");
+        ToastManager.instance.showSuccessToast(context, AppLocalizations.of(context)!.defaultSuccess);
       }
     }
 

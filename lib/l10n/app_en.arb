@@ -111,7 +111,12 @@
     "december_abr": "Dec",
 
     "recordsTitleToggle1": "Sessions",
-    "recordsTitleToggle2": "Exercises"
+    "recordsTitleToggle2": "Exercises",
 
-
+    "toastInvalidExerciseInputs": "Impossible to create an exercice with 0 set",
+    "toastAddedExercise": "Exercise added !",
+    "liveSessionWithoutExe": "Impossible to launch a session without exercise",
+    "max255char" : "The input can contain max 255 characters",
+    "defaultError" : "An error happened",
+    "defaultSuccess" : "Action done with success"
 }
