@@ -90,6 +90,19 @@
     "changeSetOptionCancel": "Annuler",
     "changeSetOptionConfirm": "Changer",
 
+    "january": "Janvier",
+    "february": "Février",
+    "march": "Mars",
+    "april": "Avril",
+    "may": "Mai",
+    "june": "Juin",
+    "july": "Juillet",
+    "august": "Août",
+    "september": "Septembre",
+    "october": "Octobre",
+    "november": "Novembre",
+    "december": "Décembre",
+
     "monday_abr": "Lun",
     "tuesday_abr": "Mar",
     "wednesday_abr": "Mer",
@@ -137,5 +150,7 @@
     "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",
     "max255char" : "Le champs peut contenir maximun 255 caractères",
     "defaultError" : "Une erreur est survenue",
-    "defaultSuccess" : "Action réalisée avec succès"
+    "defaultSuccess" : "Action réalisée avec succès",
+
+    "noPreviousSet": "Aucun set précédent pour cet exercice"
 }

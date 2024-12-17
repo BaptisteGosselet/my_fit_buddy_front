@@ -8,7 +8,7 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/exercise_content_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
+import 'package:my_fit_buddy/views/widgets/headers/fit_header_widget.dart';
 import 'package:my_fit_buddy/views/widgets/modals/rename_session_dialog.dart';
 
 class SessionDetailPage extends StatefulWidget {
@@ -81,25 +81,37 @@ class SessionDetailPageState extends State<SessionDetailPage> {
               final Session sessionInformation = snapshot.data!;
               print("Session : $sessionInformation ");
               return Column(children: [
-                FitHeader(
+                FitHeaderWidget(
                   title: sessionInformation.name,
                   subtitle:
                       "${sessionContents.length.toString()} ${AppLocalizations.of(context)!.exercises}",
                   leftIcon: Icons.arrow_back_ios,
-                  rightIcon: Icons.edit,
                   onLeftIconPressed: () => {context.pop()},
-                  onRightIconPressed: () => {
+                  onUpdate: () => {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return RenameSessionDialog(
-                          id: sessionInformation.id,
-                          title: sessionInformation.name,
-                          onRename: _renameSession,
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            RenameSessionDialog(
+                              id: sessionInformation.id,
+                              title: sessionInformation.name,
+                              onRename: _renameSession,
+                            ),
+                          ],
                         );
                       },
                     )
                   },
+                  onDelete: () => {
+                    context.pushNamed(
+                      'home',
+                    )
+                  },
+                  sessionId: sessionInformation.id,
                 ),
                 // List SessionContent
                 Expanded(

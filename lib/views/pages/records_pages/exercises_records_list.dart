@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
 import 'package:my_fit_buddy/viewmodels/exercises_viewmodel.dart';
+import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/exercises_record_card.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_dropdown.dart';
 import 'package:my_fit_buddy/views/widgets/inputs/fit_search_bar.dart';
@@ -103,7 +104,7 @@ class ExercisesRecordsListState extends State<ExercisesRecordsList> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: fitCloudWhite,
       body: Column(
         children: [
           Padding(

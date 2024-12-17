@@ -66,11 +66,9 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        Utils.instance
-                            .getRecordsDateString_2(context, recordData.date),
-                        style:
-                            const TextStyle(fontSize: 17, color: fitBlueMiddle),
-                      ),
+                          'Le ${recordData.date.day} ${Utils.instance.getMonthFull(context, recordData.date.month)} ${recordData.date.year}',
+                          style: const TextStyle(
+                              fontSize: 17, color: fitBlueMiddle)),
                       Text(
                         '${recordData.date.hour.toString().padLeft(2, '0')}:${recordData.date.minute.toString().padLeft(2, '0')}',
                         style:
@@ -106,26 +104,30 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                             String key = recordDataExo.keys.elementAt(index);
                             return RecordExoCard(
                               title: key,
-                              subtitle: Column(
-                                children: List.generate(
-                                  recordDataExo[key]!.length,
-                                  (exoIndex) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${exoIndex + 1}      ${recordDataExo[key]![exoIndex].nbRep} x ${recordDataExo[key]![exoIndex].weight} kg",
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              subtitle: Flexible(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: recordDataExo[key]!.length,
+                                    itemBuilder: (context, index) {
+                                      print(index);
+                                      var lineNumber = index + 1;
+                                      return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                                "$lineNumber      ${recordDataExo[key]![index].nbRep} x ${recordDataExo[key]![index].weight} kg"),
+                                          ]);
+                                    }),
                               ),
                               onTap: () {
                                 final fitSet = recordDataExo[key]![0];
                                 context.pushNamed(
                                   'exerciseSetsDetail',
                                   pathParameters: {
-                                    'exerciseId': fitSet.exercise.id.toString(),
+                                    'exerciseId': fitSet.exercise.id.toString()
                                   },
                                 );
                               },
