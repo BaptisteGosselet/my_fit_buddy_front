@@ -113,6 +113,25 @@
     "recordsTitleToggle1": "Séances",
     "recordsTitleToggle2": "Exercices",
 
+
+    "editProfileInvalidUsername": "Nom d'utilisateur invalide.",
+    "editProfileForbiddenUsernameCharacters": "Le nom d'utilisateur contient des caractères interdits.",
+    "editProfileInvalidEmail": "Adresse e-mail invalide.",
+    "editProfileSuccess": "Profil mis à jour avec succès.",
+    "editProfileFailure": "Échec de la mise à jour du profil.",
+
+    "informationTitle": "Informations",
+    "nameLabel": "Nom",
+    "emailLabel": "Email",
+    "logoutButton": "Déconnexion",
+    "deleteAccountButton": "Supprimer le compte",
+    "confirmation": "Confirmation",
+    "deleteAccountConfirmation": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "accountDeleteFailed": "Échec de la suppression du compte",
+    "profile": "Profil",
+
     "toastInvalidExerciseInputs": "Il est impossible de creer un exercice avec 0 serie",
     "toastAddedExercise": "Exercice ajouté !",
     "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",

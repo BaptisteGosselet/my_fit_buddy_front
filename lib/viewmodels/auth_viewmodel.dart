@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_fit_buddy/data/models/auth_models/edit_user_form.dart';
 import 'package:my_fit_buddy/data/services/api_service.dart';
 import 'package:my_fit_buddy/data/services/auth_service/auth_service.dart';
 import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
@@ -160,7 +161,77 @@ class AuthViewmodel {
 
   Future<bool> editProfile(final String newUsername, final String newEmail,
       final BuildContext context) async {
-    print("edit $newUsername, $newEmail");
+    print("Editing profile with username: $newUsername, email: $newEmail");
+
+    // Validation for username
+    if (newUsername.isEmpty || newUsername.length > 20) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+          context,
+          AppLocalizations.of(context)!.editProfileInvalidUsername,
+        );
+      }
+      return false;
+    }
+
+    String forbiddenUsernameCharacters =
+        Utils.instance.usernameForbiddenCharacters(newUsername);
+    if (forbiddenUsernameCharacters.isNotEmpty) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+          context,
+          AppLocalizations.of(context)!.editProfileForbiddenUsernameCharacters +
+              forbiddenUsernameCharacters,
+        );
+      }
+      return false;
+    }
+
+    if (!Utils.instance.isValidEmail(newEmail)) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(
+          context,
+          AppLocalizations.of(context)!.editProfileInvalidEmail,
+        );
+      }
+      return false;
+    }
+
+    try {
+      final editUserForm = EditUserForm(
+        username: newUsername.toLowerCase(),
+        email: newEmail.toLowerCase(),
+      );
+
+      bool result = await authService.editUser(editUserForm);
+
+      if (result) {
+        if (context.mounted) {
+          ToastManager.instance.showSuccessToast(
+            context,
+            AppLocalizations.of(context)!.editProfileSuccess,
+          );
+          logout(context);
+        }
+        return true;
+      } else {
+        if (context.mounted) {
+          ToastManager.instance.showErrorToast(
+            context,
+            AppLocalizations.of(context)!.editProfileFailure,
+          );
+        }
+      }
+    } catch (e) {
+      print("Error editing profile: $e");
+      if (context.mounted) {
+        ToastManager.instance.showErrorToast(
+          context,
+          AppLocalizations.of(context)!.unknownError,
+        );
+      }
+    }
+
     return false;
   }
 

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/data/models/auth_models/edit_user_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/login_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/register_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/token.dart';
@@ -119,6 +120,28 @@ class AuthService {
       } else {
         print(
             'Erreur lors de la suppression du compte : ${response.statusCode}');
+        return false;
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return false;
+    }
+  }
+
+  Future<bool> editUser(EditUserForm form) async {
+    try {
+      final response = await APIService.instance.request(
+        "$userUrl/me/edit",
+        DioMethod.put,
+        param: form.toJson(),
+        authenticated: true,
+      );
+
+      if (response.statusCode == 200) {
+        print('Profile edited successfully');
+        return true;
+      } else {
+        print('Error editing profile: ${response.statusCode}');
         return false;
       }
     } on DioException catch (e) {
