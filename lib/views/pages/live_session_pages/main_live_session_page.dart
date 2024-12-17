@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
@@ -9,6 +10,7 @@ import 'package:my_fit_buddy/views/pages/live_session_pages/parts_pages/timer_pa
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/widgets/exercise_card_scroll.dart';
 import 'package:my_fit_buddy/views/widgets/modals/change_live_set.dart';
+import 'package:my_fit_buddy/views/widgets/modals/quit_live_session.dart';
 
 class MainLiveSessionPage extends StatefulWidget {
   final String sessionId;
@@ -30,7 +32,6 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     super.initState();
     liveSessionViewmodel = LiveSessionViewModel(widget.sessionId);
     currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
-    print("live\${liveSessionViewmodel.sessionId}");
     initViewmodel();
   }
 
@@ -89,8 +90,6 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToSet(int setNumber) async {
-    print("ici $setNumber");
-
     bool? result = await showConfirmationDialog(context);
 
     if (result == true) {
@@ -102,8 +101,6 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToExercice(int exerciceNumber) async {
-    print("ici $exerciceNumber");
-
     if (exerciceNumber == liveSessionViewmodel.getCurrentExerciseIndex()) {
       return;
     }
@@ -140,7 +137,6 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
 
           List<FitSet> previousSets = [];
           if (snapshot.hasError) {
-            print("Error loading previous sets: \${snapshot.error}");
           } else if (snapshot.hasData) {
             previousSets = snapshot.data!;
           }
@@ -169,16 +165,32 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       );
     }
 
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: currentPage),
-          ExerciseCardScroll(
-            exercises: liveSessionViewmodel.getExercisesList(),
-            goToExercise: goToExercice,
-            currentExerciseIdx: liveSessionViewmodel.getCurrentExerciseIndex(),
-          ),
-        ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return QuitLiveSession(
+              onConfirm: () {
+                context.pop();
+              },
+            );
+          },
+        );
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(child: currentPage),
+            ExerciseCardScroll(
+              exercises: liveSessionViewmodel.getExercisesList(),
+              goToExercise: goToExercice,
+              currentExerciseIdx:
+                  liveSessionViewmodel.getCurrentExerciseIndex(),
+            ),
+          ],
+        ),
       ),
     );
   }
