@@ -20,10 +20,10 @@ class PreviousRecordsList extends StatelessWidget {
 
     // Si la liste est vide, affiche uniquement le message
     if (previousSets.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
-          "LABEL NO PREVIOUS SETS",
-          style: TextStyle(
+          AppLocalizations.of(context)!.noPreviousSet,
+          style: const TextStyle(
             fontSize: thisFontSize,
             fontWeight: thisFontWeight,
             color: thisTextColor,

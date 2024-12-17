@@ -57,7 +57,7 @@ class _RenameSessionState extends State<RenameSessionDialog> {
           Expanded(
             child: AutoSizeText(
               AppLocalizations.of(context)!.renameSessionTitle,
-              style: const TextStyle(fontWeight: fitWeightBold, fontSize: 20),
+              style: const TextStyle(fontWeight: fitWeightBold, fontSize: 18),
               maxLines: 1,
               minFontSize: 12,
               overflow: TextOverflow.ellipsis,

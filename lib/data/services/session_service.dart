@@ -107,4 +107,27 @@ class SessionService {
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
   }
+
+  Future<bool> deleteSession(int id) async {
+    try {
+      print('sessionsUrl/$id');
+
+      final response = await APIService.instance.request(
+        '$sessionsUrl/$id',
+        DioMethod.delete,
+      );
+      if (response.statusCode == 200) {
+        print("Session Supprimer");
+        return response.data;
+      } else {
+        print('Erreur lors du rename de la session : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors du rename de la session : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
 }
