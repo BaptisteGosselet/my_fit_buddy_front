@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/session_models/session.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
+import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:my_fit_buddy/viewmodels/session_viewmodel.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
@@ -155,8 +156,18 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                         buttonColor: fitBlueMiddle,
                         label: AppLocalizations.of(context)!.runSession,
                         onClick: () => {
-                              context.pushNamed('liveSession',
-                                  pathParameters: {'sessionId': widget.id})
+                              if (sessionContents.isNotEmpty)
+                                {
+                                  context.pushNamed('liveSession',
+                                      pathParameters: {'sessionId': widget.id})
+                                }
+                              else
+                                {
+                                  ToastManager.instance.showErrorToast(
+                                      context,
+                                      AppLocalizations.of(context)!
+                                          .liveSessionWithoutExe)
+                                }
                             }),
                     const SizedBox(height: 10)
                   ],

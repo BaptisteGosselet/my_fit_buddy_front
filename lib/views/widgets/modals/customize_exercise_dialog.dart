@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_fit_buddy/managers/toast_manager.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
@@ -87,15 +88,31 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
           buttonColor: fitBlueDark,
           label: AppLocalizations.of(context)!.addButton,
           onClick: () {
-            Navigator.of(context).pop();
-            widget.onConfirm(
-              int.tryParse(nbSetsController.text) ?? 0,
-              Utils.instance
-                  .convertStringTimeToSeconds(durationController.text),
-            );
+            if (validInputs()) {
+              Navigator.of(context).pop();
+              widget.onConfirm(
+                int.tryParse(nbSetsController.text) ?? 1,
+                Utils.instance
+                    .convertStringTimeToSeconds(durationController.text),
+              );
+              ToastManager.instance.showSuccessToast(
+                  context, AppLocalizations.of(context)!.toastAddedExercise);
+            } else {
+              ToastManager.instance.showErrorToast(context,
+                  AppLocalizations.of(context)!.toastInvalidExerciseInputs);
+            }
           },
         ),
       ],
     );
+  }
+
+  bool validInputs() {
+    print((nbSetsController.text != "0"));
+    var value = int.tryParse(nbSetsController.text);
+    if (value != null) {
+      return (int.parse(nbSetsController.text) > 0);
+    }
+    return false;
   }
 }

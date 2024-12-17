@@ -76,7 +76,6 @@
     "reps": "Reps",
     "kg": "Kg",
     "date": "Date",
-    "date": "Date",
 
     "sessionEmpty": "La séance est vide.",
 
@@ -131,6 +130,12 @@
     "cancel": "Annuler",
     "confirm": "Confirmer",
     "accountDeleteFailed": "Échec de la suppression du compte",
-    "profile": "Profil"
+    "profile": "Profil",
 
+    "toastInvalidExerciseInputs": "Il est impossible de creer un exercice avec 0 serie",
+    "toastAddedExercise": "Exercice ajouté !",
+    "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",
+    "max255char" : "Le champs peut contenir maximun 255 caractères",
+    "defaultError" : "Une erreur est survenue",
+    "defaultSuccess" : "Action réalisée avec succès"
 }

@@ -129,7 +129,12 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "accountDeleteFailed": "Failed to delete account",
-    "profile": "Profile"
+    "profile": "Profile",
 
-
+    "toastInvalidExerciseInputs": "Impossible to create an exercice with 0 set",
+    "toastAddedExercise": "Exercise added !",
+    "liveSessionWithoutExe": "Impossible to launch a session without exercise",
+    "max255char" : "The input can contain max 255 characters",
+    "defaultError" : "An error happened",
+    "defaultSuccess" : "Action done with success"
 }
