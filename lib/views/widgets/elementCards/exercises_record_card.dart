@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/core/config.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
 import 'package:my_fit_buddy/data/exercises/muscle_groups.dart';
@@ -30,6 +31,13 @@ class ExercisesCardState extends State<ExerciseRecordCard> {
         onTapUp: (_) {
           setState(() => _isPressed = false);
           print("${widget.exercise}");
+
+          context.pushNamed(
+            'exerciseSetsDetail',
+            pathParameters: {
+              'exerciseId': widget.exercise.id.toString(),
+            },
+          );
         },
         onTapCancel: () => setState(() => _isPressed = false),
         child: AnimatedContainer(

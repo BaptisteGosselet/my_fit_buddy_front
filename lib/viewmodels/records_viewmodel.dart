@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
+import 'package:my_fit_buddy/managers/toast_manager.dart';
 
 class RecordsViewmodel {
   final fitRecordService = FitRecordService();
@@ -38,5 +40,48 @@ class RecordsViewmodel {
       return Future.error(
           'Erreur lors de la récupération de l\'enregistrement');
     }
+  }
+
+  Future<bool> saveNote(int recordId, int feelingRate, String feelingText,
+      BuildContext context) async {
+    print("save note : $recordId - $feelingRate - $feelingText");
+
+    if (!context.mounted) {
+      return false;
+    }
+
+    if (feelingText.isEmpty) {
+      if (context.mounted) {
+        ToastManager.instance.showWarningToast(context, "LABEL texte vide");
+      }
+      return false;
+    }
+
+    if (feelingText.length > 255) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL texte trop grand 255 max");
+      }
+      return false;
+    }
+
+    if (feelingRate < 0 || feelingRate > 3) {
+      if (context.mounted) {
+        ToastManager.instance
+            .showWarningToast(context, "LABEL rating hors min/max");
+      }
+      return false;
+    }
+
+    bool result =
+        await fitRecordService.setNote(recordId, feelingText, feelingRate);
+
+    if (result) {
+      if (context.mounted) {
+        ToastManager.instance.showSuccessToast(context, "LABEL note set");
+      }
+    }
+
+    return result;
   }
 }

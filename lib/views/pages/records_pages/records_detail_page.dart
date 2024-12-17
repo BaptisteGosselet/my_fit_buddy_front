@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
+import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:my_fit_buddy/viewmodels/records_viewmodel.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/widgets/elementCards/record_exo_card.dart';
 import 'package:my_fit_buddy/views/widgets/headers/fit_header.dart';
+import 'package:my_fit_buddy/views/pages/records_pages/feeling_text_block.dart';
 
 class RecordsDetailPage extends StatefulWidget {
   final int recordId;
@@ -24,9 +26,7 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
   @override
   void initState() {
     super.initState();
-    record = recordsViewmodel
-        .getRecordById(widget.recordId)
-        .then((FitRecord result) {
+    record = recordsViewmodel.getRecordById(widget.recordId).then((result) {
       mapExerciseSet = recordsViewmodel.getSetByExerciceByRecordId(result.id);
       return result;
     });
@@ -34,57 +34,63 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    const Map<int, String> monthsInYear = {
-      1: "Janvier",
-      2: "Février",
-      3: "Mars",
-      4: "Avril",
-      5: "Mai",
-      6: "Juin",
-      7: "Juillet",
-      8: "Août",
-      9: "Septembre",
-      10: "Octobre",
-      11: "Novembre",
-      12: "Décembre"
-    };
-
     return FutureBuilder<FitRecord>(
       future: record,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         } else if (snapshot.hasError) {
-          return Center(child: Text('Erreur: ${snapshot.error}'));
-        } else if (snapshot.hasData) {
-          FitRecord recordData = snapshot.data!;
           return Scaffold(
-            //appBar: AppBar(title: const Text('Détails de l\'enregistrement')),
+            body: Center(child: Text('Erreur: ${snapshot.error}')),
+          );
+        } else if (snapshot.hasData) {
+          final FitRecord recordData = snapshot.data!;
+
+          return Scaffold(
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Header
                 FitHeader(
                   title: recordData.name,
                   leftIcon: Icons.arrow_back_ios,
-                  onLeftIconPressed: () => {context.pop()},
+                  onLeftIconPressed: () => context.pop(),
                 ),
+
+                // Date et heure
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          'Le ${recordData.date.day} ${monthsInYear[recordData.date.month]} ${recordData.date.year}',
-                          style: const TextStyle(
-                              fontSize: 17, color: fitBlueMiddle)),
+                        Utils.instance
+                            .getRecordsDateString_2(context, recordData.date),
+                        style:
+                            const TextStyle(fontSize: 17, color: fitBlueMiddle),
+                      ),
                       Text(
-                          '${recordData.date.hour < 10 ? '0${recordData.date.hour}' : recordData.date.hour}:${recordData.date.minute < 10 ? '0${recordData.date.minute}' : recordData.date.minute}',
-                          style: const TextStyle(
-                              fontSize: 17, color: fitBlueMiddle)),
+                        '${recordData.date.hour.toString().padLeft(2, '0')}:${recordData.date.minute.toString().padLeft(2, '0')}',
+                        style:
+                            const TextStyle(fontSize: 17, color: fitBlueMiddle),
+                      ),
                     ],
                   ),
                 ),
-                FutureBuilder<Map<String, List<FitSet>>>(
+
+                FeelingTextBlock(
+                  text: recordData.feelingNote,
+                  feelingRate: recordData.feelingRate,
+                  onSave: (int feelingRate, String feelingNote) {
+                    recordsViewmodel.saveNote(
+                        recordData.id, feelingRate, feelingNote, context);
+                  },
+                ),
+
+                Expanded(
+                  child: FutureBuilder<Map<String, List<FitSet>>>(
                     future: mapExerciseSet,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -92,37 +98,34 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Erreur: ${snapshot.error}'));
                       } else if (snapshot.hasData) {
-                        Map<String, List<FitSet>> recordDataExo =
+                        final Map<String, List<FitSet>> recordDataExo =
                             snapshot.data!;
                         return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: recordDataExo.length,
                           itemBuilder: (context, index) {
                             String key = recordDataExo.keys.elementAt(index);
                             return RecordExoCard(
                               title: key,
-                              subtitle: Flexible(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: recordDataExo[key]!.length,
-                                    itemBuilder: (context, index) {
-                                      return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                                "${index + 1}      ${recordDataExo[key]![index].nbRep} x ${recordDataExo[key]![index].weight} kg"),
-                                          ]);
-                                    }),
+                              subtitle: Column(
+                                children: List.generate(
+                                  recordDataExo[key]!.length,
+                                  (exoIndex) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${exoIndex + 1}      ${recordDataExo[key]![exoIndex].nbRep} x ${recordDataExo[key]![exoIndex].weight} kg",
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                               onTap: () {
+                                final fitSet = recordDataExo[key]![0];
                                 context.pushNamed(
-                                  'recordDetails',
+                                  'exerciseSetsDetail',
                                   pathParameters: {
-                                    'recordId': "test" //record.id.toString()
+                                    'exerciseId': fitSet.exercise.id.toString(),
                                   },
                                 );
                               },
@@ -131,14 +134,19 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                         );
                       } else {
                         return const Center(
-                            child: Text('Aucune donnée disponible.'));
+                          child: Text('Aucune donnée disponible.'),
+                        );
                       }
-                    })
+                    },
+                  ),
+                ),
               ],
             ),
           );
         } else {
-          return const Center(child: Text('Aucune donnée disponible.'));
+          return const Scaffold(
+            body: Center(child: Text('Aucune donnée disponible.')),
+          );
         }
       },
     );

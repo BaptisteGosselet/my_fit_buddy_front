@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_fit_buddy/utils/emoji_rating_map.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-const Map<String, int> emojiRatingMap = {
-  '🤷‍♂️': 0,
-  '😐': 1,
-  '👍': 2,
-  '😎': 3,
-};
 
 class NotePage extends StatefulWidget {
   const NotePage({
@@ -25,11 +19,11 @@ class NotePage extends StatefulWidget {
 }
 
 class _NotePageState extends State<NotePage> {
-  String dropdownValue = emojiRatingMap.keys.first;
+  String dropdownValue = EmojiRatingMap.instance.getMap().keys.first;
   final TextEditingController _textController = TextEditingController();
 
   int getSelectedRate() {
-    return emojiRatingMap[dropdownValue]!;
+    return EmojiRatingMap.instance.getMap()[dropdownValue]!;
   }
 
   @override
@@ -74,13 +68,16 @@ class _NotePageState extends State<NotePage> {
                 children: [
                   DropdownMenu<String>(
                     textAlign: TextAlign.center,
-                    initialSelection: emojiRatingMap.keys.first,
+                    initialSelection:
+                        EmojiRatingMap.instance.getMap().keys.first,
                     onSelected: (String? value) {
                       setState(() {
                         dropdownValue = value!;
                       });
                     },
-                    dropdownMenuEntries: emojiRatingMap.keys
+                    dropdownMenuEntries: EmojiRatingMap.instance
+                        .getMap()
+                        .keys
                         .map<DropdownMenuEntry<String>>((String key) {
                       return DropdownMenuEntry<String>(value: key, label: key);
                     }).toList(),
