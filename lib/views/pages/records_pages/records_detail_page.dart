@@ -104,26 +104,33 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                             String key = recordDataExo.keys.elementAt(index);
                             return RecordExoCard(
                               title: key,
-                              subtitle: Column(
-                                children: List.generate(
-                                  recordDataExo[key]!.length,
-                                  (exoIndex) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${exoIndex + 1}      ${recordDataExo[key]![exoIndex].nbRep} x ${recordDataExo[key]![exoIndex].weight} kg",
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              subtitle: Flexible(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: recordDataExo[key]!.length,
+                                    itemBuilder: (context, index) {
+                                      print(index);
+                                      var lineNumber = index + 1;
+                                      return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                                "$lineNumber      ${recordDataExo[key]![index].nbRep} x ${recordDataExo[key]![index].weight} kg"),
+                                          ]);
+                                    }),
                               ),
                               onTap: () {
                                 final fitSet = recordDataExo[key]![0];
                                 context.pushNamed(
                                   'exerciseSetsDetail',
                                   pathParameters: {
-                                    'exerciseId': fitSet.exercise.id.toString(),
+                                    'exerciseId': recordDataExo[key]![0]
+                                        .exercise
+                                        .id
+                                        .toString()
                                   },
                                 );
                               },

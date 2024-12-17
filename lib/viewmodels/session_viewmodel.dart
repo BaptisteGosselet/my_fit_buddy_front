@@ -44,6 +44,10 @@ class SessionViewmodel {
         .renameSession(SessionUpdateForm(sessionId: id, name: newName));
   }
 
+  Future<bool> deleteSession(int id) async {
+    return sessionService.deleteSession(id);
+  }
+
   void setNewContentOrder(List<SessionContentExercise> sessionContents) async {
     List<SessionContentUpdateForm> toUpdateList = [];
     for (int i = 0; i < sessionContents.length; i++) {

@@ -150,5 +150,7 @@
     "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",
     "max255char" : "Le champs peut contenir maximun 255 caractères",
     "defaultError" : "Une erreur est survenue",
-    "defaultSuccess" : "Action réalisée avec succès"
+    "defaultSuccess" : "Action réalisée avec succès",
+
+    "noPreviousSet": "Aucun set précédent pour cet exercice"
 }
