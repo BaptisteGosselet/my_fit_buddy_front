@@ -136,5 +136,7 @@
     "liveSessionWithoutExe": "Impossible to launch a session without exercise",
     "max255char" : "The input can contain max 255 characters",
     "defaultError" : "An error happened",
-    "defaultSuccess" : "Action done with success"
+    "defaultSuccess" : "Action done with success",
+
+    "noSessionFound" : "No session found"
 }
