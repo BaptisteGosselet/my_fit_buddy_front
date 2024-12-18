@@ -168,6 +168,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) { return; }
         await showDialog(
           context: context,
           builder: (BuildContext context) {
