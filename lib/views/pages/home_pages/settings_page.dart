@@ -55,21 +55,20 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: fitCloudWhite,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FitHeader(
-                title: AppLocalizations.of(context)!.profile,
-              ),
-              const SizedBox(height: 16.0),
-              Padding(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FitHeader(
+            title: AppLocalizations.of(context)!.profile,
+          ),
+          const SizedBox(height: 16.0),
+          Expanded(
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 16.0),
                     Text(
                       AppLocalizations.of(context)!.informationTitle,
                       style: const TextStyle(
@@ -116,7 +115,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 16.0),
+                    const Spacer(),
                     Center(
                       child: FitButton(
                         buttonColor: fitBlueDark,
@@ -130,34 +130,28 @@ class _SettingsPageState extends State<SettingsPage> {
                     Center(
                       child: FitButton(
                         buttonColor: Colors.red,
-                        label:
-                            AppLocalizations.of(context)!.deleteAccountButton,
+                        label: AppLocalizations.of(context)!.deleteAccountButton,
                         onClick: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context)!.confirmation),
-                                content: Text(AppLocalizations.of(context)!
-                                    .deleteAccountConfirmation),
+                                title: Text(AppLocalizations.of(context)!.confirmation),
+                                content: Text(AppLocalizations.of(context)!.deleteAccountConfirmation),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text(
-                                        AppLocalizations.of(context)!.cancel),
+                                    child: Text(AppLocalizations.of(context)!.cancel),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       _deleteAccount();
                                     },
-                                    style: TextButton.styleFrom(
-                                        foregroundColor: Colors.red),
-                                    child: Text(
-                                        AppLocalizations.of(context)!.confirm),
+                                    style: TextButton.styleFrom(foregroundColor: Colors.red),
+                                    child: Text(AppLocalizations.of(context)!.confirm),
                                   ),
                                 ],
                               );
@@ -166,12 +160,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                     ),
+                    const SizedBox(height: 32.0),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+        ],
       ),
     );
   }
