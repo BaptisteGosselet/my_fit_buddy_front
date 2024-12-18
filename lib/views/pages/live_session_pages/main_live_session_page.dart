@@ -147,6 +147,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
             onFinishClick: goToTimer,
             onSetPressed: goToSet,
             currentSetNumber: currentSetIndex,
+            currentRecordId: liveSessionViewmodel.getRecord().id,
           );
         },
       );

@@ -14,15 +14,16 @@ class PlaySessionPage extends StatelessWidget {
   final Function(SessionContentExercise, int, int) onFinishClick;
   final Function(int setNumber) onSetPressed;
   final int currentSetNumber;
+  final int currentRecordId;
 
-  const PlaySessionPage({
-    super.key,
-    required this.sessionContentExercise,
-    required this.previousExerciseSets,
-    required this.onFinishClick,
-    required this.onSetPressed,
-    required this.currentSetNumber,
-  });
+  const PlaySessionPage(
+      {super.key,
+      required this.sessionContentExercise,
+      required this.previousExerciseSets,
+      required this.onFinishClick,
+      required this.onSetPressed,
+      required this.currentSetNumber,
+      required this.currentRecordId});
 
   FitSet? getExerciseLastSet() {
     if (previousExerciseSets.isEmpty) {
@@ -124,7 +125,10 @@ class PlaySessionPage extends StatelessWidget {
                 ),
               ),
             ),
-            PreviousRecordsList(previousSets: previousExerciseSets),
+            PreviousRecordsList(
+                previousSets: previousExerciseSets
+                    .where((FitSet set) => set.record.id != currentRecordId)
+                    .toList()),
           ],
         ),
       ),

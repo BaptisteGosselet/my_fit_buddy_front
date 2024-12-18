@@ -9,8 +9,7 @@ class TokenStorageService {
   final storage = const FlutterSecureStorage();
 
   Future<void> saveToken(Token token) async {
-    final tokenJson = jsonEncode(token.toJson());
-    await storage.write(key: 'jwt', value: tokenJson);
+    await storage.write(key: 'jwt', value: jsonEncode(token.toJson()));
     print(
         'TokenStorageService.saveToken : Token enregistré sous forme de JSON.');
   }
@@ -31,11 +30,7 @@ class TokenStorageService {
   }
 
   Future<bool> hasToken() async {
-    final tokenJson = await storage.read(key: 'jwt');
-    if (tokenJson != null) {
-      return true;
-    }
-    return false;
+    return await storage.read(key: 'jwt') != null;
   }
 
   Future<bool> isRefreshTokenValid() async {
