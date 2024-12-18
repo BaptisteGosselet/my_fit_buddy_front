@@ -152,9 +152,9 @@
     "defaultSuccess" : "Action done with success",
 
     "noPreviousSet": "No previous set for this exercise",
-
     "noteEmpty": "The note is empty",
     "textTooBig": "The note can't exceed 255 characters",
     "ratingNotInMinMax": "The feelings rate does not exist",
-    "noteSetSuccefully": "The note was correctly set"
+    "noteSetSuccefully": "The note was correctly set",
+    "noSessionFound" : "No session found"
 }

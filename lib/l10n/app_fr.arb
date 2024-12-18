@@ -157,5 +157,6 @@
     "noteEmpty": "La note est vide",
     "textTooBig": "La note ne peux pas dépasser 255 caractères",
     "ratingNotInMinMax": "La note de ressenti n'existe pas",
-    "noteSetSuccefully": "La note a bien été sauvegardée"
+    "noteSetSuccefully": "La note a bien été sauvegardée",
+    "noSessionFound" : "Aucune session trouvée"
 }
