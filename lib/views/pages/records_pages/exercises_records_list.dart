@@ -108,7 +108,8 @@ class ExercisesRecordsListState extends State<ExercisesRecordsList> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 20.0, left: 20.0, top: 16.0, bottom: 16.0),
+            padding: const EdgeInsets.only(
+                right: 20.0, left: 20.0, top: 16.0, bottom: 16.0),
             child: FitSearchBar(
               controller: searchController,
               onSearchChanged: (_) => resetAndFetchExercises(),

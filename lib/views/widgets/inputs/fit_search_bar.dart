@@ -19,28 +19,28 @@ class FitSearchBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: fitBlueDark, width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: TextField(
-              controller: controller,
-              onChanged: onSearchChanged,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: AppLocalizations.of(context)!.exercisesSearch,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                suffixIcon: const Icon(
-                  Icons.search,
-                  color: fitBlueDark,
-                ),
-              ),
-              style: const TextStyle(color: Colors.black),
-            ),
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: fitBlueDark, width: 1),
+            borderRadius: BorderRadius.circular(8),
           ),
+          child: TextField(
+            controller: controller,
+            onChanged: onSearchChanged,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: AppLocalizations.of(context)!.exercisesSearch,
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              suffixIcon: const Icon(
+                Icons.search,
+                color: fitBlueDark,
+              ),
+            ),
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
         //),
       ],
     );
