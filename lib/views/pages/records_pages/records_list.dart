@@ -33,7 +33,7 @@ class RecordsList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final record = records[index];
                 return SessionCard(
-                  title: 'Record ${record.id}',
+                  title: record.name,
                   subtitle:
                       'Créé le : ${Utils.instance.getRecordsDateString_1(context, record.date)}',
                   icon: Icons.fitness_center,
