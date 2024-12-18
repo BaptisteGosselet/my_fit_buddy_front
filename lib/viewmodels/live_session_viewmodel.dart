@@ -60,6 +60,7 @@ class LiveSessionViewModel {
     return sessionContentExerciseList[idxExercise];
   }
 
+  FitRecord getRecord() => currentRecord;
   int getCurrentSetIndex() => idxSet;
   int getCurrentExerciseIndex() => idxExercise;
 

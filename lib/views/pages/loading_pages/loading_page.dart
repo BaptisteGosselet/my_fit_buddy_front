@@ -31,6 +31,7 @@ class LoadingPage extends StatelessWidget {
         ),
       ),
       asyncNavigationCallback: () async {
+        print("L'appli est en train de load");
         await Future.delayed(const Duration(seconds: 2));
 
         // Variable pour contrôler si la requête a réussi
@@ -39,8 +40,12 @@ class LoadingPage extends StatelessWidget {
         // Tentative de tester l'API en boucle avec un délai de 5 secondes
         while (!requestSuccessful) {
           try {
-            String s = await APIService.instance.test();
-
+            print("requête partie");
+            String s = await APIService.instance
+                .test()
+                .timeout(const Duration(seconds: 5), onTimeout: () {
+              return "";
+            });
             if (s.contains('ok')) {
               print("Réponse API valide.");
               requestSuccessful = true;
@@ -48,13 +53,11 @@ class LoadingPage extends StatelessWidget {
               print("Réponse API invalide.");
             }
           } catch (e) {
-            print(
-                "Erreur lors de la requête API, tentative de nouveau dans 5 secondes.");
+            print("Erreur lors de la requête API, nouvelle tentative");
           }
 
-          // Si la requête échoue, attendre 5 secondes avant de réessayer
           if (!requestSuccessful) {
-            await Future.delayed(const Duration(seconds: 5));
+            print("retry");
           }
         }
 
