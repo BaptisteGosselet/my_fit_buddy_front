@@ -15,12 +15,10 @@ class FitSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
-          child: Container(
-            width: 320,
+        Container(
             height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -43,7 +41,7 @@ class FitSearchBar extends StatelessWidget {
               style: const TextStyle(color: Colors.black),
             ),
           ),
-        ),
+        //),
       ],
     );
   }

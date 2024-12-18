@@ -83,6 +83,7 @@ class ExercisesListPageState extends State<ExercisesListPage> {
     return Scaffold(
       backgroundColor: fitCloudWhite,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
@@ -92,15 +93,18 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               onLeftIconPressed: () => {context.pop()},
             ),
           ),
-          FitSearchBar(
-            controller: searchController,
-            onSearchChanged: (_) {
-              setState(() {
-                currentPage = 0;
-                exercises.clear();
-              });
-              fetchExercises();
-            },
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: FitSearchBar(
+              controller: searchController,
+              onSearchChanged: (_) {
+                setState(() {
+                  currentPage = 0;
+                  exercises.clear();
+                });
+                fetchExercises();
+              },
+            ),
           ),
           const SizedBox(height: 16),
           Padding(
