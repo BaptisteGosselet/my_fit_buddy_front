@@ -152,5 +152,10 @@
     "defaultError" : "Une erreur est survenue",
     "defaultSuccess" : "Action réalisée avec succès",
 
-    "noPreviousSet": "Aucun set précédent pour cet exercice"
+    "noPreviousSet": "Aucun set précédent pour cet exercice",
+
+    "noteEmpty": "La note est vide",
+    "textTooBig": "La note ne peux pas dépasser 255 caractères",
+    "ratingNotInMinMax": "La note de ressenti n'existe pas",
+    "noteSetSuccefully": "La note a bien été sauvegardée"
 }

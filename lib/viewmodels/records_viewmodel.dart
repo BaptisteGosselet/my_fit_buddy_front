@@ -3,6 +3,7 @@ import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/services/fit_record_service.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecordsViewmodel {
   final fitRecordService = FitRecordService();
@@ -52,7 +53,7 @@ class RecordsViewmodel {
 
     if (feelingText.isEmpty) {
       if (context.mounted) {
-        ToastManager.instance.showWarningToast(context, "LABEL texte vide");
+        ToastManager.instance.showWarningToast(context, AppLocalizations.of(context)!.noteEmpty);
       }
       return false;
     }
@@ -60,7 +61,7 @@ class RecordsViewmodel {
     if (feelingText.length > 255) {
       if (context.mounted) {
         ToastManager.instance
-            .showWarningToast(context, "LABEL texte trop grand 255 max");
+            .showWarningToast(context, AppLocalizations.of(context)!.textTooBig);
       }
       return false;
     }
@@ -68,7 +69,7 @@ class RecordsViewmodel {
     if (feelingRate < 0 || feelingRate > 3) {
       if (context.mounted) {
         ToastManager.instance
-            .showWarningToast(context, "LABEL rating hors min/max");
+            .showWarningToast(context, AppLocalizations.of(context)!.ratingNotInMinMax);
       }
       return false;
     }
@@ -78,7 +79,7 @@ class RecordsViewmodel {
 
     if (result) {
       if (context.mounted) {
-        ToastManager.instance.showSuccessToast(context, "LABEL note set");
+        ToastManager.instance.showSuccessToast(context, AppLocalizations.of(context)!.noteSetSuccefully);
       }
     }
 
