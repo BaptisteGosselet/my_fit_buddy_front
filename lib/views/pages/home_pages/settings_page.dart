@@ -63,108 +63,113 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           const SizedBox(height: 16.0),
           Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 16.0),
-                    Text(
-                      AppLocalizations.of(context)!.informationTitle,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16.0),
+                  Text(
+                    AppLocalizations.of(context)!.informationTitle,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    const SizedBox(height: 10),
-                    const Divider(color: Colors.grey, thickness: 1.0),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      AppLocalizations.of(context)!.nameLabel,
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(color: Colors.grey, thickness: 1.0),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    AppLocalizations.of(context)!.nameLabel,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      nameController.text,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    nameController.text,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      AppLocalizations.of(context)!.emailLabel,
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    AppLocalizations.of(context)!.emailLabel,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      emailController.text,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    emailController.text,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    const SizedBox(height: 16.0),
-                    const Spacer(),
-                    Center(
-                      child: FitButton(
-                        buttonColor: fitBlueDark,
-                        label: AppLocalizations.of(context)!.logoutButton,
-                        onClick: () {
-                          authViewmodel.logout(context);
-                        },
-                      ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Spacer(),
+                  Center(
+                    child: FitButton(
+                      buttonColor: fitBlueDark,
+                      label: AppLocalizations.of(context)!.logoutButton,
+                      onClick: () {
+                        authViewmodel.logout(context);
+                      },
                     ),
-                    const SizedBox(height: 16.0),
-                    Center(
-                      child: FitButton(
-                        buttonColor: Colors.red,
-                        label: AppLocalizations.of(context)!.deleteAccountButton,
-                        onClick: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(AppLocalizations.of(context)!.confirmation),
-                                content: Text(AppLocalizations.of(context)!.deleteAccountConfirmation),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(AppLocalizations.of(context)!.cancel),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      _deleteAccount();
-                                    },
-                                    style: TextButton.styleFrom(foregroundColor: Colors.red),
-                                    child: Text(AppLocalizations.of(context)!.confirm),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: FitButton(
+                      buttonColor: Colors.red,
+                      label: AppLocalizations.of(context)!.deleteAccountButton,
+                      onClick: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                  AppLocalizations.of(context)!.confirmation),
+                              content: Text(AppLocalizations.of(context)!
+                                  .deleteAccountConfirmation),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                      AppLocalizations.of(context)!.cancel),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _deleteAccount();
+                                  },
+                                  style: TextButton.styleFrom(
+                                      foregroundColor: Colors.red),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.confirm),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
-                    const SizedBox(height: 32.0),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 32.0),
+                ],
               ),
             ),
+          ),
         ],
       ),
     );
