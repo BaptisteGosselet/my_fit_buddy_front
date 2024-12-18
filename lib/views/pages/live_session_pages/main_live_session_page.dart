@@ -173,7 +173,9 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
           builder: (BuildContext context) {
             return QuitLiveSession(
               onConfirm: () {
-                context.pop();
+                context.pushNamed(
+                  'home',
+                );
               },
             );
           },
