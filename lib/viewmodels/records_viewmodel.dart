@@ -53,23 +53,24 @@ class RecordsViewmodel {
 
     if (feelingText.isEmpty) {
       if (context.mounted) {
-        ToastManager.instance.showWarningToast(context, AppLocalizations.of(context)!.noteEmpty);
+        ToastManager.instance
+            .showWarningToast(context, AppLocalizations.of(context)!.noteEmpty);
       }
       return false;
     }
 
     if (feelingText.length > 255) {
       if (context.mounted) {
-        ToastManager.instance
-            .showWarningToast(context, AppLocalizations.of(context)!.textTooBig);
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.textTooBig);
       }
       return false;
     }
 
     if (feelingRate < 0 || feelingRate > 3) {
       if (context.mounted) {
-        ToastManager.instance
-            .showWarningToast(context, AppLocalizations.of(context)!.ratingNotInMinMax);
+        ToastManager.instance.showWarningToast(
+            context, AppLocalizations.of(context)!.ratingNotInMinMax);
       }
       return false;
     }
@@ -79,7 +80,8 @@ class RecordsViewmodel {
 
     if (result) {
       if (context.mounted) {
-        ToastManager.instance.showSuccessToast(context, AppLocalizations.of(context)!.noteSetSuccefully);
+        ToastManager.instance.showSuccessToast(
+            context, AppLocalizations.of(context)!.noteSetSuccefully);
       }
     }
 
