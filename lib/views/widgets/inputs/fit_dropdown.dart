@@ -50,7 +50,7 @@ class _FitDropdownState extends State<FitDropdown> {
       constraints: const BoxConstraints(minWidth: minWidth),
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
-        color: fitCloudWhite,
+        color: const Color.fromARGB(255, 255, 255, 255),
         border: Border.all(color: widgetColor, width: 1),
         borderRadius: BorderRadius.circular(20.0),
       ),

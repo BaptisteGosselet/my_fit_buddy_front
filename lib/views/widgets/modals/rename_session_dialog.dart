@@ -4,7 +4,6 @@ import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 import '../inputs/fit_text_input.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class RenameSessionDialog extends StatefulWidget {
   final Function(int id, String newName) onRename;
@@ -55,11 +54,10 @@ class _RenameSessionState extends State<RenameSessionDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: AutoSizeText(
+            child: Text(
               AppLocalizations.of(context)!.renameSessionTitle,
               style: const TextStyle(fontWeight: fitWeightBold, fontSize: 18),
               maxLines: 1,
-              minFontSize: 12,
               overflow: TextOverflow.ellipsis,
             ),
           ),

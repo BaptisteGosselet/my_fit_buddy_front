@@ -30,14 +30,7 @@ class _NotePageState extends State<NotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 25),
-          onPressed: () => context.goNamed('home'),
-          padding: const EdgeInsets.all(8),
-          highlightColor: Colors.white.withOpacity(0.1),
-        ),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
