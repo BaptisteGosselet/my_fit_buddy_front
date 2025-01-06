@@ -90,14 +90,10 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToSet(int setNumber) async {
-    bool? result = await showConfirmationDialog(context);
-
-    if (result == true) {
       liveSessionViewmodel.setFitSetIndex(setNumber);
       setState(() {
         currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
       });
-    }
   }
 
   void goToExercice(int exerciceNumber) async {

@@ -56,6 +56,8 @@ class _FitTimePickerState extends State<FitTimePicker> {
                           width: 60,
                           child: ListWheelScrollView.useDelegate(
                             itemExtent: 30,
+                            useMagnifier: true,
+                            magnification: 1.5,
                             physics: const FixedExtentScrollPhysics(),
                             onSelectedItemChanged: (value) {
                               selectedMinutes = value;
@@ -79,6 +81,8 @@ class _FitTimePickerState extends State<FitTimePicker> {
                           width: 60,
                           child: ListWheelScrollView.useDelegate(
                             itemExtent: 30,
+                            useMagnifier: true,
+                            magnification: 1.5,
                             physics: const FixedExtentScrollPhysics(),
                             onSelectedItemChanged: (value) {
                               selectedSeconds = value * 10;

@@ -59,53 +59,40 @@ class _NotePageState extends State<NotePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DropdownMenu<String>(
-                    textAlign: TextAlign.center,
-                    initialSelection:
-                        EmojiRatingMap.instance.getMap().keys.first,
-                    onSelected: (String? value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    dropdownMenuEntries: EmojiRatingMap.instance
-                        .getMap()
-                        .keys
-                        .map<DropdownMenuEntry<String>>((String key) {
-                      return DropdownMenuEntry<String>(value: key, label: key);
-                    }).toList(),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      backgroundColor: fitBlueDark,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      elevation: 4,
-                      shadowColor: Colors.grey.withOpacity(0.5),
-                    ),
-                    onPressed: () async {
-                      final text = _textController.text;
-                      final rate = getSelectedRate();
-                      final success =
-                          await widget.onValidate(text, rate, context);
 
-                      if (mounted && success) {
-                        if (context.mounted) {
-                          context.goNamed('home');
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        backgroundColor: fitBlueDark,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 4,
+                        shadowColor: Colors.grey.withOpacity(0.5),
+                      ),
+                      onPressed: () async {
+                        final text = _textController.text;
+                        final rate = getSelectedRate();
+                        final success =
+                            await widget.onValidate(text, rate, context);
+                    
+                        if (mounted && success) {
+                          if (context.mounted) {
+                            context.goNamed('home');
+                          }
                         }
-                      }
-                    },
-                    child: SizedBox(
-                      width: 130,
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.validateButton,
-                          style: const TextStyle(
-                            color: fitCloudWhite,
-                            fontSize: 14,
+                      },
+                      child: SizedBox(
+                        width: 130,
+                        height: 60,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.validateButton,
+                            style: const TextStyle(
+                              color: fitCloudWhite,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
