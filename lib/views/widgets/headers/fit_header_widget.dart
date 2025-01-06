@@ -83,44 +83,45 @@ class FitHeaderWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.create, color: Colors.white, size: iconSize),
-                  onPressed: onUpdate,
-                  padding: const EdgeInsets.all(8),
-                  highlightColor: highlightColor,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.white, size: iconSize),
-                  onPressed: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return DeleteSessionContentDialog(
-                              onConfirm: (id) async {
-                                bool isDeleted =
-                                    await SessionViewmodel().deleteSession(id);
-                                if (isDeleted) {
-                                  onDelete();
-                                } else {
-                                  if (context.mounted) {
-                                    ToastManager.instance.showErrorToast(
-                                        context,
-                                        AppLocalizations.of(context)!
-                                            .registerUsernameTooLong);
-                                  }
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.create,
+                        color: Colors.white, size: iconSize),
+                    onPressed: onUpdate,
+                    padding: const EdgeInsets.all(8),
+                    highlightColor: highlightColor,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete,
+                        color: Colors.white, size: iconSize),
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return DeleteSessionContentDialog(
+                            onConfirm: (id) async {
+                              bool isDeleted =
+                                  await SessionViewmodel().deleteSession(id);
+                              if (isDeleted) {
+                                onDelete();
+                              } else {
+                                if (context.mounted) {
+                                  ToastManager.instance.showErrorToast(
+                                      context,
+                                      AppLocalizations.of(context)!
+                                          .registerUsernameTooLong);
                                 }
-                              },
-                              id: sessionId);
-                        },
-                      ),
-                  padding: const EdgeInsets.all(8),
-                  highlightColor: highlightColor,
-                )
-              ],
-            )
-          ),
+                              }
+                            },
+                            id: sessionId);
+                      },
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    highlightColor: highlightColor,
+                  )
+                ],
+              )),
         ],
       ),
     );

@@ -59,7 +59,6 @@ class _NotePageState extends State<NotePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Expanded(
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -76,7 +75,7 @@ class _NotePageState extends State<NotePage> {
                         final rate = getSelectedRate();
                         final success =
                             await widget.onValidate(text, rate, context);
-                    
+
                         if (mounted && success) {
                           if (context.mounted) {
                             context.goNamed('home');

@@ -75,7 +75,8 @@ class ExercisesListPageState extends State<ExercisesListPage> {
         'label': tradMuscle,
         'value': muscle,
       };
-    }).toList()..sort((e1, e2) => muscleOptionCompare(e1['label']!,e2['label']!));
+    }).toList()
+          ..sort((e1, e2) => muscleOptionCompare(e1['label']!, e2['label']!));
 
     final ScrollController scrollController = ScrollController();
     scrollController.addListener(() => handleScroll(scrollController));
@@ -155,16 +156,21 @@ class ExercisesListPageState extends State<ExercisesListPage> {
     );
   }
 
-  int muscleOptionCompare(String s1, String s2){
-
-    if((s1.substring(0,1).compareTo('É') == 0 || s1.substring(0,1).compareTo('È') == 0) && (s2.substring(0,1).compareTo('É') == 0 || s2.substring(0,1).compareTo('È') == 0)){
-      return ('E${s1.substring(1,s1.length)}').compareTo('E${s2.substring(1,s2.length)}');
+  int muscleOptionCompare(String s1, String s2) {
+    if ((s1.substring(0, 1).compareTo('É') == 0 ||
+            s1.substring(0, 1).compareTo('È') == 0) &&
+        (s2.substring(0, 1).compareTo('É') == 0 ||
+            s2.substring(0, 1).compareTo('È') == 0)) {
+      return ('E${s1.substring(1, s1.length)}')
+          .compareTo('E${s2.substring(1, s2.length)}');
     }
-    if(s1.substring(0,1).compareTo('É') == 0 || s1.substring(0,1).compareTo('È') == 0){
-      return ('E${s1.substring(1,s1.length)}').compareTo(s2);
+    if (s1.substring(0, 1).compareTo('É') == 0 ||
+        s1.substring(0, 1).compareTo('È') == 0) {
+      return ('E${s1.substring(1, s1.length)}').compareTo(s2);
     }
-    if(s2.substring(0,1).compareTo('É') == 0 || s2.substring(0,1).compareTo('È') == 0){
-      return s1.compareTo('E${s2.substring(1,s2.length)}');
+    if (s2.substring(0, 1).compareTo('É') == 0 ||
+        s2.substring(0, 1).compareTo('È') == 0) {
+      return s1.compareTo('E${s2.substring(1, s2.length)}');
     }
     return s1.compareTo(s2);
   }
