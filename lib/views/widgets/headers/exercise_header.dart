@@ -64,7 +64,8 @@ class ExerciseHeader extends StatelessWidget {
                           }
                         },
                         errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.error, color: Colors.redAccent);
+                          return const Icon(Icons.error,
+                              color: Colors.redAccent);
                         },
                       ),
                     ),
