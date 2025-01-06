@@ -57,14 +57,6 @@ class FeelingTextBlockState extends State<FeelingTextBlock> {
           children: [
             Row(
               children: [
-                if (!_isEditing)
-                  Text(
-                    _dropdownValue,
-                    style: const TextStyle(fontSize: 20),
-                  )
-                else
-                  Container(),
-                const SizedBox(width: 16),
                 Expanded(
                   child: SingleChildScrollView(
                     child: _isEditing
@@ -86,29 +78,10 @@ class FeelingTextBlockState extends State<FeelingTextBlock> {
               ],
             ),
             if (_isEditing)
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    width: 100,
-                    child: DropdownMenu<String>(
-                      textAlign: TextAlign.center,
-                      initialSelection: _dropdownValue,
-                      onSelected: (String? value) {
-                        setState(() {
-                          _dropdownValue = value!;
-                        });
-                      },
-                      dropdownMenuEntries: EmojiRatingMap.instance
-                          .getMap()
-                          .keys
-                          .map<DropdownMenuEntry<String>>((String key) {
-                        return DropdownMenuEntry<String>(
-                            value: key, label: key);
-                      }).toList(),
-                    ),
-                  ),
+                  SizedBox(height: 8),
                 ],
               ),
             Row(

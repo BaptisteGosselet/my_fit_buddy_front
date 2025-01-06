@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/core/http/http.dart';
 import 'package:my_fit_buddy/data/exercises/exercise.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class ExercisesService {
   static const String exercisesUrl = "/exercises";
@@ -27,8 +27,7 @@ class ExercisesService {
     print(endpoint);
 
     try {
-      final response =
-          await APIService.instance.request(endpoint, DioMethod.get);
+      final response = await Http.instance.request(endpoint, DioMethod.get);
       print(response);
 
       final content = (response.data['content'] as List)
@@ -49,8 +48,7 @@ class ExercisesService {
     print("Endpoint: $endpoint");
 
     try {
-      final response =
-          await APIService.instance.request(endpoint, DioMethod.get);
+      final response = await Http.instance.request(endpoint, DioMethod.get);
       print("Response: ${response.data}");
 
       return Exercise.fromJson(response.data);

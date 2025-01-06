@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/core/http/http.dart';
 import 'package:my_fit_buddy/data/models/auth_models/edit_user_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/login_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/register_form.dart';
 import 'package:my_fit_buddy/data/models/auth_models/token.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
-import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
+import 'package:my_fit_buddy/managers/token_manager.dart';
 import 'package:my_fit_buddy/utils/status_type.dart';
 
 class AuthService {
@@ -16,8 +16,8 @@ class AuthService {
     final RegisterForm registerForm =
         RegisterForm(username: username, email: email, password: password);
     try {
-      await TokenStorageService.instance.removeToken();
-      final response = await APIService.instance.request(
+      await TokenManager.instance.clearToken();
+      final response = await Http.instance.request(
           "$authUrl/signup", DioMethod.post,
           param: registerForm.toJson(), authenticated: false);
 
@@ -48,8 +48,8 @@ class AuthService {
         LoginForm(usernameOrEmail: username, password: password);
     print('AuthService.login');
     try {
-      await TokenStorageService.instance.removeToken();
-      final response = await APIService.instance.request(
+      await TokenManager.instance.clearToken();
+      final response = await Http.instance.request(
           "$authUrl/signin", DioMethod.post,
           param: loginForm.toJson(), authenticated: false);
 
@@ -57,8 +57,7 @@ class AuthService {
       print(response.data['detail']);
 
       if (response.statusCode == 200) {
-        TokenStorageService.instance.saveToken(Token.fromJson(response.data));
-        await APIService.instance.retrieveRefreshToken();
+        TokenManager.instance.setToken(Token.fromJson(response.data));
         return StatusType.ok;
       } else if (response.statusCode == 401) {
         if (response.data['detail'] != null) {
@@ -77,7 +76,7 @@ class AuthService {
 
   Future<String?> getUsername() async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request("$userUrl/me/username", DioMethod.get, authenticated: true);
 
       if (response.statusCode == 200) {
@@ -94,7 +93,7 @@ class AuthService {
 
   Future<String?> getEmail() async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request("$userUrl/me/email", DioMethod.get, authenticated: true);
 
       if (response.statusCode == 200) {
@@ -112,7 +111,7 @@ class AuthService {
   // Nouvelle méthode deleteAccount
   Future<bool> deleteAccount() async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request("$userUrl/me/delete", DioMethod.delete, authenticated: true);
 
       if (response.statusCode == 200) {
@@ -130,7 +129,7 @@ class AuthService {
 
   Future<bool> editUser(EditUserForm form) async {
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         "$userUrl/me/edit",
         DioMethod.put,
         param: form.toJson(),

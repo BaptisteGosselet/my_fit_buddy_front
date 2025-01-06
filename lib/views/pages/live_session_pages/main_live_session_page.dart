@@ -90,14 +90,10 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToSet(int setNumber) async {
-    bool? result = await showConfirmationDialog(context);
-
-    if (result == true) {
-      liveSessionViewmodel.setFitSetIndex(setNumber);
-      setState(() {
-        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
-      });
-    }
+    liveSessionViewmodel.setFitSetIndex(setNumber);
+    setState(() {
+      currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+    });
   }
 
   void goToExercice(int exerciceNumber) async {
@@ -105,16 +101,12 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       return;
     }
 
-    bool? result = await showConfirmationDialog(context);
-
-    if (result == true) {
-      liveSessionViewmodel.setExerciseIndex(exerciceNumber);
-      liveSessionViewmodel.setFitSetIndex(0);
-      setState(() {
-        currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
-      });
-      switchPage(0);
-    }
+    liveSessionViewmodel.setExerciseIndex(exerciceNumber);
+    liveSessionViewmodel.setFitSetIndex(0);
+    setState(() {
+      currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
+    });
+    switchPage(0);
   }
 
   @override

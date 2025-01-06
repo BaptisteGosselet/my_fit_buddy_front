@@ -1,9 +1,9 @@
+import 'package:my_fit_buddy/core/http/http.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_record_note_form.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_create_form.dart';
 import 'package:my_fit_buddy/data/models/fit_record_models/fit_set_update_form.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class FitRecordService {
   static const String recordsUrl = "/records";
@@ -11,7 +11,7 @@ class FitRecordService {
 
   Future<List<FitRecord>> getUserRecords() async {
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$recordsUrl/user',
         DioMethod.get,
       );
@@ -31,7 +31,7 @@ class FitRecordService {
 
   Future<FitRecord> getRecordById(int recordId) async {
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$recordsUrl/$recordId',
         DioMethod.get,
       );
@@ -51,7 +51,7 @@ class FitRecordService {
   Future<Map<String, List<FitSet>>> getSetByExerciceByRecordId(
       int recordId) async {
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$setsUrl/recordByExo/$recordId',
         DioMethod.get,
       );
@@ -82,7 +82,7 @@ class FitRecordService {
   Future<FitRecord> createRecord(String sessionId) async {
     print('$recordsUrl/create/$sessionId');
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$recordsUrl/create/$sessionId',
         DioMethod.post,
       );
@@ -111,7 +111,7 @@ class FitRecordService {
         weight: weight,
       );
 
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$setsUrl/create',
         DioMethod.post,
         param: form.toJson(),
@@ -141,7 +141,7 @@ class FitRecordService {
         weight: weight,
       );
 
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$setsUrl/update',
         DioMethod.put,
         param: form.toJson(),
@@ -162,7 +162,7 @@ class FitRecordService {
   Future<List<FitSet>> getExercisePreviousSets(int idExercise) async {
     print("SERVICE GET PREVIOUS $idExercise SETS");
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$setsUrl/exerciseSet/$idExercise',
         DioMethod.get,
       );
@@ -186,7 +186,7 @@ class FitRecordService {
       int idExercise, int nbOrder) async {
     print("SERVICE GET PREVIOUS $idExercise $nbOrder SETS");
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$setsUrl/exerciseSet/$idExercise/$nbOrder',
         DioMethod.get,
       );
@@ -211,7 +211,7 @@ class FitRecordService {
       print("$recordId, '$text', $rate");
       final form = FitRecordNoteForm(text: text, rate: rate);
 
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$recordsUrl/note/$recordId',
         DioMethod.post,
         param: form.toJson(),

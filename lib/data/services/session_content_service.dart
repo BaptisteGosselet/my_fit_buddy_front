@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/core/http/http.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_create_form.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_exercise.dart';
 import 'package:my_fit_buddy/data/models/session_content_models/session_content_update_form.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionContentService {
   static const String sessionContentUrl = "/sessionContent";
@@ -10,7 +10,7 @@ class SessionContentService {
   Future<List<SessionContentExercise>> getSessionContents(String id) async {
     print("id : $id");
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$sessionContentUrl/$id',
         DioMethod.get,
       );
@@ -38,7 +38,7 @@ class SessionContentService {
 
   Future<bool> createNewSessionContent(SessionContentCreateForm form) async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request(sessionContentUrl, DioMethod.post, param: form.toJson());
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
@@ -64,7 +64,7 @@ class SessionContentService {
 
   Future<bool> deleteSessionContent(int id) async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request("$sessionContentUrl/$id", DioMethod.delete);
       if (response.statusCode == 200) {
         print('return true delete sucess');
@@ -87,7 +87,7 @@ class SessionContentService {
       final List<Map<String, dynamic>> jsonList =
           toUpdateList.map((item) => item.toJson()).toList();
 
-      final response = await APIService.instance
+      final response = await Http.instance
           .request("$sessionContentUrl/list", DioMethod.put, params: jsonList);
       if (response.statusCode == 200) {
         print('return true update sucess');

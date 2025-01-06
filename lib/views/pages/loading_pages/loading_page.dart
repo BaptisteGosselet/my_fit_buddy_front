@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/data/models/auth_models/token.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
-import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
+import 'package:my_fit_buddy/core/http/refresh_token_action.dart';
+import 'package:my_fit_buddy/managers/token_manager.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 
@@ -34,64 +33,16 @@ class LoadingPage extends StatelessWidget {
         print("L'appli est en train de load");
         await Future.delayed(const Duration(seconds: 2));
 
-        // Variable pour contrôler si la requête a réussi
-        bool requestSuccessful = false;
-
-        // Tentative de tester l'API en boucle avec un délai de 5 secondes
-        while (!requestSuccessful) {
-          try {
-            print("requête partie");
-            String s = await APIService.instance
-                .test()
-                .timeout(const Duration(seconds: 5), onTimeout: () {
-              return "";
-            });
-            if (s.contains('ok')) {
-              print("Réponse API valide.");
-              requestSuccessful = true;
-            } else {
-              print("Réponse API invalide.");
-            }
-          } catch (e) {
-            print("Erreur lors de la requête API, nouvelle tentative");
-          }
-
-          if (!requestSuccessful) {
-            print("retry");
-          }
-        }
-
-        print("loading page.");
-
         bool allowToGoHome = false;
 
-        // Récupération du token stocké
-        Token? storedToken = await TokenStorageService.instance.getToken();
-
-        if (storedToken != null && storedToken.hasRefreshTokenValid()) {
-          try {
-            // Tentative de rafraîchissement du token
-            if (await APIService.instance.retrieveRefreshToken()) {
-              print("loading page valide le token");
-              allowToGoHome = true;
-            } else {
-              print("Le refresh token n'est pas valide.");
-            }
-          } catch (e) {
-            print("Erreur lors de la récupération du token : $e");
-            // Échec de la récupération du token, ne permet pas d'aller à la page d'accueil
-          }
-        } else {
-          print("Le token stocké est invalide ou inexistant.");
+        if (await TokenManager.instance.isRefreshTokenValid()) {
+          allowToGoHome = await RefreshTokenAction.instance.refreshToken();
         }
 
-        // Si le token n'a pas été validé, on le supprime
         if (!allowToGoHome) {
-          print("le token n'a pas été validé par loading page");
-          await TokenStorageService.instance.removeToken();
+          await TokenManager.instance.clearToken();
         }
 
-        // Vérification que le contexte est monté avant de naviguer
         if (context.mounted) {
           if (allowToGoHome) {
             GoRouter.of(context).goNamed("home");
