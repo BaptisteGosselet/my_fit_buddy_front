@@ -118,10 +118,10 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                   child: ReorderableListView(
                       children: sessionContents
                           .map((item) => ExerciseContentCard(
-                                key: ValueKey(item.id),
-                                content: item,
-                                onDelete: () => _deleteSessionContent(item.id),
-                              ))
+                              key: ValueKey(item.id),
+                              content: item,
+                              onDelete: () => _deleteSessionContent(item.id),
+                              onUpdate: () => _loadSessionContents()))
                           .toList(),
                       onReorder: (int start, int current) {
                         // dragging from top to bottom

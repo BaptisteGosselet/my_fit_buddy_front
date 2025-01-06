@@ -50,14 +50,18 @@
     "addButton": "Ajouter",
     "deleteButton": "Supprimer",
     "renameButton": "Renommer",
+    "updateButton": "Modifier",
 
     "deleteContentConfirmTitle": "Supprimer l'exercice",
+    "actionContentModalTitle": "Modifier ou Supprimer ?",
     "deleteContentConfirmMsg": "Êtes-vous sûr de vouloir supprimer cet exercice ? Les statistiques liées à cet exercice seront toujours disponibles.",
+    "deleteFailed": "La suppression a échoué",
 
     "renameSessionTitle": "Renommer la session",
     "renameSessionLabel": "Nouveau nom",
     "renameSessionErrorMsg": "Le nom doit contenir entre 1 et 25 caractères.",
-    
+    "updateFailed": "La modification a échoué",
+
     "timePickerTitle": "Temps de repos",
     "minutes": "Minutes",
     "seconds": "Secondes",
@@ -145,8 +149,9 @@
     "accountDeleteFailed": "Échec de la suppression du compte",
     "profile": "Profil",
 
-    "toastInvalidExerciseInputs": "Il est impossible de creer un exercice avec 0 serie",
+    "toastInvalidExerciseInputs": "Un exercice ne peut pas être parametré avec 0 serie",
     "toastAddedExercise": "Exercice ajouté !",
+    "toastUpdatedExercise": "Exercice modifié !",
     "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",
     "max255char" : "Le champs peut contenir maximun 255 caractères",
     "defaultError" : "Une erreur est survenue",

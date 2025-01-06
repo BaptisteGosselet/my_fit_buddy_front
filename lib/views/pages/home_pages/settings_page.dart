@@ -129,7 +129,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   const SizedBox(height: 16.0),
                   Center(
                     child: FitButton(
-                      buttonColor: Colors.red,
+                      buttonColor: Colors.redAccent,
                       label: AppLocalizations.of(context)!.deleteAccountButton,
                       onClick: () {
                         showDialog(
@@ -154,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     _deleteAccount();
                                   },
                                   style: TextButton.styleFrom(
-                                      foregroundColor: Colors.red),
+                                      foregroundColor: Colors.redAccent),
                                   child: Text(
                                       AppLocalizations.of(context)!.confirm),
                                 ),

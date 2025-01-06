@@ -154,7 +154,7 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
       );
     } else {
       currentPage = Container(
-        color: Colors.red,
+        color: Colors.redAccent,
       );
     }
 

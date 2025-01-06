@@ -90,7 +90,7 @@ class FeelingTextBlockState extends State<FeelingTextBlock> {
                 IconButton(
                   icon: Icon(
                     _isEditing ? Icons.close : Icons.edit,
-                    color: _isEditing ? Colors.red : fitBlueMiddle,
+                    color: _isEditing ? Colors.redAccent : fitBlueMiddle,
                   ),
                   onPressed: () {
                     setState(() {

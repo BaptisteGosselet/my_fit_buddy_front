@@ -31,7 +31,7 @@ class ExercisesCardState extends State<ExercisesCard> {
       context: context,
       builder: (BuildContext context) {
         return CustomizeExerciseDialog(
-          onConfirm: (int reps, int restSeconds) {
+          onConfirm: (int id, int reps, int restSeconds) {
             widget.onTap(widget.exercise.id, reps, restSeconds);
           },
         );
@@ -95,7 +95,7 @@ class ExercisesCardState extends State<ExercisesCard> {
           }
         },
         errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.error, color: Colors.red);
+          return const Icon(Icons.error, color: Colors.redAccent);
         },
       ),
     );

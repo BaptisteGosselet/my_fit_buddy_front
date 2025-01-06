@@ -24,7 +24,7 @@ class ExerciseSetsDetailPage extends StatelessWidget {
             return Center(
               child: Text(
                 'Error loading exercise: ${exerciseSnapshot.error}',
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.redAccent),
               ),
             );
           } else if (!exerciseSnapshot.hasData) {
@@ -47,7 +47,7 @@ class ExerciseSetsDetailPage extends StatelessWidget {
                 return Center(
                   child: Text(
                     'Error loading fit sets: ${setsSnapshot.error}',
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.redAccent),
                   ),
                 );
               } else if (!setsSnapshot.hasData || setsSnapshot.data!.isEmpty) {

@@ -81,7 +81,7 @@ class _RenameSessionState extends State<RenameSessionDialog> {
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
                 errorMessage!,
-                style: const TextStyle(color: Colors.red, fontSize: 12),
+                style: const TextStyle(color: Colors.redAccent, fontSize: 12),
               ),
             ),
         ],
