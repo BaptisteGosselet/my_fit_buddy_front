@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_fit_buddy/data/models/auth_models/edit_user_form.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
-import 'package:my_fit_buddy/data/services/auth_service/auth_service.dart';
-import 'package:my_fit_buddy/data/services/auth_service/token_storage_service.dart';
+import 'package:my_fit_buddy/data/services/auth_service.dart';
 import 'package:my_fit_buddy/managers/toast_manager.dart';
+import 'package:my_fit_buddy/managers/token_manager.dart';
 import 'package:my_fit_buddy/utils/status_type.dart';
 import 'package:my_fit_buddy/utils/utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,18 +11,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AuthViewmodel {
   AuthService authService = AuthService();
 
-  test() async {
-    try {
-      String result = await APIService.instance.test();
-      print('Résultat du test : $result');
-    } catch (e) {
-      print('Résultat du test : Erreur lors du test API : $e');
-    }
-  }
-
   Future<void> register(String username, String email, String password,
       String passwordConfirm, BuildContext context) async {
-    await TokenStorageService.instance.removeToken();
+    await TokenManager.instance.clearToken();
 
     String forbiddenUsernameCharacters =
         Utils.instance.usernameForbiddenCharacters(username);
@@ -68,8 +58,6 @@ class AuthViewmodel {
       return;
     }
 
-    await test();
-
     username = username.toLowerCase();
     email = email.toLowerCase();
 
@@ -98,9 +86,8 @@ class AuthViewmodel {
 
   Future<void> login(
       String username, String password, BuildContext context) async {
-    await TokenStorageService.instance.removeToken();
+    await TokenManager.instance.clearToken();
 
-    await test();
     print('AuthViewModel.login');
     StatusType result = await authService.login(username, password);
     if (context.mounted) {
@@ -118,9 +105,9 @@ class AuthViewmodel {
   }
 
   Future<void> logout(BuildContext context) async {
-    await TokenStorageService.instance.removeToken();
+    await TokenManager.instance.clearToken();
     if (context.mounted) {
-      context.goNamed('loading');
+      context.goNamed('register');
     }
     return;
   }
@@ -138,7 +125,7 @@ class AuthViewmodel {
       bool result = await authService.deleteAccount();
 
       if (result) {
-        await TokenStorageService.instance.removeToken();
+        await TokenManager.instance.clearToken();
         if (context.mounted) {
           ToastManager.instance
               .showSuccessToast(context, "Compte supprimé avec succès");

@@ -38,12 +38,6 @@ class Token {
     };
   }
 
-  bool hasRefreshTokenValid() {
-    if (refreshToken == null) return false;
-    if (refreshExpirationDate == null) return false;
-    return DateTime.now().isBefore(refreshExpirationDate!);
-  }
-
   @override
   String toString() {
     return 'Token(accessToken: $accessToken, refreshToken: $refreshToken, accessExpirationDate: $accessExpirationDate, refreshExpirationDate: $refreshExpirationDate)';
