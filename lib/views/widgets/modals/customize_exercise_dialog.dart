@@ -104,7 +104,7 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
                   context,
                   widget.id == -1
                       ? AppLocalizations.of(context)!.toastAddedExercise
-                      : AppLocalizations.of(context)!.updateButton);
+                      : AppLocalizations.of(context)!.toastUpdatedExercise);
             } else {
               ToastManager.instance.showErrorToast(context,
                   AppLocalizations.of(context)!.toastInvalidExerciseInputs);
