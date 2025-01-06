@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:my_fit_buddy/core/http/http.dart';
 import 'package:my_fit_buddy/data/models/session_models/session.dart';
 import 'package:my_fit_buddy/data/models/session_models/session_create_form.dart';
 import 'package:my_fit_buddy/data/models/session_models/session_update_form.dart';
-import 'package:my_fit_buddy/data/services/api_service.dart';
 
 class SessionService {
   static const String sessionsUrl = "/sessions";
 
   Future<List<Session>> getUserSessions() async {
     try {
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         "$sessionsUrl/user",
         DioMethod.get,
       );
@@ -37,7 +37,7 @@ class SessionService {
   Future<Session> getUserSessionByID(String id) async {
     try {
       final response =
-          await APIService.instance.request("$sessionsUrl/$id", DioMethod.get);
+          await Http.instance.request("$sessionsUrl/$id", DioMethod.get);
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           Session session = Session.fromJson(response.data);
@@ -61,7 +61,7 @@ class SessionService {
 
   Future<Session> createNewSession(SessionCreateForm form) async {
     try {
-      final response = await APIService.instance
+      final response = await Http.instance
           .request(sessionsUrl, DioMethod.post, param: form.toJson());
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
@@ -86,7 +86,7 @@ class SessionService {
     try {
       print('sessionsUrl/${sessionUpdateForm.sessionId}');
 
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
           '$sessionsUrl/${sessionUpdateForm.sessionId}', DioMethod.put,
           param: sessionUpdateForm.toJson());
       if (response.statusCode == 200) {
@@ -112,7 +112,7 @@ class SessionService {
     try {
       print('sessionsUrl/$id');
 
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
         '$sessionsUrl/$id',
         DioMethod.delete,
       );
