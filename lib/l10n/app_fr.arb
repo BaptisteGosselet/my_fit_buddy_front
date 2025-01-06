@@ -149,8 +149,9 @@
     "accountDeleteFailed": "Échec de la suppression du compte",
     "profile": "Profil",
 
-    "toastInvalidExerciseInputs": "Il est impossible de creer un exercice avec 0 serie",
+    "toastInvalidExerciseInputs": "Un exercice ne peut pas être parametré avec 0 serie",
     "toastAddedExercise": "Exercice ajouté !",
+    "toastUpdatedExercise": "Exercice modifié !",
     "liveSessionWithoutExe": "Impossible de lancer une session sans exercice",
     "max255char" : "Le champs peut contenir maximun 255 caractères",
     "defaultError" : "Une erreur est survenue",

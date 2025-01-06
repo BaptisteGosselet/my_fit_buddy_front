@@ -101,7 +101,10 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
                     .convertStringTimeToSeconds(durationController.text),
               );
               ToastManager.instance.showSuccessToast(
-                  context, AppLocalizations.of(context)!.toastAddedExercise);
+                  context,
+                  widget.id == -1
+                      ? AppLocalizations.of(context)!.toastAddedExercise
+                      : AppLocalizations.of(context)!.updateButton);
             } else {
               ToastManager.instance.showErrorToast(context,
                   AppLocalizations.of(context)!.toastInvalidExerciseInputs);

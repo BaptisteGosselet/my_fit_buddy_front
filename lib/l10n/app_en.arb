@@ -150,6 +150,7 @@
 
     "toastInvalidExerciseInputs": "Impossible to create an exercice with 0 set",
     "toastAddedExercise": "Exercise added !",
+    "toastUpdatedExercise": "Exercise updated !",
     "liveSessionWithoutExe": "Impossible to launch a session without exercise",
     "max255char" : "The input can contain max 255 characters",
     "defaultError" : "An error happened",
