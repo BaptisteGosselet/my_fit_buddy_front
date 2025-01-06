@@ -107,9 +107,8 @@ class SessionContentService {
   Future<bool> updateSessionContent(
       SessionContentUpdateForm sessionContentUpdated) async {
     try {
-      print("ID ID ID ID ");
       print(sessionContentUpdated.id);
-      final response = await APIService.instance.request(
+      final response = await Http.instance.request(
           "$sessionContentUrl/${sessionContentUpdated.id}", DioMethod.put,
           param: sessionContentUpdated.toJson());
       if (response.statusCode == 200) {

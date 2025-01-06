@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
