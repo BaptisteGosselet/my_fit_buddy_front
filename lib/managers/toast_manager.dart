@@ -32,7 +32,7 @@ class ToastManager {
 
   void showErrorToast(BuildContext context, String message) {
     showCustomToast(context, message,
-        const Icon(Icons.error, color: Colors.white), Colors.red);
+        const Icon(Icons.error, color: Colors.white), Colors.redAccent);
   }
 
   void showSuccessToast(BuildContext context, String message) {

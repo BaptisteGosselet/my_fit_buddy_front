@@ -82,7 +82,7 @@ class PlaySessionHeader extends StatelessWidget {
                           }
                         },
                         errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.error, color: Colors.red);
+                          return const Icon(Icons.error, color: Colors.redAccent);
                         },
                       ),
                     ),

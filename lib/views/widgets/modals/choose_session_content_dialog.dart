@@ -4,22 +4,22 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_fit_buddy/views/themes/font_weight.dart';
 import 'package:my_fit_buddy/views/widgets/buttons/fit_button.dart';
 
-class DeleteSessionContentDialog extends StatefulWidget {
+class ChooseSessionContentDialog extends StatefulWidget {
   final Function(int id) onConfirm;
   final int id;
 
-  const DeleteSessionContentDialog({
+  const ChooseSessionContentDialog({
     super.key,
     required this.id,
     required this.onConfirm,
   });
 
   @override
-  State<DeleteSessionContentDialog> createState() =>
-      _DeleteSessionContentState();
+  State<ChooseSessionContentDialog> createState() =>
+      _ChooseSessionContentState();
 }
 
-class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
+class _ChooseSessionContentState extends State<ChooseSessionContentDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -30,7 +30,7 @@ class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            AppLocalizations.of(context)!.deleteContentConfirmTitle,
+            AppLocalizations.of(context)!.actionContentModalTitle,
             style: const TextStyle(fontWeight: fitWeightBold, fontSize: 18),
           ),
           IconButton(
@@ -41,16 +41,21 @@ class _DeleteSessionContentState extends State<DeleteSessionContentDialog> {
           ),
         ],
       ),
-      content: Text(
-        AppLocalizations.of(context)!.deleteContentConfirmMsg,
-      ),
       actions: [
         FitButton(
-          buttonColor: Colors.redAccent,
+          buttonColor: fitBlueMiddle,
           label: AppLocalizations.of(context)!.deleteButton,
           onClick: () {
             Navigator.of(context).pop();
-            widget.onConfirm(widget.id);
+            widget.onConfirm(1);
+          },
+        ),
+        FitButton(
+          buttonColor: fitBlueDark,
+          label: AppLocalizations.of(context)!.updateButton,
+          onClick: () {
+            Navigator.of(context).pop();
+            widget.onConfirm(2);
           },
         ),
       ],

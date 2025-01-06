@@ -9,11 +9,13 @@ import 'package:my_fit_buddy/views/widgets/inputs/fit_time_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomizeExerciseDialog extends StatefulWidget {
-  final Function(int nbSets, int restSeconds) onConfirm;
+  final int id;
+  final Function(int id, int nbSets, int restSeconds) onConfirm;
 
   const CustomizeExerciseDialog({
     super.key,
     required this.onConfirm,
+    this.id = -1,
   });
 
   @override
@@ -86,11 +88,14 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
       actions: [
         FitButton(
           buttonColor: fitBlueDark,
-          label: AppLocalizations.of(context)!.addButton,
+          label: widget.id == -1
+              ? AppLocalizations.of(context)!.addButton
+              : AppLocalizations.of(context)!.updateButton,
           onClick: () {
             if (validInputs()) {
               Navigator.of(context).pop();
               widget.onConfirm(
+                widget.id,
                 int.tryParse(nbSetsController.text) ?? 1,
                 Utils.instance
                     .convertStringTimeToSeconds(durationController.text),

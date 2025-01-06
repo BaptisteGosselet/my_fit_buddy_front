@@ -59,4 +59,9 @@ class SessionViewmodel {
     }
     sessionContentService.setNewContentOrder(toUpdateList);
   }
+
+  Future<bool> updateSessionContent(
+      SessionContentUpdateForm sessionContentUpdated) {
+    return sessionContentService.updateSessionContent(sessionContentUpdated);
+  }
 }

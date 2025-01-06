@@ -50,6 +50,16 @@ class SessionDetailPageState extends State<SessionDetailPage> {
     });
   }
 
+  void _updateSessionContent(SessionContentExercise item) {
+    setState(() {
+      print("\n\n _updateSessionContent \n\n");
+      print(item);
+      sessionContents.removeWhere((content) => content.id == item.id);
+      sessionContents.add(item);
+      sessionContents.sort((a, b) => a.index.compareTo(b.index));
+    });
+  }
+
   void _renameSession(int id, String newName) {
     setState(() {
       _session = SessionViewmodel().renameSession(id, newName);
@@ -118,10 +128,10 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                   child: ReorderableListView(
                       children: sessionContents
                           .map((item) => ExerciseContentCard(
-                                key: ValueKey(item.id),
-                                content: item,
-                                onDelete: () => _deleteSessionContent(item.id),
-                              ))
+                              key: ValueKey(item.id),
+                              content: item,
+                              onDelete: () => _deleteSessionContent(item.id),
+                              onUpdate: () => _loadSessionContents()))
                           .toList(),
                       onReorder: (int start, int current) {
                         // dragging from top to bottom

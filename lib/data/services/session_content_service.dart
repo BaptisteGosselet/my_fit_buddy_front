@@ -103,4 +103,29 @@ class SessionContentService {
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
   }
+
+  Future<bool> updateSessionContent(
+      SessionContentUpdateForm sessionContentUpdated) async {
+    try {
+      print("ID ID ID ID ");
+      print(sessionContentUpdated.id);
+      final response = await APIService.instance.request(
+          "$sessionContentUrl/${sessionContentUpdated.id}", DioMethod.put,
+          param: sessionContentUpdated.toJson());
+      if (response.statusCode == 200) {
+        print('return true simple update sucess');
+        print(response.data);
+        return true;
+      } else {
+        print(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
+        return Future.error(
+            'Erreur lors de l\'update de sessions content : ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+      return Future.error(
+          'Request failed: ${e.response?.statusCode}, ${e.message}');
+    }
+  }
 }
