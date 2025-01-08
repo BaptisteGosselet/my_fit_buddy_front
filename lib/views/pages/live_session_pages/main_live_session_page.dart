@@ -135,17 +135,35 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
 
           List<FitSet> previousSets = [];
           if (snapshot.hasError) {
+            // Gérer l'erreur pour getExercisePreviousSets()
           } else if (snapshot.hasData) {
             previousSets = snapshot.data!;
           }
 
-          return PlaySessionPage(
-            sessionContentExercise: currentContent,
-            previousExerciseSets: previousSets,
-            onFinishClick: goToTimer,
-            onSetPressed: goToSet,
-            currentSetNumber: currentSetIndex,
-            currentRecordId: liveSessionViewmodel.getRecord().id,
+          return FutureBuilder<FitSet?>(
+            future: liveSessionViewmodel.getLastSetEntry(),
+            builder: (context, lastSetSnapshot) {
+              if (lastSetSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              FitSet? lastSetEntry;
+              if (lastSetSnapshot.hasError) {
+                // Gérer l'erreur pour getLastSetEntry()
+              } else if (lastSetSnapshot.hasData) {
+                lastSetEntry = lastSetSnapshot.data;
+              }
+
+              return PlaySessionPage(
+                sessionContentExercise: currentContent,
+                previousExerciseSets: previousSets,
+                previousEntry: lastSetEntry,
+                onFinishClick: goToTimer,
+                onSetPressed: goToSet,
+                currentSetNumber: currentSetIndex,
+                currentRecordId: liveSessionViewmodel.getRecord().id,
+              );
+            },
           );
         },
       );

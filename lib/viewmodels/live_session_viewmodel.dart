@@ -182,4 +182,19 @@ class LiveSessionViewModel {
   bool isCurrentExerciseSetEmpty(int setNumber) {
     return setIdsArray[idxExercise][setNumber] == emptySetValue;
   }
+
+  Future<FitSet?> getLastSetEntry() async {
+    int lastEntrySetIndex;
+    print("idxExercise: $idxExercise, idxSet: $idxSet");
+    if (idxSet >= 1) {
+      lastEntrySetIndex = setIdsArray[idxExercise][idxSet - 1];
+    } else if (idxExercise >= 1) {
+      lastEntrySetIndex = setIdsArray[idxExercise - 1][idxSet];
+    } else {
+      return null;
+    }
+
+    FitSet? lastEntrySet = await fitRecordService.getSetById(lastEntrySetIndex);
+    return lastEntrySet;
+  }
 }

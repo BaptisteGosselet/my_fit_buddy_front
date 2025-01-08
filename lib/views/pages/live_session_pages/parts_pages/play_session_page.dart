@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PlaySessionPage extends StatelessWidget {
   final SessionContentExercise sessionContentExercise;
   final List<FitSet> previousExerciseSets;
+  final FitSet? previousEntry;
   final Function(SessionContentExercise, int, int) onFinishClick;
   final Function(int setNumber) onSetPressed;
   final int currentSetNumber;
@@ -20,6 +21,7 @@ class PlaySessionPage extends StatelessWidget {
       {super.key,
       required this.sessionContentExercise,
       required this.previousExerciseSets,
+      required this.previousEntry,
       required this.onFinishClick,
       required this.onSetPressed,
       required this.currentSetNumber,
@@ -27,6 +29,10 @@ class PlaySessionPage extends StatelessWidget {
 
   FitSet? getExerciseLastSet() {
     if (previousExerciseSets.isEmpty) {
+      print("previousEntry: $previousEntry");
+      if (previousEntry != null) {
+        return previousEntry;
+      }
       return null;
     }
     return previousExerciseSets.first;

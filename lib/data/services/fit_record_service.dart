@@ -229,4 +229,10 @@ class FitRecordService {
       return Future.error('Erreur lors de l\'ajout de la note');
     }
   }
+
+  Future<FitSet> getSetById(int setId) {
+    return Http.instance
+        .request('$setsUrl/$setId', DioMethod.get)
+        .then((response) => FitSet.fromJson(response.data));
+  }
 }
