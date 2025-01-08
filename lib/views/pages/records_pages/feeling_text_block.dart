@@ -67,7 +67,10 @@ class FeelingTextBlockState extends State<FeelingTextBlock> {
                             ),
                           )
                         : Text(
-                            widget.text.isNotEmpty ? widget.text : "no note",
+                            widget.text.isNotEmpty
+                                ? widget.text
+                                : AppLocalizations.of(context)!
+                                    .textNotePlaceholder,
                             style: const TextStyle(fontSize: 14),
                           ),
                   ),

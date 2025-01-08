@@ -34,7 +34,7 @@ class _NotePageState extends State<NotePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text("NOTES"),
+                  Text(AppLocalizations.of(context)!.note),
                   TextField(
                     controller: _textController,
                     maxLines: 12,

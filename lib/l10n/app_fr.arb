@@ -164,6 +164,6 @@
     "ratingNotInMinMax": "La note de ressenti n'existe pas",
     "noteSetSuccefully": "La note a bien été sauvegardée",
     "noSessionFound" : "Aucune session trouvée",
-
+    "note" : "Notes",
     "finishPreviousSets": "Veuillez terminer les sets précédents"
 }
