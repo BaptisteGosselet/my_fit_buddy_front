@@ -99,7 +99,6 @@ class SessionsListPageState extends State<SessionsListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('add session');
           final sessionFuture = SessionViewmodel()
               .createNewSession(AppLocalizations.of(context)!.newSessionName);
           sessionFuture.then((newSession) {

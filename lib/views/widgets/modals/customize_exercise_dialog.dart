@@ -116,7 +116,6 @@ class _CustomizeExerciseDialogState extends State<CustomizeExerciseDialog> {
   }
 
   bool validInputs() {
-    print((nbSetsController.text != "0"));
     var value = int.tryParse(nbSetsController.text);
     if (value != null) {
       return (int.parse(nbSetsController.text) > 0);

@@ -20,40 +20,30 @@ class ExercisesService {
 
   Future<List<Exercise>> getExercises(
       String key, String muscleGroup, int pageIndex) async {
-    print("S getExercises");
     const int pageSize = 10;
     String endpoint =
         generateGetEndpoint(key, muscleGroup, pageIndex, pageSize);
-    print(endpoint);
 
     try {
       final response = await Http.instance.request(endpoint, DioMethod.get);
-      print(response);
 
       final content = (response.data['content'] as List)
           .map((item) => Exercise.fromJson(item))
           .toList();
-      print(content);
       return content;
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       return [];
     }
   }
 
   Future<Exercise> getExerciseById(int exerciseId) async {
-    print("S getExerciseById: $exerciseId");
-
     String endpoint = "$exercisesUrl/$exerciseId";
-    print("Endpoint: $endpoint");
 
     try {
       final response = await Http.instance.request(endpoint, DioMethod.get);
-      print("Response: ${response.data}");
 
       return Exercise.fromJson(response.data);
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       rethrow;
     }
   }

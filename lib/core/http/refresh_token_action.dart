@@ -8,7 +8,6 @@ class RefreshTokenAction {
   static const String refreshTokenEndpoint = '/auth/refresh-token';
 
   Future<bool> refreshToken() async {
-    print("refreshToken action");
     try {
       final response = await Http.instance.request(
         refreshTokenEndpoint,
@@ -18,23 +17,13 @@ class RefreshTokenAction {
       );
 
       if (response.statusCode == 200) {
-        print("Refresh response ok");
-        print(response.statusCode);
-        print(response.data);
-        print(response);
         Token newToken = Token.fromJson(response.data);
         await TokenManager.instance.setToken(newToken);
         return true;
       } else {
-        print("Refresh response non");
-        print(response.statusCode);
-        print(response.data);
-        print(response);
         return false;
       }
     } catch (e) {
-      print("refresh response error");
-      print(e);
       return false;
     }
   }

@@ -13,23 +13,18 @@ class SessionService {
         "$sessionsUrl/user",
         DioMethod.get,
       );
-      print(response);
       if (response.statusCode == 200) {
         if (response.data is List) {
           return (response.data as List)
               .map((sessionJson) => Session.fromJson(sessionJson))
               .toList();
         } else {
-          print('Les données ne sont pas sous forme de liste');
           return [];
         }
       } else {
-        print(
-            'Erreur lors de la récupération des sessions : ${response.statusCode}');
         return [];
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       return [];
     }
   }
@@ -43,17 +38,13 @@ class SessionService {
           Session session = Session.fromJson(response.data);
           return session;
         } else {
-          print('Aucune donnée');
           return Future.error('Aucune donnée');
         }
       } else {
-        print(
-            'Erreur lors de la récupération des sessions : ${response.statusCode}');
         return Future.error(
             'Erreur lors de la récupération de la session $id : ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return Future.error(
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
@@ -70,13 +61,10 @@ class SessionService {
           return Future.error('Aucune donnée');
         }
       } else {
-        print(
-            'Erreur lors de la création des sessions : ${response.statusCode}');
         return Future.error(
             'Erreur lors de la création de la session : ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return Future.error(
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
@@ -84,8 +72,6 @@ class SessionService {
 
   Future<Session> renameSession(SessionUpdateForm sessionUpdateForm) async {
     try {
-      print('sessionsUrl/${sessionUpdateForm.sessionId}');
-
       final response = await Http.instance.request(
           '$sessionsUrl/${sessionUpdateForm.sessionId}', DioMethod.put,
           param: sessionUpdateForm.toJson());
@@ -93,16 +79,13 @@ class SessionService {
         if (response.data.isNotEmpty) {
           return Session.fromJson(response.data);
         } else {
-          print('Aucune donnée');
           return Future.error('Aucune donnée');
         }
       } else {
-        print('Erreur lors du rename de la session : ${response.statusCode}');
         return Future.error(
             'Erreur lors du rename de la session : ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return Future.error(
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }
@@ -110,22 +93,17 @@ class SessionService {
 
   Future<bool> deleteSession(int id) async {
     try {
-      print('sessionsUrl/$id');
-
       final response = await Http.instance.request(
         '$sessionsUrl/$id',
         DioMethod.delete,
       );
       if (response.statusCode == 200) {
-        print("Session Supprimer");
         return response.data;
       } else {
-        print('Erreur lors du rename de la session : ${response.statusCode}');
         return Future.error(
             'Erreur lors du rename de la session : ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return Future.error(
           'Request failed: ${e.response?.statusCode}, ${e.message}');
     }

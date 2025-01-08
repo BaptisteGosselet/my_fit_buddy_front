@@ -33,11 +33,9 @@ class AuthService {
           }
         }
       } else {
-        print('Erreur lors de l\'inscription: ${response.statusCode}');
         return StatusType.unknownError;
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       return StatusType.unknownError;
     }
     return StatusType.unknownError;
@@ -46,31 +44,22 @@ class AuthService {
   Future<StatusType> login(String username, String password) async {
     final LoginForm loginForm =
         LoginForm(usernameOrEmail: username, password: password);
-    print('AuthService.login');
-    try {
-      await TokenManager.instance.clearToken();
-      final response = await Http.instance.request(
-          "$authUrl/signin", DioMethod.post,
-          param: loginForm.toJson(), authenticated: false);
+    await TokenManager.instance.clearToken();
+    final response = await Http.instance.request(
+        "$authUrl/signin", DioMethod.post,
+        param: loginForm.toJson(), authenticated: false);
 
-      print(response);
-      print(response.data['detail']);
-
-      if (response.statusCode == 200) {
-        TokenManager.instance.setToken(Token.fromJson(response.data));
-        return StatusType.ok;
-      } else if (response.statusCode == 401) {
-        if (response.data['detail'] != null) {
-          if (response.data['detail'].contains('Bad credentials')) {
-            return StatusType.loginBadCredentials;
-          }
+    if (response.statusCode == 200) {
+      TokenManager.instance.setToken(Token.fromJson(response.data));
+      return StatusType.ok;
+    } else if (response.statusCode == 401) {
+      if (response.data['detail'] != null) {
+        if (response.data['detail'].contains('Bad credentials')) {
+          return StatusType.loginBadCredentials;
         }
-      } else {
-        print('Erreur lors de la connexion : ${response.statusCode}');
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
     }
+
     return StatusType.unknownError;
   }
 
@@ -81,12 +70,9 @@ class AuthService {
 
       if (response.statusCode == 200) {
         return response.data;
-      } else {
-        print(
-            'Erreur lors de la récupération du nom d\'utilisateur : ${response.statusCode}');
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
+      return null;
     }
     return null;
   }
@@ -98,12 +84,9 @@ class AuthService {
 
       if (response.statusCode == 200) {
         return response.data;
-      } else {
-        print(
-            'Erreur lors de la récupération de l\'email : ${response.statusCode}');
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
+      return null;
     }
     return null;
   }
@@ -117,12 +100,9 @@ class AuthService {
       if (response.statusCode == 200) {
         return true;
       } else {
-        print(
-            'Erreur lors de la suppression du compte : ${response.statusCode}');
         return false;
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       return false;
     }
   }
@@ -137,14 +117,11 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        print('Profile edited successfully');
         return true;
       } else {
-        print('Error editing profile: ${response.statusCode}');
         return false;
       }
-    } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
+    } on DioException {
       return false;
     }
   }

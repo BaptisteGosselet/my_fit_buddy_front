@@ -111,7 +111,6 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                                         const NeverScrollableScrollPhysics(),
                                     itemCount: recordDataExo[key]!.length,
                                     itemBuilder: (context, index) {
-                                      print(index);
                                       var lineNumber = index + 1;
                                       return Row(
                                           mainAxisAlignment:

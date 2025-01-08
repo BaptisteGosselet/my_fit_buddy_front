@@ -24,9 +24,7 @@ class LiveSessionViewModel {
   final int emptySetValue = -1;
 
   // Constructor
-  LiveSessionViewModel(this.sessionId) {
-    print('LiveSessionViewModel created with sessionId: $sessionId');
-  }
+  LiveSessionViewModel(this.sessionId);
 
   // Initialization
   Future<bool> init() async {
@@ -56,7 +54,6 @@ class LiveSessionViewModel {
 
   // Getters for current indices and exercises
   SessionContentExercise getCurrentSessionContentExercise() {
-    print('Current exercise index: $idxExercise');
     return sessionContentExerciseList[idxExercise];
   }
 
@@ -70,39 +67,30 @@ class LiveSessionViewModel {
 
   Future<void> saveRecord(
       SessionContentExercise sessionContentExercise, int reps, int kg) async {
-    print(
-        'Saving record for set ${idxSet + 1} of exercise ${sessionContentExercise.exercise.id}');
+    int idSetToUpdate = setIdsArray[idxExercise][idxSet];
+    FitSet savedSet;
 
-    try {
-      int idSetToUpdate = setIdsArray[idxExercise][idxSet];
-      FitSet savedSet;
-
-      if (idSetToUpdate == emptySetValue) {
-        // Créer un nouveau set
-        savedSet = await fitRecordService.createFitSet(
-          currentRecord.id,
-          sessionContentExercise.exercise.id,
-          idxSet + 1,
-          reps,
-          kg,
-        );
-      } else {
-        // Mettre à jour un existant
-        savedSet = await fitRecordService.updateFitSet(
-          idSetToUpdate,
-          idxSet + 1,
-          reps,
-          kg,
-        );
-      }
-
-      // Met à jour l'ID dans la matrice
-      setIdsArray[idxExercise][idxSet] = savedSet.id;
-
-      print('Record saved with ID: ${savedSet.id}');
-    } catch (e) {
-      print('Error saving record: $e');
+    if (idSetToUpdate == emptySetValue) {
+      // Créer un nouveau set
+      savedSet = await fitRecordService.createFitSet(
+        currentRecord.id,
+        sessionContentExercise.exercise.id,
+        idxSet + 1,
+        reps,
+        kg,
+      );
+    } else {
+      // Mettre à jour un existant
+      savedSet = await fitRecordService.updateFitSet(
+        idSetToUpdate,
+        idxSet + 1,
+        reps,
+        kg,
+      );
     }
+
+    // Met à jour l'ID dans la matrice
+    setIdsArray[idxExercise][idxSet] = savedSet.id;
   }
 
   bool next() {
@@ -113,7 +101,6 @@ class LiveSessionViewModel {
       for (int j = 0; j < currentExercise.getNumberOfSets(); j++) {
         if (setIdsArray[idxExercise][j] == emptySetValue) {
           idxSet = j;
-          print('Moved to exercise $idxExercise, set $idxSet');
           return true;
         }
       }
@@ -130,14 +117,12 @@ class LiveSessionViewModel {
         if (setIdsArray[exerciseIndex][j] == emptySetValue) {
           idxExercise = exerciseIndex;
           idxSet = j;
-          print('Moved to exercise $idxExercise, set $idxSet');
           return true;
         }
       }
     }
 
     // Si aucun set non fait n'existe, la session est terminée
-    print('End of session reached');
     return false;
   }
 
@@ -185,7 +170,6 @@ class LiveSessionViewModel {
 
   Future<FitSet?> getLastSetEntry() async {
     int lastEntrySetIndex;
-    print("idxExercise: $idxExercise, idxSet: $idxSet");
     if (idxSet >= 1) {
       lastEntrySetIndex = setIdsArray[idxExercise][idxSet - 1];
     } else if (idxExercise >= 1) {

@@ -84,14 +84,11 @@ class SessionDetailPageState extends State<SessionDetailPage> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                print("hasError");
                 return Center(child: Text('Erreur : ${snapshot.error}'));
               } else if (!snapshot.hasData) {
-                print("!hasData");
                 return const Center(child: Text('Erreur : No Data'));
               }
               final Session sessionInformation = snapshot.data!;
-              print("Session : $sessionInformation ");
               return Column(children: [
                 FitHeaderWidget(
                   title: sessionInformation.name,

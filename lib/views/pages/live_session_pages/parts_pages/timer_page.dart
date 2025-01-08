@@ -24,7 +24,7 @@ class TimerPageState extends State<TimerPage> {
       appBar: AppBar(
         title: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 25),
-          onPressed: () => {print("bye bye")},
+          onPressed: () => {},
           padding: const EdgeInsets.all(8),
           highlightColor: Colors.white.withOpacity(0.1),
         ),

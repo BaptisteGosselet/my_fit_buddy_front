@@ -12,10 +12,6 @@ class ExercisesViewmodel {
     if (isLoading) {
       return [];
     }
-
-    print("VM updateExercises - Start");
-    print(
-        "Paramètres: key=$key, muscleGroup=$muscleGroup, pageIndex=$pageIndex");
     isLoading = true;
 
     try {
@@ -27,14 +23,11 @@ class ExercisesViewmodel {
 
       exercises.addAll(newExercises);
 
-      print("Total exercises loaded: ${exercises.length}");
       return newExercises;
     } catch (error) {
-      print("Erreur lors de l'appel à l'API: $error");
       return [];
     } finally {
       isLoading = false;
-      print("VM updateExercises - End");
     }
   }
 }
