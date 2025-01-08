@@ -163,5 +163,7 @@
     "textTooBig": "La note ne peux pas dépasser 255 caractères",
     "ratingNotInMinMax": "La note de ressenti n'existe pas",
     "noteSetSuccefully": "La note a bien été sauvegardée",
-    "noSessionFound" : "Aucune session trouvée"
+    "noSessionFound" : "Aucune session trouvée",
+
+    "finishPreviousSets": "Veuillez terminer les sets précédents"
 }

@@ -178,4 +178,8 @@ class LiveSessionViewModel {
 
     return result;
   }
+
+  bool isCurrentExerciseSetEmpty(int setNumber) {
+    return setIdsArray[idxExercise][setNumber] == emptySetValue;
+  }
 }

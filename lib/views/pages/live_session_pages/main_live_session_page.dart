@@ -90,6 +90,12 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToSet(int setNumber) async {
+    if (liveSessionViewmodel.isCurrentExerciseSetEmpty(setNumber)) {
+      ToastManager.instance.showWarningToast(
+          context, AppLocalizations.of(context)!.finishPreviousSets);
+      return;
+    }
+
     liveSessionViewmodel.setFitSetIndex(setNumber);
     setState(() {
       currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
