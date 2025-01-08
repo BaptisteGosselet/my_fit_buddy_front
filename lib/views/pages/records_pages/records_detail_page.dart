@@ -84,9 +84,9 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                   onSave: (String feelingNote) {
                     recordsViewmodel.saveNote(
                         recordData.id, feelingNote, context);
-                        setState(() {
-                          record = recordsViewmodel.getRecordById(widget.recordId);
-                        });
+                    setState(() {
+                      record = recordsViewmodel.getRecordById(widget.recordId);
+                    });
                   },
                 ),
 
