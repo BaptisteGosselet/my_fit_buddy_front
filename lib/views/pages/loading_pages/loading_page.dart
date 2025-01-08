@@ -30,9 +30,6 @@ class LoadingPage extends StatelessWidget {
         ),
       ),
       asyncNavigationCallback: () async {
-        print("L'appli est en train de load");
-        await Future.delayed(const Duration(seconds: 2));
-
         bool allowToGoHome = false;
 
         if (await TokenManager.instance.isRefreshTokenValid()) {

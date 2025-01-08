@@ -43,9 +43,9 @@ class RecordsViewmodel {
     }
   }
 
-  Future<bool> saveNote(int recordId, int feelingRate, String feelingText,
-      BuildContext context) async {
-    print("save note : $recordId - $feelingRate - $feelingText");
+  Future<bool> saveNote(
+      int recordId, String feelingText, BuildContext context) async {
+    print("save note : $recordId - $feelingText");
 
     if (!context.mounted) {
       return false;
@@ -67,16 +67,7 @@ class RecordsViewmodel {
       return false;
     }
 
-    if (feelingRate < 0 || feelingRate > 3) {
-      if (context.mounted) {
-        ToastManager.instance.showWarningToast(
-            context, AppLocalizations.of(context)!.ratingNotInMinMax);
-      }
-      return false;
-    }
-
-    bool result =
-        await fitRecordService.setNote(recordId, feelingText, feelingRate);
+    bool result = await fitRecordService.setNote(recordId, feelingText);
 
     if (result) {
       if (context.mounted) {

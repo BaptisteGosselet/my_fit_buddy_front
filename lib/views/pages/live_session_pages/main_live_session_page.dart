@@ -90,6 +90,12 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
   }
 
   void goToSet(int setNumber) async {
+    if (liveSessionViewmodel.isCurrentExerciseSetEmpty(setNumber)) {
+      ToastManager.instance.showWarningToast(
+          context, AppLocalizations.of(context)!.finishPreviousSets);
+      return;
+    }
+
     liveSessionViewmodel.setFitSetIndex(setNumber);
     setState(() {
       currentSetIndex = liveSessionViewmodel.getCurrentSetIndex();
@@ -129,17 +135,35 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
 
           List<FitSet> previousSets = [];
           if (snapshot.hasError) {
+            // Gérer l'erreur pour getExercisePreviousSets()
           } else if (snapshot.hasData) {
             previousSets = snapshot.data!;
           }
 
-          return PlaySessionPage(
-            sessionContentExercise: currentContent,
-            previousExerciseSets: previousSets,
-            onFinishClick: goToTimer,
-            onSetPressed: goToSet,
-            currentSetNumber: currentSetIndex,
-            currentRecordId: liveSessionViewmodel.getRecord().id,
+          return FutureBuilder<FitSet?>(
+            future: liveSessionViewmodel.getLastSetEntry(),
+            builder: (context, lastSetSnapshot) {
+              if (lastSetSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              FitSet? lastSetEntry;
+              if (lastSetSnapshot.hasError) {
+                // Gérer l'erreur pour getLastSetEntry()
+              } else if (lastSetSnapshot.hasData) {
+                lastSetEntry = lastSetSnapshot.data;
+              }
+
+              return PlaySessionPage(
+                sessionContentExercise: currentContent,
+                previousExerciseSets: previousSets,
+                previousEntry: lastSetEntry,
+                onFinishClick: goToTimer,
+                onSetPressed: goToSet,
+                currentSetNumber: currentSetIndex,
+                currentRecordId: liveSessionViewmodel.getRecord().id,
+              );
+            },
           );
         },
       );
@@ -148,8 +172,8 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
           duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);
     } else if (currentIndex == 2) {
       currentPage = NotePage(
-        onValidate: (String text, int rate, c) {
-          return liveSessionViewmodel.setNote(text, rate, c);
+        onValidate: (String text, BuildContext c) {
+          return liveSessionViewmodel.setNote(text, c);
         },
       );
     } else {

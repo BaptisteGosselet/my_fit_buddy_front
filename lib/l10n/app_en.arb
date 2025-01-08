@@ -75,7 +75,7 @@
     "textNotePlaceholder": "Write down your feelings...",
     "validateButton": "Save",
 
-    "finishSet": "Finish set",
+    "finishSet": "Next",
     "set": "Set",
     "reps": "Reps",
     "kg": "Kg",
@@ -161,5 +161,7 @@
     "textTooBig": "The note can't exceed 255 characters",
     "ratingNotInMinMax": "The feelings rate does not exist",
     "noteSetSuccefully": "The note was correctly set",
-    "noSessionFound" : "No session found"
+    "noSessionFound" : "No session found",
+
+    "finishPreviousSets": "Please finish the previous sets"
 }

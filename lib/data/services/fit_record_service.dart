@@ -206,10 +206,10 @@ class FitRecordService {
     }
   }
 
-  Future<bool> setNote(int recordId, String text, int rate) async {
+  Future<bool> setNote(int recordId, String text) async {
     try {
-      print("$recordId, '$text', $rate");
-      final form = FitRecordNoteForm(text: text, rate: rate);
+      print("$recordId, '$text");
+      final form = FitRecordNoteForm(text: text);
 
       final response = await Http.instance.request(
         '$recordsUrl/note/$recordId',
@@ -228,5 +228,11 @@ class FitRecordService {
       print('Erreur lors de l\'ajout de la note : $e');
       return Future.error('Erreur lors de l\'ajout de la note');
     }
+  }
+
+  Future<FitSet> getSetById(int setId) {
+    return Http.instance
+        .request('$setsUrl/$setId', DioMethod.get)
+        .then((response) => FitSet.fromJson(response.data));
   }
 }
