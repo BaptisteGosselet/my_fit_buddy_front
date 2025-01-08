@@ -135,7 +135,6 @@ class ExercisesListPageState extends State<ExercisesListPage> {
               itemCount: exercises.length,
               itemBuilder: (context, index) {
                 final exercise = exercises[index];
-                print(exercise);
                 return ExercisesCard(
                   exercise: exercise,
                   onTap: (int idExercise, int nbSet, int restSeconds) => {

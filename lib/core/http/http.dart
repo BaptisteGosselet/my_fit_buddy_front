@@ -28,9 +28,6 @@ class Http {
     bool authenticated = true,
     bool skipRefreshing = false,
   }) async {
-    print(
-        'Request: { endpoint: $endpoint, method: $method, param: $param, params: $params, formData: $formData, authenticated: $authenticated, skipRefreshing: $skipRefreshing }');
-
     if (authenticated) {
       options.headers.remove('no-auth');
     } else {
@@ -72,7 +69,6 @@ class Http {
           );
       }
     } on DioException catch (e) {
-      print('Request failed: ${e.response?.statusCode}, ${e.message}');
       return e.response ??
           Response(
             requestOptions: RequestOptions(path: endpoint),

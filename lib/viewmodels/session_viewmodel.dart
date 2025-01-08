@@ -12,7 +12,6 @@ class SessionViewmodel {
   SessionContentService sessionContentService = SessionContentService();
 
   Future<Session> getSessionByID(String id) async {
-    print("getSessionByID : $id");
     return await sessionService.getUserSessionByID(id);
   }
 

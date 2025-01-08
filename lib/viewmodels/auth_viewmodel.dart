@@ -88,7 +88,6 @@ class AuthViewmodel {
       String username, String password, BuildContext context) async {
     await TokenManager.instance.clearToken();
 
-    print('AuthViewModel.login');
     StatusType result = await authService.login(username, password);
     if (context.mounted) {
       if (result == StatusType.ok) {
@@ -113,11 +112,10 @@ class AuthViewmodel {
   }
 
   Future<bool> deleteAccount(BuildContext context) async {
-    print("delete account");
-
     //test account
     if ((await getUsername()).contains("dbuser")) {
-      print("NE SUPPRIME PAS DBUSER !!");
+      // ignore: avoid_print
+      print("NE PAS SUPPRIMER DBUSER !!");
       return false;
     }
 
@@ -148,8 +146,6 @@ class AuthViewmodel {
 
   Future<bool> editProfile(final String newUsername, final String newEmail,
       final BuildContext context) async {
-    print("Editing profile with username: $newUsername, email: $newEmail");
-
     // Validation for username
     if (newUsername.isEmpty || newUsername.length > 20) {
       if (context.mounted) {
@@ -210,7 +206,6 @@ class AuthViewmodel {
         }
       }
     } catch (e) {
-      print("Error editing profile: $e");
       if (context.mounted) {
         ToastManager.instance.showErrorToast(
           context,

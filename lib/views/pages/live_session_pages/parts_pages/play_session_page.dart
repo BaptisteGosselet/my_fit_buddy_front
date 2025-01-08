@@ -29,7 +29,6 @@ class PlaySessionPage extends StatelessWidget {
 
   FitSet? getExerciseLastSet() {
     if (previousExerciseSets.isEmpty) {
-      print("previousEntry: $previousEntry");
       if (previousEntry != null) {
         return previousEntry;
       }
@@ -113,8 +112,6 @@ class PlaySessionPage extends StatelessWidget {
 
                     if (reps != null && weight != null) {
                       onFinishClick(sessionContentExercise, reps, weight);
-                    } else {
-                      print("ERREUR");
                     }
                   },
                   style: ElevatedButton.styleFrom(

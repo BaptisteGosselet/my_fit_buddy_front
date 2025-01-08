@@ -11,10 +11,8 @@ class RecordsViewmodel {
   Future<List<FitRecord>> fetchUserRecords() async {
     try {
       List<FitRecord> records = await fitRecordService.getUserRecords();
-      print('Records récupérés : $records');
       return records;
     } catch (e) {
-      print('Erreur lors de la récupération des enregistrements : $e');
       return Future.error(
           'Erreur lors de la récupération des enregistrements : $e');
     }
@@ -25,7 +23,6 @@ class RecordsViewmodel {
       FitRecord record = await fitRecordService.getRecordById(id);
       return record;
     } catch (e) {
-      print('Erreur lors de la récupération de l\'enregistrement par id : $e');
       return Future.error(
           'Erreur lors de la récupération de l\'enregistrement');
     }
@@ -37,7 +34,6 @@ class RecordsViewmodel {
           await fitRecordService.getSetByExerciceByRecordId(id);
       return record;
     } catch (e) {
-      print('Erreur lors de la récupération des l\'enregistrement par id : $e');
       return Future.error(
           'Erreur lors de la récupération de l\'enregistrement');
     }
@@ -45,8 +41,6 @@ class RecordsViewmodel {
 
   Future<bool> saveNote(
       int recordId, String feelingText, BuildContext context) async {
-    print("save note : $recordId - $feelingText");
-
     if (!context.mounted) {
       return false;
     }

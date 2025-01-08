@@ -30,7 +30,6 @@ class ExercisesCardState extends State<ExerciseRecordCard> {
         onTapDown: (_) => setState(() => _isPressed = true),
         onTapUp: (_) {
           setState(() => _isPressed = false);
-          print("${widget.exercise}");
 
           context.pushNamed(
             'exerciseSetsDetail',

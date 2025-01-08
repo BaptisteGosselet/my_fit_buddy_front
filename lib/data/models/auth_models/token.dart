@@ -12,9 +12,6 @@ class Token {
   });
 
   factory Token.fromJson(Map<String, dynamic> json) {
-    print(
-        "accessToken : ${json['accessToken']?.toString()} - refreshToken: ${json['refreshToken']?.toString()} - accessExpirationDate : ${json['accessExpirationDate']} - refreshExpirationDate: ${json['refreshExpirationDate']}");
-
     return Token(
       accessToken: json['accessToken']?.toString(),
       refreshToken: json['refreshToken']?.toString(),
@@ -28,8 +25,6 @@ class Token {
   }
 
   Map<String, dynamic> toJson() {
-    print(toString());
-
     return {
       'accessToken': accessToken,
       'refreshToken': refreshToken,
