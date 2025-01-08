@@ -46,7 +46,7 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
             body: Center(child: Text('Erreur: ${snapshot.error}')),
           );
         } else if (snapshot.hasData) {
-          final FitRecord recordData = snapshot.data!;
+          FitRecord recordData = snapshot.data!;
 
           return Scaffold(
             body: Column(
@@ -84,6 +84,9 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                   onSave: (String feelingNote) {
                     recordsViewmodel.saveNote(
                         recordData.id, feelingNote, context);
+                        setState(() {
+                          record = recordsViewmodel.getRecordById(widget.recordId);
+                        });
                   },
                 ),
 

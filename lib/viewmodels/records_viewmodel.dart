@@ -45,15 +45,7 @@ class RecordsViewmodel {
       return false;
     }
 
-    if (feelingText.isEmpty) {
-      if (context.mounted) {
-        ToastManager.instance
-            .showWarningToast(context, AppLocalizations.of(context)!.noteEmpty);
-      }
-      return false;
-    }
-
-    if (feelingText.length > 255) {
+    if (feelingText.isNotEmpty && feelingText.length > 255) {
       if (context.mounted) {
         ToastManager.instance.showWarningToast(
             context, AppLocalizations.of(context)!.textTooBig);
