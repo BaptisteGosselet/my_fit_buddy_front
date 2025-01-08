@@ -81,9 +81,9 @@ class RecordsDetailPageState extends State<RecordsDetailPage> {
                 FeelingTextBlock(
                   text: recordData.feelingNote,
                   feelingRate: recordData.feelingRate,
-                  onSave: (int feelingRate, String feelingNote) {
+                  onSave: (String feelingNote) {
                     recordsViewmodel.saveNote(
-                        recordData.id, feelingRate, feelingNote, context);
+                        recordData.id, feelingNote, context);
                   },
                 ),
 

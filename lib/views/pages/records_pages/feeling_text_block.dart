@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_fit_buddy/utils/emoji_rating_map.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FeelingTextBlock extends StatefulWidget {
   final String text;
-  final Function(int, String) onSave;
+  final Function(String) onSave;
   final int feelingRate;
 
   const FeelingTextBlock({
@@ -22,13 +21,11 @@ class FeelingTextBlock extends StatefulWidget {
 class FeelingTextBlockState extends State<FeelingTextBlock> {
   late TextEditingController _controller;
   bool _isEditing = false;
-  late String _dropdownValue;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.text);
-    _dropdownValue = EmojiRatingMap.instance.getKeyByValue(widget.feelingRate);
   }
 
   @override
@@ -108,9 +105,7 @@ class FeelingTextBlockState extends State<FeelingTextBlock> {
                       color: Colors.green,
                     ),
                     onPressed: () {
-                      widget.onSave(
-                          EmojiRatingMap.instance.getMap()[_dropdownValue]!,
-                          _controller.text);
+                      widget.onSave(_controller.text);
                       setState(() {
                         _isEditing = false;
                       });

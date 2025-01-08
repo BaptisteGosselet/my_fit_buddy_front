@@ -156,7 +156,7 @@ class LiveSessionViewModel {
     return exercisePreviousSets;
   }
 
-  Future<bool> setNote(String text, int rate, BuildContext context) async {
+  Future<bool> setNote(String text, BuildContext context) async {
     if (!context.mounted) {
       return false;
     }
@@ -168,15 +168,7 @@ class LiveSessionViewModel {
       return false;
     }
 
-    if (rate < 0 || rate > 3) {
-      if (context.mounted) {
-        ToastManager.instance.showErrorToast(
-            context, AppLocalizations.of(context)!.defaultError);
-      }
-      return false;
-    }
-
-    bool result = await fitRecordService.setNote(currentRecord.id, text, rate);
+    bool result = await fitRecordService.setNote(currentRecord.id, text);
     if (result && text.isNotEmpty) {
       if (context.mounted) {
         ToastManager.instance.showSuccessToast(

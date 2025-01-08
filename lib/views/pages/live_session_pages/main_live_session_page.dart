@@ -148,8 +148,8 @@ class MainLiveSessionPageState extends State<MainLiveSessionPage> {
           duration: currentContent.restTimeInSecond, onSkip: goToNextExercise);
     } else if (currentIndex == 2) {
       currentPage = NotePage(
-        onValidate: (String text, int rate, c) {
-          return liveSessionViewmodel.setNote(text, rate, c);
+        onValidate: (String text, BuildContext c) {
+          return liveSessionViewmodel.setNote(text, c);
         },
       );
     } else {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_fit_buddy/utils/emoji_rating_map.dart';
 import 'package:my_fit_buddy/views/themes/color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,19 +11,14 @@ class NotePage extends StatefulWidget {
   });
 
   final String? title;
-  final Future<bool> Function(String text, int rate, BuildContext c) onValidate;
+  final Future<bool> Function(String text, BuildContext c) onValidate;
 
   @override
   State<NotePage> createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {
-  String dropdownValue = EmojiRatingMap.instance.getMap().keys.first;
   final TextEditingController _textController = TextEditingController();
-
-  int getSelectedRate() {
-    return EmojiRatingMap.instance.getMap()[dropdownValue]!;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +66,7 @@ class _NotePageState extends State<NotePage> {
                       ),
                       onPressed: () async {
                         final text = _textController.text;
-                        final rate = getSelectedRate();
-                        final success =
-                            await widget.onValidate(text, rate, context);
+                        final success = await widget.onValidate(text, context);
 
                         if (mounted && success) {
                           if (context.mounted) {
