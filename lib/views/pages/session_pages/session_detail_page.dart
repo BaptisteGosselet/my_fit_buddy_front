@@ -51,13 +51,15 @@ class SessionDetailPageState extends State<SessionDetailPage> {
   }
 
   void _deleteSession(String sessionName) async {
-    if(sessionName.compareTo(AppLocalizations.of(context)!.newSessionName) == 0 && sessionContents.isEmpty){
+    if (sessionName.compareTo(AppLocalizations.of(context)!.newSessionName) ==
+            0 &&
+        sessionContents.isEmpty) {
       SessionViewmodel().deleteSession(int.parse(widget.id)).then((value) => {
-        context.pop()
-      }); 
-    }else{
+            if (mounted) {context.pop()}
+          });
+    } else {
       context.pop();
-    } 
+    }
   }
 
   void _renameSession(int id, String newName) {
@@ -96,9 +98,8 @@ class SessionDetailPageState extends State<SessionDetailPage> {
                   subtitle:
                       "${sessionContents.length.toString()} ${AppLocalizations.of(context)!.exercises}",
                   leftIcon: Icons.arrow_back_ios,
-                  onLeftIconPressed: () => {
-                    _deleteSession(sessionInformation.name)
-                  },
+                  onLeftIconPressed: () =>
+                      {_deleteSession(sessionInformation.name)},
                   onUpdate: () => {
                     showDialog(
                       context: context,
