@@ -10,6 +10,11 @@ MyFitBuddy, « la prise de notes sans prise de tête ».
 📈 L’évolution de vos performances est visible, ce qui renforce la motivation.
 🏅 Permet de progresser plus rapidement. 100% des sportifs qui prennent des notes observent une amélioration de leurs performances.
 
+<div style="display:flex; width:100%; justify-content:space-around">
+    <img src='capture_1.jpg' style="width:300px;">
+    <img src='capture_2.jpg' style="width:300px;">
+</div>
+
 ![](video_presentation.mp4)
 
 ## L'application Back-end
