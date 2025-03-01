@@ -6,9 +6,9 @@ MyFitBuddy, « la prise de notes sans prise de tête ».
 2) Durant la séance, MyFitBuddy vous accompagne grâce au programme enregistré et à son minuteur à chaque étape.
 3) Après le sport, vous pourrez noter vos ressentis et ainsi ajuster votre programme selon vos besoins ou identifier des surcharges avant votre prochaine séance. Vous pourrez également consulter votre historique par type de séance ou par exercice.
 
-⏱️ Gain de temps à la salle, terminées les longues minutes de réflexion devant un appareil ou entre deux exercices.
-📈 L’évolution de vos performances est visible, ce qui renforce la motivation.
-🏅 Permet de progresser plus rapidement. 100% des sportifs qui prennent des notes observent une amélioration de leurs performances.
+- ⏱️ Gain de temps à la salle, terminées les longues minutes de réflexion devant un appareil ou entre deux exercices.
+- 📈 L’évolution de vos performances est visible, ce qui renforce la motivation.
+- 🏅 Permet de progresser plus rapidement. 100% des sportifs qui prennent des notes observent une amélioration de leurs performances.
 
 <div style="display:flex; width:100%; justify-content:space-around">
     <img src='capture_1.jpg' style="width:300px;">
